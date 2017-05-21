@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import Page from './Page';
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <h1>
-          Welcome to Stork!
-        </h1>
-      </div>
+      <Router>
+        <Page />
+      </Router>
     );
   }
 }
