@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import styles from './LandingPage.css';
 
 const Header = () => (
@@ -13,9 +15,11 @@ const Header = () => (
         Make your books great again.
       </div>
       <div className={styles.buttonContainer}>
-        <button className={styles.headerButton}>
-          Log In
-        </button>
+        <Link to="/login">
+          <button className={styles.headerButton}>
+            Log In
+          </button>
+        </Link>
         <button className={styles.headerButton}>
           Join Us
         </button>

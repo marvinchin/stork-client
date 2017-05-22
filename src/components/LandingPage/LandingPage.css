@@ -12,6 +12,10 @@
   justify-content: center;
 }
 
+.headerContainer a {
+  color: white;
+}
+
 .headerTitle {
   font-family: 'Cookie', cursive;
   font-size: 4em;
