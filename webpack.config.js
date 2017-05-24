@@ -8,7 +8,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: ['whatwg-fetch', './src/index.jsx'],
   output: {
     path: path.resolve('dist'),
     filename: 'bundle.js',
