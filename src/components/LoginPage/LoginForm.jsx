@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
 
 import styles from './LoginPage.css';
-import { loginUser } from '../../apis';
+import { loginUser } from '../../ActionCreators/AuthActionCreators';
 
 
 class LoginForm extends Component {
-
   constructor(props) {
     super(props);
     this.onLogin = this.onLogin.bind(this);
@@ -15,10 +17,7 @@ class LoginForm extends Component {
     e.preventDefault();
     const username = this.username.value;
     const password = this.password.value;
-    loginUser(username, password).then((res) => {
-      console.log(res.status);
-      // should be using async saga here
-    });
+    this.props.dispatch(loginUser(username, password));
   }
 
   render() {
@@ -50,4 +49,8 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+LoginForm.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default connect()(LoginForm);

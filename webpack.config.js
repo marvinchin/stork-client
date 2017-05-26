@@ -8,7 +8,9 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
-  entry: ['whatwg-fetch', './src/index.jsx'],
+  entry: {
+    js: ['babel-polyfill', './src/index.jsx'],
+  },
   output: {
     path: path.resolve('dist'),
     filename: 'bundle.js',

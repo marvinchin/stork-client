@@ -1,6 +1,6 @@
 import * as request from 'popsicle';
 
-import { loginUser } from '../src/apis';
+import { loginUser } from '../src/Apis';
 import config from '../config';
 
 describe('Login User', () => {
