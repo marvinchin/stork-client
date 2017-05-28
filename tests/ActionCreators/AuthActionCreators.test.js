@@ -1,9 +1,15 @@
-import { loginUser, loginUserComplete, updateUser } from '../../src/ActionCreators/AuthActionCreators';
+import {
+  loginUser,
+  loginUserComplete,
+  updateUser,
+  registerUser,
+  registerUserComplete,
+} from '../../src/ActionCreators/AuthActionCreators';
 
 describe('Login User', () => {
   const username = 'test_user';
   const password = 'test_pass';
-  const action = loginUser(username, password);
+  const action = loginUser(null, username, password);
   it('action should have type AUTH_LOGIN_USER_PENDING', () => {
     expect(action.type).toEqual('AUTH_USER_LOGIN_PENDING');
   });
@@ -20,7 +26,8 @@ describe('Login User', () => {
 describe('Login User Complete', () => {
   describe('Success', () => {
     const status = 200;
-    const action = loginUserComplete(status);
+    const user = { username: 'test_user' };
+    const action = loginUserComplete(null, user, status);
     it('action should have type AUTH_LOGIN_USER_COMPLETE', () => {
       expect(action.type).toEqual('AUTH_USER_LOGIN_COMPLETE');
     });
@@ -30,13 +37,13 @@ describe('Login User Complete', () => {
     });
 
     it('action payload should contain username, password, expiry', () => {
-      expect(action.payload).toEqual({ status });
+      expect(action.payload).toEqual({ user, status });
     });
   });
 
   describe('Failure', () => {
     const error = new Error();
-    const action = loginUserComplete(null, error);
+    const action = loginUserComplete(error);
     it('action should have type AUTH_LOGIN_USER_COMPLETE', () => {
       expect(action.type).toEqual('AUTH_USER_LOGIN_COMPLETE');
     });
@@ -55,7 +62,7 @@ describe('Update User', () => {
   const user = {
     username: 'test_user',
   };
-  const action = updateUser(user);
+  const action = updateUser(null, user);
   it('action should have type AUTH_UPDATE_USER_PENDING', () => {
     expect(action.type).toEqual('AUTH_UPDATE_USER_PENDING');
   });
@@ -66,5 +73,53 @@ describe('Update User', () => {
 
   it('action payload should contain user', () => {
     expect(action.payload).toEqual({ user });
+  });
+});
+
+describe('Register User', () => {
+  const username = 'test_user';
+  const password = 'test_password';
+  const email = 'test_email';
+  it('should create an AUTH_USER_REGISTER_PENDING action', () => {
+    const expectedAction = {
+      type: 'AUTH_USER_REGISTER_PENDING',
+      payload: {
+        username,
+        password,
+        email,
+      },
+    };
+    expect(registerUser(null, username, password, email)).toEqual(expectedAction);
+  });
+});
+
+describe('Register User Complete', () => {
+  describe('Success', () => {
+    const user = {
+      username: 'test_user',
+    };
+    it('should create a successful AUTH_USER_REGISTER_COMPLETE action', () => {
+      const expectedAction = {
+        type: 'AUTH_USER_REGISTER_COMPLETE',
+        payload: {
+          user,
+        },
+      };
+      expect(registerUserComplete(null, user)).toEqual(expectedAction);
+    });
+  });
+
+  describe('Failure', () => {
+    const error = new Error();
+    it('should create a failure AUTH_USER_REGISTER_COMPLETE action', () => {
+      const expectedAction = {
+        type: 'AUTH_USER_REGISTER_COMPLETE',
+        error: true,
+        payload: {
+          error,
+        },
+      };
+      expect(registerUserComplete(error)).toEqual(expectedAction);
+    });
   });
 });
