@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 
-import styles from './LoginPage.css';
 import { loginUser } from '../../ActionCreators/AuthActionCreators';
+
+import styles from './LoginPage.css';
 
 
 class LoginForm extends Component {
@@ -17,7 +17,8 @@ class LoginForm extends Component {
     e.preventDefault();
     const username = this.username.value;
     const password = this.password.value;
-    this.props.dispatch(loginUser(username, password));
+    console.log(this.props.dispatch);
+    this.props.dispatch(loginUser(null, username, password));
   }
 
   render() {

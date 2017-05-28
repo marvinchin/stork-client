@@ -24,7 +24,9 @@ class Header extends Component {
               </button>
             </Link>
             <button className={styles.headerButton}>
-              Join Us
+              <Link to="/register">
+                Join Us
+              </Link>
             </button>
           </div>
         </div>

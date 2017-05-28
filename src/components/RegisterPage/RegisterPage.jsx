@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 
-import styles from './LoginPage.css';
+import styles from './RegisterPage.css';
 
-class LoginPage extends Component {
+class RegisterPage extends Component {
   render() {
     return (
-      <div className={styles.loginContainer}>
+      <div className={styles.registerContainer}>
         <Link to="/">
           <div className={styles.loginTitle}>
             Stork
           </div>
         </Link>
-        <div>asdasd</div>
-        <LoginForm />
+        <RegisterForm />
       </div>
     );
   }
 }
 
-export default LoginPage;
+export default RegisterPage;

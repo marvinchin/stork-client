@@ -1,10 +1,10 @@
 import { put } from 'redux-saga/effects';
 
 import { handleChangeRoute } from '../../src/Sagas/RouteSagas';
-import * as app from '../../src/components/App';
+import history from '../../src/history';
 
 describe('HandleChangeRoute', () => {
-  app.history.push = jest.fn();
+  history.push = jest.fn();
   const route = '/';
   const action = {
     type: 'ROUTE_CHANGE_PENDING',
@@ -21,8 +21,8 @@ describe('HandleChangeRoute', () => {
     expect(gen.next().value).toEqual(expectedPut);
   });
 
-  it('should call post with the route', () => {
-    expect(app.history.push).toBeCalledWith(route);
+  it('should call push with the route', () => {
+    expect(history.push).toBeCalledWith(route);
   });
 
   it('should be done', () => {
