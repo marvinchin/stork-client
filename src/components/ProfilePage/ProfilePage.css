@@ -1,0 +1,35 @@
+.profileContainer {
+  width:100%;
+  font-family: 'Raleway', sans-serif;;
+  font-size: 4.5em;
+  text-align: center;
+}
+
+.userProfileContainer {
+  width: 100%;
+  background-color: whitesmoke;
+  padding: 1em 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profilePicture {
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background-color: green;
+  margin: auto;
+}
+
+.infoContainer {
+  padding-top: 1em;  
+}
+
+.username {
+  font-weight: bold;
+}
+
+.description {
+  font-size: 0.75em;
+}
