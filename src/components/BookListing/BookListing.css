@@ -1,0 +1,54 @@
+.BookListing {
+  font-size: 4.5rem;
+  text-align: left;
+  padding: 1em 1em;
+  background: whitesmoke;
+  border-top: 1px solid lightgrey;
+}
+
+.ListingHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: center;
+}
+
+.title {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.author {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.75em;
+}
+
+.infoContainer, .genreContainer {
+  min-width: 0;
+}
+
+.genreContainer {
+  margin-left: 0.2em;  
+}
+
+.genreBubble {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: darkgoldenrod;
+  margin: auto;
+  font-size: 0.8em;
+  text-align: center;
+  color: white;
+}
+
+.description {
+  margin-top: 1em;
+  font-size: 0.75em;
+}

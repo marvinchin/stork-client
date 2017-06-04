@@ -3,11 +3,14 @@
   font-family: 'Raleway', sans-serif;;
   font-size: 4.5em;
   text-align: center;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
 }
 
 .userProfileContainer {
   width: 100%;
-  background-color: whitesmoke;
+  background-color:white;
   padding: 1em 1em;
   display: flex;
   flex-direction: column;
@@ -18,7 +21,7 @@
   width: 360px;
   height: 360px;
   border-radius: 50%;
-  background-color: green;
+  background-color: grey;
   margin: auto;
 }
 
@@ -32,4 +35,18 @@
 
 .description {
   font-size: 0.75em;
+}
+
+.userCollections {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.collectionFooter {
+  font-size: 0.75em;
+  font-weight: lighter;
+  padding: 0.5em;
+  background-color: lightgrey;
+  flex: 1;
 }

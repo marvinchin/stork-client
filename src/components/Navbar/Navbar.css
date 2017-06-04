@@ -1,0 +1,9 @@
+.navbar {
+  width: 100%;
+  height: 60px;
+  background-color: #326786;
+  font-family: 'Cookie', cursive;
+  font-size: 3em;
+  color: white;
+  text-align: center;
+}

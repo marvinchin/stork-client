@@ -11,8 +11,8 @@ class ProfilePage extends Component {
       <div className={styles.profileContainer}>
         { /* Pass some stuff down as props */ }
         <UserProfile />
-        <div className={styles.userCollectionContainer}>
-          <UserCollection />
+        <UserCollection />
+        <div className={styles.collectionFooter}>
         </div>
       </div>
     );
