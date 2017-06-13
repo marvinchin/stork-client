@@ -1,0 +1,57 @@
+.searchContainer {
+  width: 100%;
+  font-family: 'Raleway', sans-serif;;
+  font-size: 4rem;
+  padding: 1em 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.formRow {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.searchInput {
+  width: 100%;
+  border: 1px darkgrey solid;
+  border-radius: 5px 0 0 5px;
+  padding: 0.2em;
+}
+
+.searchSelect {
+  width: 5em;
+  background-color: whitesmoke;
+  border: 1px darkgrey solid;
+  border-radius: 0 5px 5px 0;
+  padding: 0.2em;
+  -webkit-appearance: none;
+}
+
+.selectGroup {
+  width: 49%;
+}
+
+.selectGroup label {
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.selectGroup select {
+  width: 100%;
+  border: 1px darkgrey solid;
+  border-radius: 5px;
+  background-color: white;
+  padding: 0.2em;
+  -webkit-appearance: none;
+}
+
+.searchButton {
+  width: 100%;
+  border: 1px darkgrey solid;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  margin-top: 1em
+}

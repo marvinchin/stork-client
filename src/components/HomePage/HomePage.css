@@ -1,0 +1,14 @@
+.homeContainer {
+  width:100%;
+  font-family: 'Raleway', sans-serif;;
+  font-size: 4.5em;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 60px);
+}
+
+.bookCollection {
+  flex: 1;
+  background-color: lightgray;
+}

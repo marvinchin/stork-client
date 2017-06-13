@@ -2,6 +2,7 @@ import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import ProfilePage from './components/ProfilePage';
+import HomePage from './components/HomePage';
 
 export default [
   {
@@ -27,5 +28,11 @@ export default [
     exact: true,
     navbar: true,
     component: ProfilePage,
+  },
+  {
+    path: '/',
+    exact: true,
+    navbar: true,
+    component: HomePage,
   },
 ];
