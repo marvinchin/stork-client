@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import BookListing from '../BookListing';
 
-import styles from './ProfilePage.css';
+import styles from './BookCollection.css';
 
-class UserCollection extends Component {
+class BookCollection extends Component {
   render() {
     const BookOne = {
       title: 'The Three Little Pigs',
@@ -20,14 +20,12 @@ class UserCollection extends Component {
     };
 
     return (
-      <div className={styles.userCollections}>
-        <div className={styles.listings}>
-          <BookListing {...BookOne} />
-          <BookListing {...BookTwo} />
-        </div>
+      <div className={styles.listings}>
+        <BookListing {...BookOne} />
+        <BookListing {...BookTwo} />
       </div>
     );
   }
 }
 
-export default UserCollection;
+export default BookCollection;

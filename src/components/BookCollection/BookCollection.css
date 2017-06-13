@@ -1,0 +1,13 @@
+.bookCollection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.collectionFooter {
+  font-size: 0.75em;
+  font-weight: lighter;
+  padding: 0.5em;
+  background-color: lightgrey;
+  flex: 1;
+}
