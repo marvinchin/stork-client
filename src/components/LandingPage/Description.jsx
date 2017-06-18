@@ -1,12 +1,11 @@
 import React from 'react';
-import styles from './LandingPage.css';
 
 const Description = () => (
-  <div className={styles.descriptionContainer}>
-    <div className={styles.descriptionTitle}>
+  <div className="l-flex__column l-landing__description">
+    <div className="c-description__title">
       Countless new worlds await with Stork
     </div>
-    <div className={styles.descriptionContent}>
+    <div className="l-description__text">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         Aliquam vel turpis quis mauris euismod lacinia vel quis dolor.
@@ -20,8 +19,8 @@ const Description = () => (
         orci.
       </p>
     </div>
-    <div className={styles.buttonContainer}>
-      <button className={styles.descriptionButton}>
+    <div className="l-description__buttons">
+      <button className="c-description__button">
         Join Us
       </button>
     </div>

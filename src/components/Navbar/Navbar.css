@@ -1,9 +1,9 @@
-.navbar {
+.c-navbar {
   width: 100%;
-  height: 60px;
+  height: 30px;
   background-color: #326786;
   font-family: 'Cookie', cursive;
-  font-size: 3em;
+  font-size: 2rem;
   color: white;
   text-align: center;
 }

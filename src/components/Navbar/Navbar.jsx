@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-
-import styles from './Navbar.css';
+import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
   render() {
     return (
-      <div className={styles.navbar}>
-        Stork
+      <div className="c-navbar l-flex__col">
+        <Link to="/landing">
+          <div className="c-logo">
+            Stork
+          </div>
+        </Link>
       </div>
     );
   }

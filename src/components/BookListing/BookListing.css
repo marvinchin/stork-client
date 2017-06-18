@@ -1,54 +1,44 @@
-.BookListing {
-  font-size: 4.5rem;
-  text-align: left;
-  padding: 1em 1em;
-  background: whitesmoke;
+.c-book-listing {
+  width: 100%;
+  max-width: 600px;
+  padding: 1em;
   border-top: 1px solid lightgrey;
+  font-size: 1.2rem;
+  text-align: left;
+  background-color: whitesmoke;
 }
 
-.ListingHeader {
-  display: flex;
-  flex-direction: row;
+.c-book-listing .l-book-listing__header {
   justify-content: space-between;
   align-content: space-between;
-  align-items: center;
 }
 
-.title {
+.c-book-listing .c-book-listing__title {
+  width: 100%;
+  font-size: 1.25em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.c-book-listing .c-book-listing__author {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.author {
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.75em;
+.c-book-listing .c-book-listing__description {
+  margin-top: 1em;
 }
 
-.infoContainer, .genreContainer {
-  min-width: 0;
-}
-
-.genreContainer {
-  margin-left: 0.2em;  
-}
-
-.genreBubble {
-  width: 70px;
-  height: 70px;
+.c-book-listing__genre-placeholder {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background-color: darkgoldenrod;
+  background-color: royalblue;
   margin: auto;
   font-size: 0.8em;
   text-align: center;
   color: white;
-}
-
-.description {
-  margin-top: 1em;
-  font-size: 0.75em;
 }

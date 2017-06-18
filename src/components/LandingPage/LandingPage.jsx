@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 
-import Header from './Header';
-import Description from './Description';
+import Hero from './Hero';
 
 class LandingPage extends Component {
   render() {
     return (
-      <div>
-        <Header />
-        <Description />
+      <div className="c-landing">
+        <Hero />
       </div>
     );
   }

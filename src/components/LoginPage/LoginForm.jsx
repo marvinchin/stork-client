@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 
 import { loginUser } from '../../ActionCreators/AuthActionCreators';
 
-import styles from './LoginPage.css';
-
-
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -22,29 +19,26 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <div className={styles.loginForm}>
-        <form>
+      <form className="c-login-form l-flex__col">
+        <div className="c-login-form__title c-logo">
+          Stork
+        </div>
+        <div className="l-login-form__inputs">
           <input
-            id="username"
-            className={styles.loginInput}
+            className="c-login-form__input"
             type="text"
             placeholder="Username"
-            ref={(input) => {
-              this.username = input;
-            }}
           />
           <input
-            id="password"
-            className={styles.loginInput}
+            className="c-login-form__input"
             type="password"
             placeholder="Password"
-            ref={(input) => {
-              this.password = input;
-            }}
           />
-          <button className={styles.loginButton} onClick={this.onLogin}>Log In</button>
-        </form>
-      </div>
+        </div>
+        <button className="c-login-form__button c-button">
+          Log In
+        </button>
+      </form>
     );
   }
 }
@@ -54,3 +48,35 @@ LoginForm.propTypes = {
 };
 
 export default connect()(LoginForm);
+
+/*
+
+
+
+      <div className="l-login__login-form">
+        <form>
+          <div className="l-login__inputs">
+            <input
+              id="username"
+              className="c-login__input form-control"
+              type="text"
+              placeholder="Username"
+              ref={(input) => {
+                this.username = input;
+              }}
+            />
+            <input
+              id="password"
+              className="c-login__input form-control"
+              type="password"
+              placeholder="Password"
+              ref={(input) => {
+                this.password = input;
+              }}
+            />
+          </div>
+          <button className="c-login__button" onClick={this.onLogin}>Log In</button>
+        </form>
+      </div>
+
+      */

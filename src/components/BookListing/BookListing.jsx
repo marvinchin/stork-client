@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './BookListing.css';
-
 class BookListing extends Component {
 
   constructor(props) {
@@ -25,7 +23,7 @@ class BookListing extends Component {
     }
     const { description } = this.props;
     return (
-      <div className={styles.description}>
+      <div className="c-book-listing__description">
         <p>{ description }</p>
       </div>
     );
@@ -34,20 +32,18 @@ class BookListing extends Component {
   render() {
     const { title, author } = this.props;
     return (
-      <div className={styles.BookListing} role="button" tabIndex={0} onClick={this.onClick}>
-        <div className={styles.ListingHeader}>
-          <div className={styles.infoContainer}>
-            <div className={styles.title}>
+      <div className="c-book-listing" role="button" tabIndex={0} onClick={this.onClick}>
+        <div className="l-book-listing__header l-flex__row ">
+          <div className="l-book-listing__info">
+            <div className="c-book-listing__title">
               {title}
             </div>
-            <div className={styles.author}>
+            <div className="c-book-listing__author">
               by {author}
             </div>
           </div>
-          <div className={styles.genreContainer}>
-            <div className={styles.genreBubble}>
-              F
-            </div>
+          <div className="c-book-listing__genre">
+            <div className="c-book-listing__genre-placeholder" />
           </div>
         </div>
         { this.renderDescription() }

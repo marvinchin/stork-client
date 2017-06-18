@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 
 import { registerUser } from '../../ActionCreators/AuthActionCreators';
 
-import styles from './RegisterPage.css';
-
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
@@ -22,43 +20,56 @@ class RegisterForm extends Component {
 
   render() {
     return (
-      <div className={styles.registerForm}>
-        <form>
+      <form className="c-register-form l-flex__col">
+        <div className="l-register-form__input-group">
+          <label htmlFor="email">
+            Email
+          </label>
           <input
-            id="username"
-            className={styles.registerInput}
             type="text"
-            placeholder="Username"
-            ref={(input) => {
-              this.username = input;
-            }}
-          />
-          <input
-            id="password"
-            className={styles.registerInput}
-            type="password"
-            placeholder="Password"
-            ref={(input) => {
-              this.password = input;
-            }}
-          />
-          <input
             id="email"
-            className={styles.registerInput}
-            type="text"
-            placeholder="You@Email.com"
+            className="c-register-form__form-input"
+            placeholder="you@example.com"
             ref={(input) => {
               this.email = input;
             }}
           />
-          <button
-            className={styles.registerButton}
-            onClick={this.onRegister}
-          >
-            Register
-          </button>
-        </form>
-      </div>
+        </div>
+        <div className="l-register-form__input-group">
+          <label htmlFor="username">
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            className="c-register-form__form-input"
+            placeholder="Your username"
+            ref={(input) => {
+              this.username = input;
+            }}
+          />
+        </div>
+        <div className="l-register-form__input-group">
+          <label htmlFor="password">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="c-register-form__form-input"
+            placeholder="Your password"
+            ref={(input) => {
+              this.password = input;
+            }}
+          />
+        </div>
+        <button
+          className="c-button"
+          onClick={this.onRegister}
+        >
+          Register
+        </button>
+      </form>
     );
   }
 }

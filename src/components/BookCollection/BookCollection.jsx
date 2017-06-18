@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import BookListing from '../BookListing';
 
-import styles from './BookCollection.css';
-
 class BookCollection extends Component {
   render() {
     const BookOne = {
@@ -20,7 +18,7 @@ class BookCollection extends Component {
     };
 
     return (
-      <div className={styles.listings}>
+      <div className="l-flex__col">
         <BookListing {...BookOne} />
         <BookListing {...BookTwo} />
       </div>

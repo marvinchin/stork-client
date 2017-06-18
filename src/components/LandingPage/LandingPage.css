@@ -1,85 +1,39 @@
-.headerContainer {
-  width: 100%;
-  height: 100vh;
-  padding: 2em 2em;
-  font-family: 'Raleway', sans-serif;;
-  font-size: 4.5em;
-  text-align: center;
-  background-color: #326786;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.headerContainer a {
-  color: white;
-}
-
-.headerTitle {
-  font-family: 'Cookie', cursive;
-  font-size: 4em;
-  margin: -0.2em;
-}
-
-.headerSubtitle {
-  font-size: 0.75em;
-  font-weight: light;
-}
-
-.buttonContainer {
-  margin: 2em 0;
-}
-
-.headerButton {
-  border: 3px solid white;
-  border-radius: 4px;
-  padding: 0.2em;
-  margin: 0.2em;
-  width: 80%;
-  font-size: 48px;
-  background-color: transparent;
-}
-
-.headerButton:hover, .headerButton:active {
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-.descriptionContainer {
-  width: 100%;
+.c-landing {
   min-height: 100vh;
-  padding: 2em 1.6em;
-  font-family: 'Raleway', sans-serif;
-  font-size: 2em;
+}
+
+.c-landing .c-hero {
+  width: 100%;
+  min-height: inherit;
+  font-size: 2rem;
   text-align: center;
-  background-color:whitesmoke;
-  color: black;
+  color: white;
+  background-color: #326786;
+}
+
+.c-landing .l-hero__contents {
+  width: 80%;
+  max-width: 600px;
+}
+
+.c-landing .c-hero__title {
+  font-size: 8rem;
+}
+
+.c-landing .c-hero__tagline {
+  font-size: 0.8em
+}
+
+.c-landing .l-hero__buttons {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  width: 100%;
+  margin: 40px 0;
 }
 
-.descriptionTitle {
-  font-family: 'Playfair Display', serif;
-  font-size: 3em;
-}
-
-.descriptionContent {
-  margin: 1em 0;
-  padding: 0 1em;
-  font-size: 1.5em;
-}
-
-.descriptionButton {
-  border: 3px solid black;
-  border-radius: 4px;
-  padding: 0.2em;
-  margin: 0.2em;
+.c-landing .c-hero__button {
   width: 80%;
-  font-size: 48px;
-  background-color: transparent;
+  margin: 2px 0;
+  font-size: 0.75em;
 }
 
-.descriptionButton:hover, .descriptionButton:active {
-  background-color: rgba(255, 255, 255, 0.5);
-}

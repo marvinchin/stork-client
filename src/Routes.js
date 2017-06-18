@@ -19,7 +19,7 @@ export default [
   {
     path: '/register',
     exact: true,
-    navbar: false,
+    navbar: true,
     component: RegisterPage,
   },
   {

@@ -1,11 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
   filename: 'index.html',
   inject: 'body',
 });
+
+const ExtractTextPluginConfig = new ExtractTextPlugin('styles.css');
 
 module.exports = {
   entry: {
@@ -32,12 +35,34 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'fonts/[name].[ext]',
+        },
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader',
+      },
+      {
+        test: /\.(jpg|png|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'images/[path][name].[hash].[ext]',
+        },
       },
     ],
   },
   plugins: [
     HtmlWebpackPluginConfig,
+    ExtractTextPluginConfig,
   ],
   devServer: {
     historyApiFallback: true,

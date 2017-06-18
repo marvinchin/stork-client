@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
 
-import styles from './ProfilePage.css';
+// for testing
+const profilePicture = require('../../public/images/yongjie.jpg');
 
 class UserProfile extends Component {
   render() {
     return (
-      <div className={styles.userProfileContainer}>
-        <div className={styles.profilePictureContainer}>
-          <div className={styles.profilePicture} >
-          </div>
+      <div className="c-user-profile l-flex__col">
+        <div className="l-user-profile__picture">
+          <img
+            src={profilePicture}
+            alt="User Profile"
+            className="c-user-profile__picture img-circle"
+          />
         </div>
-        <div className={styles.infoContainer}>
-          <div className={styles.usernameContainer}>
-            <span className={styles.username}>
-              fooyj12
-            </span>
-          </div>
-          <div className={styles.descriptionContainer}>
-            <p className={styles.description}>
-              I like big butts and I cannot lie.
-            </p>
-          </div>
+        <div className="c-user-profile__name">
+          fooyj12
+        </div>
+        <div className="c-user-profile__description">
+          I like big butts and I cannot lie. Once upon a time there were three little pigs.
         </div>
       </div>
     );

@@ -5,12 +5,12 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import history from '../history';
 
-
 import Page from './Page';
 import reducers from '../Reducers';
 import sagas from '../Sagas';
 
-
+require('../Styles/bootstrap/css/bootstrap.css');
+require('../Styles/common.css');
 
 // initialize redux store and sagas
 const sagaMiddleware = createSagaMiddleware();
