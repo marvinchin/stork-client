@@ -9,6 +9,7 @@ import Page from './Page';
 import reducers from '../Reducers';
 import sagas from '../Sagas';
 
+require('react-select/dist/react-select.css');
 require('../Styles/bootstrap/css/bootstrap.css');
 require('../Styles/common.css');
 

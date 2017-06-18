@@ -1,3 +1,4 @@
+/* Global Theme */
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: lightgrey;
@@ -7,6 +8,7 @@ a {
   color: inherit;
 } 
 
+/* Flexes */
 .l-flex__col {
   width: 100%;
   display: flex;
@@ -23,6 +25,7 @@ a {
   align-items: center;
 }
 
+/* Buttons */
 .c-button {
   border-width: 1px;
   border-style: solid;
@@ -30,10 +33,40 @@ a {
   background-color: transparent;
 }
 
-.c-logo {
-  font-family: 'Merienda One', cursive;
-}
-
 .c-button:active, .c-button:hover {
   background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Forms */
+.c-form {
+  padding: 2em 0;
+}
+
+.l-form__input-group {
+  width: 80%;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.c-form .c-form__input--text {
+  height: 35px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.c-form .c-form__input--textarea {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.c-form .c-form__input--text::placeholder, .c-form__input--textarea::placeholder {
+  color: #aaa;
+}
+
+/* Logo */
+.c-logo {
+  font-family: 'Merienda One', cursive;
 }

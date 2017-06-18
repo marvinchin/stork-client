@@ -2,6 +2,7 @@ import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import ProfilePage from './components/ProfilePage';
+import NewBookPage from './components/NewBookPage';
 
 export default [
   {
@@ -28,4 +29,10 @@ export default [
     navbar: true,
     component: ProfilePage,
   },
+  {
+    path: '/new',
+    exact: true,
+    navbar: true,
+    component: NewBookPage,
+  }
 ];
