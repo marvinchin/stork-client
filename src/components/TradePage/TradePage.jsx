@@ -41,7 +41,7 @@ class TradePage extends Component {
         <div className="c-trade-page__title">
           Trade with {otherUser.username}
         </div>
-        <div className="l-flex__col">
+        <div className="c-form l-flex__col">
           <div className="l-form__input-group">
             <label htmlFor="listedBook">
               {listLabel}
