@@ -3,6 +3,7 @@ import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import ProfilePage from './components/ProfilePage';
 import NewBookPage from './components/NewBookPage';
+import NewTradePage from './components/NewTradePage';
 
 export default [
   {
@@ -30,9 +31,15 @@ export default [
     component: ProfilePage,
   },
   {
-    path: '/new',
+    path: '/new-book',
     exact: true,
     navbar: true,
     component: NewBookPage,
-  }
+  },
+  {
+    path: '/new-trade',
+    exact: true,
+    navbar: true,
+    component: NewTradePage,
+  },
 ];

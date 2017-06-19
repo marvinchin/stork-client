@@ -53,6 +53,7 @@ class BookListing extends Component {
 }
 
 BookListing.propTypes = {
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   author: PropTypes.string,
   genre: PropTypes.string.isRequired,

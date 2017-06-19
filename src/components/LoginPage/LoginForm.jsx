@@ -19,18 +19,18 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <form className="c-login-form l-flex__col">
+      <form className="c-login-form c-form l-flex__col">
         <div className="c-login-form__title c-logo">
           Stork
         </div>
-        <div className="l-login-form__inputs">
+        <div className="l-login-form__inputs l-flex__col">
           <input
-            className="c-login-form__input"
+            className="c-form__input--text"
             type="text"
             placeholder="Username"
           />
           <input
-            className="c-login-form__input"
+            className="c-form__input--text"
             type="password"
             placeholder="Password"
           />

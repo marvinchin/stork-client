@@ -20,43 +20,43 @@ class RegisterForm extends Component {
 
   render() {
     return (
-      <form className="c-register-form l-flex__col">
-        <div className="l-register-form__input-group">
+      <form className="c-form l-flex__col">
+        <div className="l-form__input-group">
           <label htmlFor="email">
             Email
           </label>
           <input
             type="text"
             id="email"
-            className="c-register-form__form-input"
+            className="c-form__input--text"
             placeholder="you@example.com"
             ref={(input) => {
               this.email = input;
             }}
           />
         </div>
-        <div className="l-register-form__input-group">
+        <div className="l-form__input-group">
           <label htmlFor="username">
             Username
           </label>
           <input
             type="text"
             id="username"
-            className="c-register-form__form-input"
+            className="c-form__input--text"
             placeholder="Your username"
             ref={(input) => {
               this.username = input;
             }}
           />
         </div>
-        <div className="l-register-form__input-group">
+        <div className="l-form__input-group">
           <label htmlFor="password">
             Password
           </label>
           <input
             type="password"
             id="password"
-            className="c-register-form__form-input"
+            className="c-form__input--text"
             placeholder="Your password"
             ref={(input) => {
               this.password = input;

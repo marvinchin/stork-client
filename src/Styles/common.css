@@ -27,8 +27,8 @@ a {
 
 /* Buttons */
 .c-button {
-  border-width: 1px;
-  border-style: solid;
+  height: 35px;
+  border: 1px solid #ccc;
   border-radius: 5px;
   background-color: transparent;
 }

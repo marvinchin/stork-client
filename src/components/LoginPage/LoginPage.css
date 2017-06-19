@@ -22,23 +22,17 @@
 }
 
 .c-login .l-login-form__inputs {
-  width: 80%;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   margin-top: 20px;
 }
 
-.c-login .c-login-form__input {
-  width: 100%;
-  padding: 0.2em 0.5em;
-  border: 1px solid gray;
-  border-radius: 3px;
-  font-size: 0.75em;
+.c-login-form .c-form__input--text {
+  margin: 3px 0;
   font-weight: 300;
-  color: gray;
 }
 
 .c-login .c-login-form__button {
-  width: 50%;
+  width: 120px;
   border-width: 1px;
   border-radius: 5px;
   border-color: white;

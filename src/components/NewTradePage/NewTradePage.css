@@ -1,0 +1,37 @@
+.c-new-trade-page {
+  min-height: calc(100vh - 30px);
+  max-width: 600px;
+  margin: auto;
+  padding: 1.5em 0;
+  font-size: 1.5rem;
+  background-color: whitesmoke;
+}
+
+.c-new-trade-page__title {
+  padding: 0 2em;
+  font-size: 1.5em;
+  font-weight: 300;
+  text-align: center;
+}
+
+.c-new-trade-page .c-book-listing {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.c-new-trade-page .c-button {
+  width: 50%;
+  margin-top: 15px;
+  background-color: whitesmoke;
+}
+
+/* Overrides for react-select */
+.c-form .Select-value {
+  display: flex !important;
+  flex-direction: row;
+}
+
+.c-new-trade-form .Select-multi-value-wrapper {
+  width: 95%;
+}

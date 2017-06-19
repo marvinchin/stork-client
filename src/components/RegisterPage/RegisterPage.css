@@ -13,25 +13,8 @@
   font-weight: 300;
 }
 
-.c-register-form {
-  padding: 1.5em 0;
-}
-
-.l-register-form__input-group {
-  width: 80%;
-  margin: 5px 0;
-}
-
-.c-register-form label {
-  width: 100%;
-}
-
-.c-register-form__form-input {
-  width: 100%;
-}
-
-.c-register-form .c-button {
+.c-register-page .c-button {
   width: 50%;
-  margin: 15px 0;
+  margin: 30px 0;
   background-color: whitesmoke;
 }
