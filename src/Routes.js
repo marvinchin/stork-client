@@ -5,6 +5,7 @@ import ProfilePage from './components/ProfilePage';
 import NewBookPage from './components/NewBookPage';
 import NewTradePage from './components/NewTradePage';
 import InboxPage from './components/InboxPage';
+import TradePage from './components/TradePage';
 
 export default [
   {
@@ -48,5 +49,11 @@ export default [
     exact: true,
     navbar: true,
     component: InboxPage,
+  },
+  {
+    path: '/trade',
+    exact: true,
+    navbar: true,
+    component: TradePage,
   },
 ];

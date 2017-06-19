@@ -13,6 +13,12 @@
   align-content: space-between;
 }
 
+.c-book-listing .l-book-listing__info {
+  flex-grow: 1;
+  width: 0;
+  padding: 0 10px;
+}
+
 .c-book-listing .c-book-listing__title {
   width: 100%;
   font-size: 1.25em;
@@ -41,4 +47,9 @@
   font-size: 0.8em;
   text-align: center;
   color: white;
+}
+
+.c-book-listing__checkbox {
+  width: 15px;
+  height: 15px;
 }

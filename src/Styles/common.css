@@ -49,20 +49,20 @@ a {
   flex-direction: column;
 }
 
-.c-form .c-form__input--text {
+.c-form__input--text {
   height: 35px;
   padding: 0 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.c-form .c-form__input--textarea {
+.c-form__input--textarea {
   padding: 5px 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.c-form .c-form__input--text::placeholder, .c-form__input--textarea::placeholder {
+.c-form__input--text::placeholder, .c-form__input--textarea::placeholder {
   color: #aaa;
 }
 
