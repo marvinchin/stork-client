@@ -24,6 +24,7 @@
 .c-login .l-login-form__inputs {
   margin-bottom: 20px;
   margin-top: 20px;
+  color: black;
 }
 
 .c-login-form .c-form__input--text {
