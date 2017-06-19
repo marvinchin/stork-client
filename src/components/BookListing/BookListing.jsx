@@ -33,7 +33,7 @@ class BookListing extends Component {
     const { title, author } = this.props;
     return (
       <div className="c-book-listing" role="button" tabIndex={0} onClick={this.onClick}>
-        <div className="l-book-listing__header l-flex__row ">
+        <div className="l-book-listing__header l-flex__row">
           <div className="l-book-listing__info">
             <div className="c-book-listing__title">
               {title}

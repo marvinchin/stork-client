@@ -4,6 +4,7 @@ import RegisterPage from './components/RegisterPage';
 import ProfilePage from './components/ProfilePage';
 import NewBookPage from './components/NewBookPage';
 import NewTradePage from './components/NewTradePage';
+import InboxPage from './components/InboxPage';
 
 export default [
   {
@@ -41,5 +42,11 @@ export default [
     exact: true,
     navbar: true,
     component: NewTradePage,
+  },
+  {
+    path: '/inbox',
+    exact: true,
+    navbar: true,
+    component: InboxPage,
   },
 ];

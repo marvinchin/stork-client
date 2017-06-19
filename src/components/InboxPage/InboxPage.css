@@ -1,0 +1,62 @@
+.c-inbox {
+  min-height: calc(100vh - 30px);
+  max-width: 600px;
+  margin: auto;
+  font-size: 1.2rem;
+  background: whitesmoke;
+}
+
+.c-inbox__title {
+  padding: 1em 2em;
+  font-size: 1.5em;
+  font-weight: 300;
+  text-align: center;
+}
+
+.c-inbox__trades {
+  border-bottom: 1px solid #ccc;
+}
+
+.c-inbox .c-trade-summary {
+  justify-content: space-between;
+  align-content: space-between;
+  width: 100%;
+  padding: 1em;
+  border-top: 1px solid #ccc;
+  text-align: left;
+  background-color: white;
+}
+
+.c-inbox .c-trade-summary:hover, .c-trade-summary:active {
+  background-color: whitesmoke;
+}
+
+.c-inbox .c-trade-summary__user {
+  width: 100%;
+  font-size: 1.25em;
+}
+
+.c-inbox .c-trade-summary__title {
+  width: 100%;
+  font-size: 1.25em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.c-inbox .c-trade-summary__author {
+  width: 100%;
+  font-weight: 300;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.c-inbox .c-trade-summary__unread {
+  align-self: flex-start;
+  width: 15px;
+  height: 15px;
+  margin-top: 0.2em;
+  border-radius: 50%;
+  background-color: lightblue;
+}

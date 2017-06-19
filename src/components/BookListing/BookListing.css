@@ -33,10 +33,10 @@
 }
 
 .c-book-listing__genre-placeholder {
-  width: 30px;
-  height: 30px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  background-color: royalblue;
+  background-color: lightcoral;
   margin: auto;
   font-size: 0.8em;
   text-align: center;
