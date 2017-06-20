@@ -5,27 +5,6 @@ import BookListing from '../BookListing';
 import BookCollection from '../BookCollection';
 
 class TradePage extends Component {
-
-  renderButtons(isListUser) {
-    if (isListUser) {
-      return (
-        <div className="l-flex__row l-trade-page__buttons">
-          <button className="c-button">
-            Accept
-          </button>
-          <button className="c-button">
-            Reject
-          </button>
-        </div>
-      );
-    }
-    return (
-      <button className="c-button">
-        Cancel
-      </button>
-    );
-  }
-
   render() {
     const { user, trade } = this.props;
     const { listUser, offerUser, listedBook, offeredBooks, details } = trade;
@@ -35,6 +14,27 @@ class TradePage extends Component {
 
     const listLabel = isListUser ? `${otherUser.username} wants` : 'You want';
     const offerLabel = isListUser ? `${otherUser.username} offered` : 'You offered';
+
+    let buttons;
+
+    if (isListUser) {
+      buttons = (
+        <div className="l-flex__row l-trade-page__buttons">
+          <button className="c-button">
+            Accept
+          </button>
+          <button className="c-button">
+            Reject
+          </button>
+        </div>
+      );
+    } else {
+      buttons = (
+        <button className="c-button">
+          Cancel
+        </button>
+      );
+    }
 
     return (
       <div className="c-trade-page">
@@ -70,7 +70,7 @@ class TradePage extends Component {
               disabled
             />
           </div>
-          {this.renderButtons(isListUser)}
+          {buttons}
         </div>
       </div>
     );

@@ -1,0 +1,6 @@
+.c-home {
+  min-height: calc(100vh - 30px);
+  max-width: 600px;
+  margin: auto;
+  font-size: 1.5rem;
+}

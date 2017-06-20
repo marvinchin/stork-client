@@ -6,6 +6,7 @@ import NewBookPage from './components/NewBookPage';
 import NewTradePage from './components/NewTradePage';
 import InboxPage from './components/InboxPage';
 import TradePage from './components/TradePage';
+import HomePage from './components/HomePage';
 
 export default [
   {
@@ -55,5 +56,11 @@ export default [
     exact: true,
     navbar: true,
     component: TradePage,
+  },
+  {
+    path: '/',
+    exact: true,
+    navbar: true,
+    component: HomePage,
   },
 ];

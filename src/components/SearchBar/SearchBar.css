@@ -1,0 +1,35 @@
+.c-search {
+  width: 100%;
+  background-color: white;
+  padding: 1em 0;
+}
+
+.c-search .l-search__content {
+  width: 90%;
+  margin: auto;
+}
+
+.c-search .l-form__input-group {
+  width: 100%;
+  margin: 0.4em 0;
+}
+
+.c-search .l-search__main-row {
+  width: 100%;
+}
+
+.c-search .c-form__input--text {
+  flex-grow: 1;
+  height: 36px;
+}
+
+.c-search__field-select {
+  height: 36px;
+  width: 80px;
+}
+
+.c-search .c-button {
+  width: 50%;
+  margin-top: 15px;
+  background-color: white;
+}
