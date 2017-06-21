@@ -2,7 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 import Actions from '../constants/Actions';
 import { loginUserComplete, updateUser, registerUserComplete } from '../ActionCreators/AuthActionCreators';
-import { loginUser, registerUser } from '../Apis';
+import { loginUser, registerUser } from '../apis';
 import { changeRoute } from '../ActionCreators/RouteActionCreators';
 
 export function* handleUserLogin(action) {

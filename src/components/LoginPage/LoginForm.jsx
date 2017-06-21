@@ -7,13 +7,26 @@ import { loginUser } from '../../ActionCreators/AuthActionCreators';
 class LoginForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: '',
+      password: '',
+    };
     this.onLogin = this.onLogin.bind(this);
+    this.onUsernameChange = this.onUsernameChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
+  }
+
+  onUsernameChange(e) {
+    this.setState({ username: e.target.value });
+  }
+
+  onPasswordChange(e) {
+    this.setState({ password: e.target.value });
   }
 
   onLogin(e) {
     e.preventDefault();
-    const username = this.username.value;
-    const password = this.password.value;
+    const { username, password } = this.state;
     this.props.dispatch(loginUser(null, username, password));
   }
 
@@ -28,14 +41,21 @@ class LoginForm extends Component {
             className="c-form__input--text"
             type="text"
             placeholder="Username"
+            value={this.state.username}
+            onChange={this.onUsernameChange}
           />
           <input
             className="c-form__input--text"
             type="password"
             placeholder="Password"
+            value={this.state.password}
+            onChange={this.onPasswordChange}
           />
         </div>
-        <button className="c-login-form__button c-button">
+        <button
+          className="c-login-form__button c-button"
+          onClick={this.onLogin}
+        >
           Log In
         </button>
       </form>
@@ -48,35 +68,3 @@ LoginForm.propTypes = {
 };
 
 export default connect()(LoginForm);
-
-/*
-
-
-
-      <div className="l-login__login-form">
-        <form>
-          <div className="l-login__inputs">
-            <input
-              id="username"
-              className="c-login__input form-control"
-              type="text"
-              placeholder="Username"
-              ref={(input) => {
-                this.username = input;
-              }}
-            />
-            <input
-              id="password"
-              className="c-login__input form-control"
-              type="password"
-              placeholder="Password"
-              ref={(input) => {
-                this.password = input;
-              }}
-            />
-          </div>
-          <button className="c-login__button" onClick={this.onLogin}>Log In</button>
-        </form>
-      </div>
-
-      */

@@ -67,4 +67,5 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
   },
+  devtool: 'cheap-source-map',
 };
