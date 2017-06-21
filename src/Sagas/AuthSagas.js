@@ -65,5 +65,6 @@ export default function* watchAuthSagas() {
     takeLatest(Actions.AUTH_USER_LOGIN_PENDING, handleUserLogin),
     takeLatest(Actions.AUTH_USER_LOGIN_COMPLETE, handleUserLoginComplete),
     takeLatest(Actions.AUTH_USER_REGISTER_PENDING, handleUserRegister),
+    takeLatest(Actions.AUTH_USER_REGISTER_COMPLETE, handleUserRegisterComplete),
   ];
 }

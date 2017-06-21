@@ -7,14 +7,33 @@ import { registerUser } from '../../ActionCreators/AuthActionCreators';
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      email: '',
+      username: '',
+      password: '',
+    };
+
+    this.onEmailChange = this.onEmailChange.bind(this);
+    this.onUsernameChange = this.onUsernameChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
     this.onRegister = this.onRegister.bind(this);
+  }
+
+  onEmailChange(e) {
+    this.setState({ email: e.target.value });
+  }
+
+  onUsernameChange(e) {
+    this.setState({ username: e.target.value });
+  }
+
+  onPasswordChange(e) {
+    this.setState({ password: e.target.value });
   }
 
   onRegister(e) {
     e.preventDefault();
-    const username = this.username.value;
-    const password = this.password.value;
-    const email = this.email.value;
+    const { email, username, password } = this.state;
     this.props.dispatch(registerUser(null, username, password, email));
   }
 
@@ -30,9 +49,8 @@ class RegisterForm extends Component {
             id="email"
             className="c-form__input--text"
             placeholder="you@example.com"
-            ref={(input) => {
-              this.email = input;
-            }}
+            value={this.state.email}
+            onChange={this.onEmailChange}
           />
         </div>
         <div className="l-form__input-group">
@@ -44,9 +62,8 @@ class RegisterForm extends Component {
             id="username"
             className="c-form__input--text"
             placeholder="Your username"
-            ref={(input) => {
-              this.username = input;
-            }}
+            value={this.state.username}
+            onChange={this.onUsernameChange}
           />
         </div>
         <div className="l-form__input-group">
@@ -58,9 +75,8 @@ class RegisterForm extends Component {
             id="password"
             className="c-form__input--text"
             placeholder="Your password"
-            ref={(input) => {
-              this.password = input;
-            }}
+            value={this.state.password}
+            onChange={this.onPasswordChange}
           />
         </div>
         <button
