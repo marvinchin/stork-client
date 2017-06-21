@@ -12,13 +12,15 @@ export function loginUser(username, password) {
   });
 }
 
-export function registerUser(username, password, email) {
+export function registerUser(username, password, email, gender = 'Male', description = '') {
   return post({
-    url: `${config.BACKEND_API_URL}/authentication/register`,
+    url: `${config.BACKEND_API_URL}/authentication/create`,
     body: {
       username,
       password,
       email,
+      gender,
+      description,
     },
   });
 }

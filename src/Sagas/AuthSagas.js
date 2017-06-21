@@ -2,7 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 import Actions from '../constants/Actions';
 import { loginUserComplete, updateUser, registerUserComplete } from '../ActionCreators/AuthActionCreators';
-import { loginUser, registerUser } from '../apis';
+import { loginUser, registerUser } from '../Apis';
 import { changeRoute } from '../ActionCreators/RouteActionCreators';
 
 export function* handleUserLogin(action) {
@@ -52,6 +52,12 @@ export function* handleUserRegister(action) {
     const registerFailedError = new Error('Unable to register user');
     yield put(registerUserComplete(registerFailedError));
   }
+}
+
+export function* handleUserRegisterComplete(action) {
+  const { error } = action.payload;
+  if (error) return;
+  yield put(changeRoute('/'));
 }
 
 export default function* watchAuthSagas() {

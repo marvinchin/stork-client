@@ -1,7 +1,7 @@
 import { cloneableGenerator } from 'redux-saga/Utils';
 import { call, put } from 'redux-saga/effects';
 
-import { handleUserLogin, handleUserLoginComplete, handleUserRegister } from '../../src/Sagas/AuthSagas';
+import { handleUserLogin, handleUserLoginComplete, handleUserRegister, handleUserRegisterComplete } from '../../src/Sagas/AuthSagas';
 import { loginUser, registerUser } from '../../src/Apis';
 
 describe('HandleUserLogin', () => {
@@ -230,6 +230,49 @@ describe('handleUserRegister', () => {
     });
     it('should be done', () => {
       expect(genBadRegister.next().done).toBe(true);
+    });
+  });
+});
+
+describe('handleUserRegisterComplete', () => {
+  describe('Success', () => {
+    const action = {
+      type: 'AUTH_USER_REGISTER_COMPLETE',
+      payload: {},
+    };
+
+    const gen = handleUserRegisterComplete(action);
+
+    it('should redirect user to homepage', () => {
+      const route = '/';
+      const expectedAction = {
+        type: 'ROUTE_CHANGE_PENDING',
+        payload: {
+          route,
+        },
+      };
+      expect(gen.next().value).toEqual(put(expectedAction));
+    });
+
+    it('should be done', () => {
+      expect(gen.next().done).toBe(true);
+    });
+  });
+
+  describe('Failure', () => {
+    const error = new Error();
+    const action = {
+      type: 'AUTH_USER_REGISTER_COMPLETE',
+      error: true,
+      payload: {
+        error,
+      },
+    };
+
+    const gen = handleUserRegisterComplete(action);
+
+    it('should be done', () => {
+      expect(gen.next().done).toBe(true);
     });
   });
 });
