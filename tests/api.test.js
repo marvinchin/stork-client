@@ -1,4 +1,9 @@
-import { loginUser, registerUser, __RewireAPI__ as RewireAPI } from '../src/Apis';
+import {
+  loginUser,
+  registerUser,
+  createBook,
+  __RewireAPI__ as RewireAPI,
+} from '../src/Apis';
 import config from '../config';
 
 describe('Login User', () => {
@@ -61,6 +66,40 @@ describe('Register User', () => {
     };
 
     registerUser(username, password, email, gender, description);
+
+    expect(mockPost).toBeCalledWith({
+      url: expectedUrl,
+      body: expectedBody,
+    });
+  });
+});
+
+describe('Create Book', () => {
+  const mockPost = jest.fn();
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__('post', mockPost);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency('post');
+  });
+
+  it('should make a post request to endpoint with correct body', () => {
+    const title = 'The Three Little Pigs';
+    const author = 'Big Bad Wolf';
+    const genre = 'Fiction';
+    const description = 'Cool book';
+
+    const expectedUrl = `${config.BACKEND_API_URL}/book/create`;
+    const expectedBody = {
+      title,
+      author,
+      genre,
+      description,
+    };
+
+    createBook(title, author, genre, description);
 
     expect(mockPost).toBeCalledWith({
       url: expectedUrl,

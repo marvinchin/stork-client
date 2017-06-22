@@ -24,3 +24,15 @@ export function registerUser(username, password, email, gender = 'Male', descrip
     },
   });
 }
+
+export function createBook(title, author, genre, description) {
+  return post({
+    url: `${config.BACKEND_API_URL}/book/create`,
+    body: {
+      title,
+      author,
+      genre,
+      description,
+    },
+  });
+}
