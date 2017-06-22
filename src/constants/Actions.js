@@ -10,4 +10,7 @@ export default keyMirror({
 
   ROUTE_CHANGE_PENDING: null,
   ROUTE_CHANGE_COMPLETE: null,
+
+  BOOK_CREATE_PENDING: null,
+  BOOK_CREATE_COMPLETE: null,
 });
