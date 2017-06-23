@@ -2,19 +2,71 @@ import {
   loginUser,
   registerUser,
   createBook,
+  getGenres,
   __RewireAPI__ as RewireAPI,
 } from '../src/Apis';
 import config from '../config';
 
-describe('Login User', () => {
-  const mockPost = jest.fn();
+describe('makeRequest', () => {
+  const makeRequest = RewireAPI.__GetDependency__('makeRequest');
+  global.fetch = jest.fn();
+
+  it('should call fetch with the appropriate params', () => {
+    const url = 'http://api.storkapp.flu.cc';
+    const data = {
+      hello: 'world',
+      key: 'value',
+    };
+    const options = {
+      method: 'POST',
+      useCredentials: true,
+    };
+
+    const expectedUrl = url;
+    const expectedParams = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      credentials: 'include',
+    };
+
+    makeRequest(url, options, data);
+
+    expect(global.fetch).toBeCalledWith(expectedUrl, expectedParams);
+  });
+
+  it('should call fetch with empty body if no data is provided', () => {
+    const url = 'http://api.storkapp.flu.cc';
+    const options = {
+      method: 'GET',
+    };
+
+    const expectedUrl = url;
+    const expectedParams = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({}),
+    };
+
+    makeRequest(url, options);
+
+    expect(global.fetch).toBeCalledWith(expectedUrl, expectedParams);
+  });
+});
+
+describe('loginUser', () => {
+  const mockMakeRequest = jest.fn();
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('post', mockPost);
+    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('post');
+    RewireAPI.__ResetDependency('makeRequest');
   });
 
   it('should make post request to endpoint with correct body', () => {
@@ -22,30 +74,32 @@ describe('Login User', () => {
     const password = 'test_pass';
 
     const expectedUrl = `${config.BACKEND_API_URL}/authentication/login`;
-    const expectedBody = {
+    const expectedData = {
       username,
       password,
       expiry: config.SESSION_EXPIRY,
     };
+    const expectedOptions = {
+      method: 'POST',
+      useCredentials: true,
+    };
 
     loginUser(username, password);
 
-    expect(mockPost).toBeCalledWith({
-      url: expectedUrl,
-      body: expectedBody,
-    });
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions, expectedData);
   });
 });
 
-describe('Register User', () => {
-  const mockPost = jest.fn();
+
+describe('registerUser', () => {
+  const mockMakeRequest = jest.fn();
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('post', mockPost);
+    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('post');
+    RewireAPI.__ResetDependency('makeRequest');
   });
 
   it('should make a post request to endpoint with correct body', () => {
@@ -57,32 +111,33 @@ describe('Register User', () => {
     const description = '';
 
     const expectedUrl = `${config.BACKEND_API_URL}/authentication/create`;
-    const expectedBody = {
+    const expectedData = {
       username,
       password,
       email,
       gender,
       description,
     };
+    const expectedOptions = {
+      method: 'POST',
+      useCredentials: true,
+    };
 
     registerUser(username, password, email, gender, description);
 
-    expect(mockPost).toBeCalledWith({
-      url: expectedUrl,
-      body: expectedBody,
-    });
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions, expectedData);
   });
 });
 
-describe('Create Book', () => {
-  const mockPost = jest.fn();
+describe('createBook', () => {
+  const mockMakeRequest = jest.fn();
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('post', mockPost);
+    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('post');
+    RewireAPI.__ResetDependency('makeRequest');
   });
 
   it('should make a post request to endpoint with correct body', () => {
@@ -91,19 +146,43 @@ describe('Create Book', () => {
     const genre = 'Fiction';
     const description = 'Cool book';
 
-    const expectedUrl = `${config.BACKEND_API_URL}/book/create`;
-    const expectedBody = {
+    const expectedUrl = `${config.BACKEND_API_URL}/books/create`;
+    const expectedData = {
       title,
       author,
-      genre,
+      genre: [genre],
       description,
+    };
+    const expectedOptions = {
+      method: 'POST',
+      useCredentials: true,
     };
 
     createBook(title, author, genre, description);
 
-    expect(mockPost).toBeCalledWith({
-      url: expectedUrl,
-      body: expectedBody,
-    });
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions, expectedData);
+  });
+});
+
+describe('getGenres', () => {
+  const mockMakeRequest = jest.fn();
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency('makeRequest');
+  });
+
+  it('should make a get request to endpoint', () => {
+    const expectedUrl = `${config.BACKEND_API_URL}/books/genres`;
+    const expectedOptions = {
+      method: 'GET',
+    };
+
+    getGenres();
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });
 });

@@ -13,4 +13,6 @@ export default keyMirror({
 
   BOOK_CREATE_PENDING: null,
   BOOK_CREATE_COMPLETE: null,
+  GET_GENRES_PENDING: null,
+  GET_GENRES_COMPLETE: null,
 });

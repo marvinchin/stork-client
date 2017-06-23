@@ -12,7 +12,7 @@ const ExtractTextPluginConfig = new ExtractTextPlugin('styles.css');
 
 module.exports = {
   entry: {
-    js: ['babel-polyfill', './src/index.jsx'],
+    js: ['babel-polyfill', 'whatwg-fetch', './src/index.jsx'],
   },
   output: {
     path: path.resolve('dist'),

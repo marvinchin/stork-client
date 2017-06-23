@@ -5,7 +5,7 @@ class Navbar extends Component {
   render() {
     return (
       <div className="c-navbar l-flex__col">
-        <Link to="/landing">
+        <Link to="/new-book">
           <div className="c-logo">
             Stork
           </div>

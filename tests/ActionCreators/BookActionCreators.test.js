@@ -1,4 +1,4 @@
-import { createBook, createBookComplete } from '../../src/ActionCreators/BookActionCreators';
+import { createBook, createBookComplete, getGenres, getGenresComplete } from '../../src/ActionCreators/BookActionCreators';
 
 describe('Create Book', () => {
   const title = 'The Three Little Pigs';
@@ -65,8 +65,61 @@ describe('Create Book Complete', () => {
       };
 
       const action = createBookComplete(error);
-      
+
       expect(action).toEqual(expectedAction);
     });
-  })
+  });
+});
+
+describe('Get Genres', () => {
+  it('should create a GET_GENRES_PENDING', () => {
+    const expectedAction = {
+      type: 'GET_GENRES_PENDING',
+      payload: {},
+    };
+
+    const action = getGenres();
+
+    expect(action).toEqual(expectedAction);
+  });
+});
+
+describe('Get Genres Complete', () => {
+  describe('Success', () => {
+    const genres = [
+      'Fiction',
+      'Non-Fiction',
+    ];
+
+    it('should create a successful GET_GENRE_COMPLETE action', () => {
+      const expectedAction = {
+        type: 'GET_GENRES_COMPLETE',
+        payload: {
+          genres,
+        },
+      };
+
+      const action = getGenresComplete(null, genres);
+
+      expect(action).toEqual(expectedAction);
+    });
+  });
+
+  describe('Failure', () => {
+    const error = new Error();
+
+    it('should create a failure GET_GENRE_COMPLETE action', () => {
+      const expectedAction = {
+        type: 'GET_GENRES_COMPLETE',
+        error: true,
+        payload: {
+          error,
+        },
+      };
+
+      const action = getGenresComplete(error, null);
+
+      expect(action).toEqual(expectedAction);
+    });
+  });
 });

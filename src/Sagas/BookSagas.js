@@ -37,11 +37,3 @@ export const bookSagas = [
   takeLatest(Actions.BOOK_CREATE_COMPLETE, handleCreateBookComplete),
 ];
 
-/*
-export default function* watchBookSagas() {
-  yield [
-    takeLatest(Actions.BOOK_CREATE_PENDING, handleCreateBook),
-    takeLatest(Actions.ROUTE_CHANGE_COMPLETE, handleCreateBookComplete),
-  ];
-}
-*/

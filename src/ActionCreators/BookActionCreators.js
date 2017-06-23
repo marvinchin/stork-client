@@ -28,3 +28,29 @@ export function createBookComplete(error) {
     payload: {},
   };
 }
+
+export function getGenres() {
+  return {
+    type: ActionTypes.GET_GENRES_PENDING,
+    payload: {},
+  };
+}
+
+export function getGenresComplete(error, genres) {
+  if (error) {
+    return {
+      type: ActionTypes.GET_GENRES_COMPLETE,
+      error: true,
+      payload: {
+        error,
+      },
+    };
+  }
+
+  return {
+    type: ActionTypes.GET_GENRES_COMPLETE,
+    payload: {
+      genres,
+    },
+  };
+}

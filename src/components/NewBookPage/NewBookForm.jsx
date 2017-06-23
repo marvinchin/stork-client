@@ -1,20 +1,49 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Select from 'react-select';
+import { connect } from 'react-redux';
+
+import { createBook } from '../../ActionCreators/BookActionCreators';
 
 class NewBookForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
+      author: '',
       genre: 'None',
+      description: '',
     };
 
+    this.onTitleChange = this.onTitleChange.bind(this);
+    this.onAuthorChange = this.onAuthorChange.bind(this);
     this.onGenreUpdate = this.onGenreUpdate.bind(this);
+    this.onDescriptionChange = this.onDescriptionChange.bind(this);
+    this.onCreateBook = this.onCreateBook.bind(this);
+  }
+
+  onTitleChange(e) {
+    this.setState({ title: e.target.value });
+  }
+
+  onAuthorChange(e) {
+    this.setState({ author: e.target.value });
   }
 
   onGenreUpdate(genre) {
     this.setState({
       genre,
     });
+  }
+
+  onDescriptionChange(e) {
+    this.setState({ description: e.target.value });
+  }
+
+  onCreateBook(e) {
+    e.preventDefault();
+    const { title, author, genre, description } = this.state;
+    this.props.dispatch(createBook(title, author, genre, description));
   }
 
   render() {
@@ -34,9 +63,8 @@ class NewBookForm extends Component {
             id="title"
             className="c-new-book-form__input c-form__input--text"
             placeholder="The Da Vinci Code"
-            ref={(input) => {
-              this.title = input;
-            }}
+            value={this.state.title}
+            onChange={this.onTitleChange}
           />
         </div>
         <div className="l-form__input-group">
@@ -48,9 +76,8 @@ class NewBookForm extends Component {
             id="author"
             className="c-new-book-form__input c-form__input--text"
             placeholder="Dan Brown"
-            ref={(input) => {
-              this.author = input;
-            }}
+            value={this.state.author}
+            onChange={this.onAuthorChange}
           />
         </div>
         <div className="l-form__input-group">
@@ -73,13 +100,13 @@ class NewBookForm extends Component {
             rows="3"
             className="c-new-book-form__input c-form__input--textarea"
             placeholder="Tell us more about your book!"
-            ref={(input) => {
-              this.details = input;
-            }}
+            value={this.state.description}
+            onChange={this.onDescriptionChange}
           />
         </div>
         <button
           className="c-button"
+          onClick={this.onCreateBook}
         >
           List
         </button>
@@ -88,4 +115,8 @@ class NewBookForm extends Component {
   }
 }
 
-export default NewBookForm;
+NewBookForm.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default connect()(NewBookForm);

@@ -16,5 +16,6 @@ export function changeRoute(route) {
 export function changeRouteComplete() {
   return {
     type: ActionTypes.ROUTE_CHANGE_COMPLETE,
+    payload: {},
   };
 }

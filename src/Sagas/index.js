@@ -1,10 +1,12 @@
-import { fork } from 'redux-saga/effects';
-import AuthSagas from './AuthSagas';
-import RouteSagas from './RouteSagas';
+import { all } from 'redux-saga/effects';
+import { authSagas } from './AuthSagas';
+import { routeSagas } from './RouteSagas';
+import { bookSagas } from './BookSagas';
 
 export default function* rootSaga() {
-  yield [
-    fork(AuthSagas),
-    fork(RouteSagas),
-  ];
+  yield all([
+    ...authSagas,
+    ...routeSagas,
+    ...bookSagas,
+  ]);
 }

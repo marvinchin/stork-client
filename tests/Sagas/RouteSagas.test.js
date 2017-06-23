@@ -1,4 +1,4 @@
-import { put } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 
 import { handleChangeRoute } from '../../src/Sagas/RouteSagas';
 import history from '../../src/history';
@@ -14,15 +14,18 @@ describe('HandleChangeRoute', () => {
   };
   const gen = handleChangeRoute(action);
 
-  it('should call the changeRouteComplete action creator', () => {
-    const expectedPut = put({
-      type: 'ROUTE_CHANGE_COMPLETE',
-    });
-    expect(gen.next().value).toEqual(expectedPut);
+  it('should call history.push', () => {
+    const expectedCall = call(history.push, route);
+
+    expect(gen.next().value).toEqual(expectedCall);
   });
 
-  it('should call push with the route', () => {
-    expect(history.push).toBeCalledWith(route);
+  it('should put a ROUTE_CHANGE_COMPLETE action', () => {
+    const expectedPut = put({
+      type: 'ROUTE_CHANGE_COMPLETE',
+      payload: {},
+    });
+    expect(gen.next().value).toEqual(expectedPut);
   });
 
   it('should be done', () => {
