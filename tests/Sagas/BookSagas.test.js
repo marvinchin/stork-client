@@ -1,8 +1,13 @@
 import { cloneableGenerator } from 'redux-saga/Utils';
 import { call, put } from 'redux-saga/effects';
 
-import { handleCreateBook, handleCreateBookComplete, handleGetGenres } from '../../src/Sagas/BookSagas';
-import { createBook, getGenres } from '../../src/Apis';
+import {
+  handleCreateBook,
+  handleCreateBookComplete,
+  handleGetGenres,
+  handleGetIndexBooks,
+} from '../../src/Sagas/BookSagas';
+import { createBook, getGenres, getIndexBooks } from '../../src/Apis';
 
 describe('HandleCreateBook', () => {
   const title = 'The Three Little Pigs';
@@ -140,7 +145,7 @@ describe('HandleCreateBookComplete', () => {
   });
 });
 
-describe('Get Genres', () => {
+describe('HandleGetGenres', () => {
   const action = {
     type: 'GET_GENRES_PENDING',
     payload: {},
@@ -195,6 +200,79 @@ describe('Get Genres', () => {
     it('should put failure GET_GENRES_COMPLETE action', () => {
       const expectedPut = put({
         type: 'GET_GENRES_COMPLETE',
+        error: true,
+        payload: {
+          error: expect.anything(),
+        },
+      });
+
+      expect(genFail.throw(error).value).toEqual(expectedPut);
+    });
+
+    it('should be done', () => {
+      expect(genFail.next().done).toBe(true);
+    });
+  });
+});
+
+describe('HandleGetIndexBooks', () => {
+  const action = {
+    type: 'GET_INDEX_BOOKS_PENDING',
+    payload: {},
+  };
+  const gen = cloneableGenerator(handleGetIndexBooks)(action);
+  let genFail;
+
+  it('should call getIndexBooks API', () => {
+    const expectedCall = call(getIndexBooks);
+    expect(gen.next().value).toEqual(expectedCall);
+    genFail = gen.clone();
+  });
+
+  describe('Success', () => {
+    const status = 200;
+    const body = {
+      success: true,
+      books: [
+        { id: 1 },
+        { id: 2 },
+      ],
+    };
+    const res = {
+      status,
+      json: () => (
+        new Promise((resolve) => {
+          resolve(body);
+        })
+      ),
+    };
+
+    it('should call json function on res', () => {
+      const expectedCall = call(res.json);
+
+      expect(gen.next(res).value).toEqual(expectedCall);
+    });
+
+    it('should put a successful GET_INDEX_BOOKS_COMPLETE action', () => {
+      const expectedPut = put({
+        type: 'GET_INDEX_BOOKS_COMPLETE',
+        payload: {
+          books: body.books,
+        },
+      });
+      expect(gen.next(body).value).toEqual(expectedPut);
+    });
+
+    it('should be done', () => {
+      expect(gen.next().done).toBe(true);
+    });
+  });
+
+  describe('Failure', () => {
+    const error = new Error();
+    it('should put failure GET_INDEX_BOOKS_COMPLETE action', () => {
+      const expectedPut = put({
+        type: 'GET_INDEX_BOOKS_COMPLETE',
         error: true,
         payload: {
           error: expect.anything(),
