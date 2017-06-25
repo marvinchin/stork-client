@@ -1,4 +1,11 @@
-import { createBook, createBookComplete, getGenres, getGenresComplete } from '../../src/ActionCreators/BookActionCreators';
+import {
+  createBook,
+  createBookComplete,
+  getGenres,
+  getGenresComplete,
+  getIndexBooks,
+  getIndexBooksComplete,
+} from '../../src/ActionCreators/BookActionCreators';
 
 describe('Create Book', () => {
   const title = 'The Three Little Pigs';
@@ -118,6 +125,60 @@ describe('Get Genres Complete', () => {
       };
 
       const action = getGenresComplete(error, null);
+
+      expect(action).toEqual(expectedAction);
+    });
+  });
+});
+
+describe('Get Index Books', () => {
+  it('should create a GET_INDEX_BOOKS_PENDING action', () => {
+    const expectedAction = {
+      type: 'GET_INDEX_BOOKS_PENDING',
+      payload: {},
+    };
+
+    const action = getIndexBooks();
+
+    expect(action).toEqual(expectedAction);
+  });
+});
+
+
+describe('Get Index Books Complete', () => {
+  describe('Success', () => {
+    const books = [
+      { id: 1 },
+      { id: 2 },
+    ];
+
+    it('should create a successful GET_INDEX_BOOKS_COMPLETE action', () => {
+      const expectedAction = {
+        type: 'GET_INDEX_BOOKS_COMPLETE',
+        payload: {
+          books,
+        },
+      };
+
+      const action = getIndexBooksComplete(null, books);
+
+      expect(action).toEqual(expectedAction);
+    });
+  });
+
+  describe('Failure', () => {
+    const error = new Error();
+
+    it('should create a failure GET_INDEX_BOOKS_COMPLETE action', () => {
+      const expectedAction = {
+        type: 'GET_INDEX_BOOKS_COMPLETE',
+        error: true,
+        payload: {
+          error,
+        },
+      };
+
+      const action = getIndexBooksComplete(error, null);
 
       expect(action).toEqual(expectedAction);
     });

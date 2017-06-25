@@ -54,3 +54,29 @@ export function getGenresComplete(error, genres) {
     },
   };
 }
+
+export function getIndexBooks() {
+  return {
+    type: ActionTypes.GET_INDEX_BOOKS_PENDING,
+    payload: {},
+  };
+}
+
+export function getIndexBooksComplete(error, books) {
+  if (error) {
+    return {
+      type: ActionTypes.GET_INDEX_BOOKS_COMPLETE,
+      error: true,
+      payload: {
+        error,
+      },
+    };
+  }
+
+  return {
+    type: ActionTypes.GET_INDEX_BOOKS_COMPLETE,
+    payload: {
+      books,
+    },
+  };
+}
