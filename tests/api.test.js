@@ -19,6 +19,7 @@ describe('makeRequest', () => {
     };
     const options = {
       method: 'POST',
+      data,
       useCredentials: true,
     };
 
@@ -32,12 +33,12 @@ describe('makeRequest', () => {
       credentials: 'include',
     };
 
-    makeRequest(url, options, data);
+    makeRequest(url, options);
 
     expect(global.fetch).toBeCalledWith(expectedUrl, expectedParams);
   });
 
-  it('should call fetch with empty body if no data is provided', () => {
+  it('should call fetch with no body if no data is provided', () => {
     const url = 'http://api.storkapp.flu.cc';
     const options = {
       method: 'GET',
@@ -49,7 +50,6 @@ describe('makeRequest', () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({}),
     };
 
     makeRequest(url, options);
@@ -74,19 +74,20 @@ describe('loginUser', () => {
     const password = 'test_pass';
 
     const expectedUrl = `${config.BACKEND_API_URL}/authentication/login`;
-    const expectedData = {
+    const data = {
       username,
       password,
       expiry: config.SESSION_EXPIRY,
     };
     const expectedOptions = {
       method: 'POST',
+      data,
       useCredentials: true,
     };
 
     loginUser(username, password);
 
-    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions, expectedData);
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });
 });
 
@@ -111,7 +112,7 @@ describe('registerUser', () => {
     const description = '';
 
     const expectedUrl = `${config.BACKEND_API_URL}/authentication/create`;
-    const expectedData = {
+    const data = {
       username,
       password,
       email,
@@ -120,12 +121,13 @@ describe('registerUser', () => {
     };
     const expectedOptions = {
       method: 'POST',
+      data,
       useCredentials: true,
     };
 
     registerUser(username, password, email, gender, description);
 
-    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions, expectedData);
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });
 });
 
@@ -147,7 +149,7 @@ describe('createBook', () => {
     const description = 'Cool book';
 
     const expectedUrl = `${config.BACKEND_API_URL}/books/create`;
-    const expectedData = {
+    const data = {
       title,
       author,
       genre: [genre],
@@ -155,12 +157,13 @@ describe('createBook', () => {
     };
     const expectedOptions = {
       method: 'POST',
+      data,
       useCredentials: true,
     };
 
     createBook(title, author, genre, description);
 
-    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions, expectedData);
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });
 });
 
@@ -176,7 +179,7 @@ describe('getGenres', () => {
   });
 
   it('should make a get request to endpoint', () => {
-    const expectedUrl = `${config.BACKEND_API_URL}/books/genres`;
+    const expectedUrl = `${config.BACKEND_API_URL}/genres/list`;
     const expectedOptions = {
       method: 'GET',
     };

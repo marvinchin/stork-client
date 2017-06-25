@@ -1,4 +1,4 @@
-import BookReducer from '../../src/Reducers/BookReducers';
+import BookReducer from '../../src/Reducers/BookReducer';
 
 describe('BookReducer', () => {
   const initialState = {

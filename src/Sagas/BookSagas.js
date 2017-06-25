@@ -32,7 +32,7 @@ export function* handleCreateBookComplete(action) {
   yield put(changeRoute('/'));
 }
 
-export function* handleGetGenres(action) {
+export function* handleGetGenres() {
   let res;
 
   try {
@@ -41,7 +41,6 @@ export function* handleGetGenres(action) {
     yield put(getGenresComplete(err));
     return;
   }
-
   const resBody = yield call(res.json);
   const { genres } = resBody;
   yield put(getGenresComplete(null, genres));
@@ -50,5 +49,6 @@ export function* handleGetGenres(action) {
 export const bookSagas = [
   takeLatest(Actions.BOOK_CREATE_PENDING, handleCreateBook),
   takeLatest(Actions.BOOK_CREATE_COMPLETE, handleCreateBookComplete),
+  takeLatest(Actions.GET_GENRES_PENDING, handleGetGenres),
 ];
 

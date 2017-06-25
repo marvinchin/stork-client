@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 
-import { createBook } from '../../ActionCreators/BookActionCreators';
+import { createBook, getGenres } from '../../ActionCreators/BookActionCreators';
 
 class NewBookForm extends Component {
   constructor(props) {
@@ -20,6 +20,11 @@ class NewBookForm extends Component {
     this.onGenreUpdate = this.onGenreUpdate.bind(this);
     this.onDescriptionChange = this.onDescriptionChange.bind(this);
     this.onCreateBook = this.onCreateBook.bind(this);
+  }
+
+
+  componentDidMount() {
+    this.props.dispatch(getGenres());
   }
 
   onTitleChange(e) {
@@ -47,10 +52,13 @@ class NewBookForm extends Component {
   }
 
   render() {
-    const genreOptions = [
-      { value: 'Sci-Fi', label: 'Sci-Fi' },
-      { value: 'Fiction', label: 'Fiction' },
-    ];
+    const { genres } = this.props;
+    const genreOptions = genres.map(genre => (
+      {
+        value: genre,
+        label: genre,
+      }
+    ));
 
     return (
       <form className="c-form l-flex__col c-new-book-form">
@@ -117,6 +125,13 @@ class NewBookForm extends Component {
 
 NewBookForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  genres: PropTypes.array.isRequired,
 };
 
-export default connect()(NewBookForm);
+const mapStateToProps = state => (
+  {
+    genres: state.books.genres,
+  }
+);
+
+export default connect(mapStateToProps)(NewBookForm);

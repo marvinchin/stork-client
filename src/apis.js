@@ -1,14 +1,17 @@
 import config from '../config';
 
-function makeRequest(url, options, data = {}) {
-  const { method, useCredentials } = options;
+function makeRequest(url, options) {
+  const { method, data, useCredentials } = options;
   const fetchParams = {
     method,
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
   };
+
+  if (data) {
+    fetchParams.body = JSON.stringify(data);
+  }
 
   if (useCredentials) {
     fetchParams.credentials = 'include';
@@ -26,10 +29,11 @@ export function loginUser(username, password) {
   };
   const options = {
     method: 'POST',
+    data,
     useCredentials: true,
   };
 
-  return makeRequest(url, options, data);
+  return makeRequest(url, options);
 }
 
 export function registerUser(username, password, email, gender = 'Male', description = '') {
@@ -43,10 +47,11 @@ export function registerUser(username, password, email, gender = 'Male', descrip
   };
   const options = {
     method: 'POST',
+    data,
     useCredentials: true,
   };
 
-  return makeRequest(url, options, data);
+  return makeRequest(url, options);
 }
 
 export function createBook(title, author, genre, description) {
@@ -59,14 +64,15 @@ export function createBook(title, author, genre, description) {
   };
   const options = {
     method: 'POST',
+    data,
     useCredentials: true,
   };
 
-  return makeRequest(url, options, data);
+  return makeRequest(url, options);
 }
 
 export function getGenres() {
-  const url = `${config.BACKEND_API_URL}/books/genres`;
+  const url = `${config.BACKEND_API_URL}/genres/list`;
   const options = {
     method: 'GET',
   };

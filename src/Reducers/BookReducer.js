@@ -5,6 +5,7 @@ const initialState = {
 };
 
 export function handleGetGenresComplete(state = initialState, action) {
+  console.log('HELLO');
   const { error, payload } = action;
   if (error) return state;
   const { genres } = payload;
