@@ -92,3 +92,12 @@ export function getIndexBooks() {
 
   return makeRequest(url, options);
 }
+
+export function getUserProfile(username) {
+  const url = `${config.BACKEND_API_URL}/users/${username}`;
+  const options = {
+    method: 'GET',
+  };
+
+  makeRequest(url, options);
+}
