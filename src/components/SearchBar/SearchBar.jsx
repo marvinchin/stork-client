@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Select from 'react-select';
+import { connect } from 'react-redux';
 
+import { getGenres } from '../../ActionCreators/BookActionCreators';
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       searchField: { value: 'title', label: 'Title' },
-      genre: { value: '', label: 'Any Genre' },
+      genre: null,
     };
 
     this.onSearchFieldUpdate = this.onSearchFieldUpdate.bind(this);
     this.onGenreUpdate = this.onGenreUpdate.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.dispatch(getGenres());
   }
 
   onSearchFieldUpdate(searchField) {
@@ -32,11 +39,13 @@ class SearchBar extends Component {
       { value: 'author', label: 'Author' },
     ];
 
-    const genreOptions = [
-      { value: '', label: 'Any Genre' },
-      { value: 'Sci-Fi', label: 'Sci-Fi' },
-      { value: 'Fiction', label: 'Fiction' },
-    ];
+    const { genres } = this.props;
+    const genreOptions = genres.map(genre => (
+      {
+        value: genre,
+        label: genre,
+      }
+    ));
 
     const mainRow = (
       <div className="c-search__input l-form__input-group">
@@ -90,4 +99,15 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+SearchBar.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  genres: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = state => (
+  {
+    genres: state.books.genres,
+  }
+);
+
+export default connect(mapStateToProps)(SearchBar);

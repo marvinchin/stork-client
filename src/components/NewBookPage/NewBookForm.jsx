@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { connect } from 'react-redux';
-
-import { createBook, getGenres } from '../../ActionCreators/BookActionCreators';
 
 class NewBookForm extends Component {
   constructor(props) {
@@ -20,11 +17,6 @@ class NewBookForm extends Component {
     this.onGenreUpdate = this.onGenreUpdate.bind(this);
     this.onDescriptionChange = this.onDescriptionChange.bind(this);
     this.onCreateBook = this.onCreateBook.bind(this);
-  }
-
-
-  componentDidMount() {
-    this.props.dispatch(getGenres());
   }
 
   onTitleChange(e) {
@@ -48,7 +40,7 @@ class NewBookForm extends Component {
   onCreateBook(e) {
     e.preventDefault();
     const { title, author, genre, description } = this.state;
-    this.props.dispatch(createBook(title, author, genre, description));
+    this.props.handleCreateSubmit(title, author, genre, description);
   }
 
   render() {
@@ -124,14 +116,8 @@ class NewBookForm extends Component {
 }
 
 NewBookForm.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   genres: PropTypes.array.isRequired,
+  handleCreateSubmit: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => (
-  {
-    genres: state.books.genres,
-  }
-);
-
-export default connect(mapStateToProps)(NewBookForm);
+export default NewBookForm;
