@@ -3,6 +3,7 @@ import {
   registerUser,
   createBook,
   getGenres,
+  getIndexBooks,
   __RewireAPI__ as RewireAPI,
 } from '../src/Apis';
 import config from '../config';
@@ -185,6 +186,29 @@ describe('getGenres', () => {
     };
 
     getGenres();
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
+  });
+});
+
+describe('getIndexBooks', () => {
+  const mockMakeRequest = jest.fn();
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency('makeRequest');
+  });
+
+  it('should make a get request to endpoint', () => {
+    const expectedUrl = `${config.BACKEND_API_URL}/books`;
+    const expectedOptions = {
+      method: 'GET',
+    };
+
+    getIndexBooks();
 
     expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });

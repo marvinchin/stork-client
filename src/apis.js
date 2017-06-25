@@ -79,3 +79,12 @@ export function getGenres() {
 
   return makeRequest(url, options);
 }
+
+export function getIndexBooks() {
+  const url = `${config.BACKEND_API_URL}/books`;
+  const options = {
+    method: 'GET',
+  };
+
+  return makeRequest(url, options);
+}
