@@ -1,8 +1,8 @@
 import { cloneableGenerator } from 'redux-saga/Utils';
 import { call, put } from 'redux-saga/effects';
 
-import { handleCreateBook, handleCreateBookComplete } from '../../src/Sagas/BookSagas';
-import { createBook } from '../../src/Apis';
+import { handleCreateBook, handleCreateBookComplete, handleGetGenres } from '../../src/Sagas/BookSagas';
+import { createBook, getGenres } from '../../src/Apis';
 
 describe('HandleCreateBook', () => {
   const title = 'The Three Little Pigs';
@@ -136,6 +136,76 @@ describe('HandleCreateBookComplete', () => {
 
     it('should be done', () => {
       expect(gen.next().done).toBe(true);
+    });
+  });
+});
+
+describe('Get Genres', () => {
+  const action = {
+    type: 'GET_GENRES_PENDING',
+    payload: {},
+  };
+  const gen = cloneableGenerator(handleGetGenres)(action);
+  let genFail;
+
+  it('should call getGenres API', () => {
+    const expectedCall = call(getGenres);
+    expect(gen.next().value).toEqual(expectedCall);
+    genFail = gen.clone();
+  });
+
+  describe('Success', () => {
+    const status = 200;
+    const body = {
+      success: true,
+      genres: ['Fiction', 'Non-Fiction'],
+    };
+    const res = {
+      status,
+      json: () => (
+        new Promise((resolve) => {
+          resolve(body);
+        })
+      ),
+    };
+
+    it('should call json function on res', () => {
+      const expectedCall = call(res.json);
+
+      expect(gen.next(res).value).toEqual(expectedCall);
+    });
+
+    it('should put a successful GET_GENRES_COMPLETE action', () => {
+      const expectedPut = put({
+        type: 'GET_GENRES_COMPLETE',
+        payload: {
+          genres: body.genres,
+        },
+      });
+      expect(gen.next(body).value).toEqual(expectedPut);
+    });
+
+    it('should be done', () => {
+      expect(gen.next().done).toBe(true);
+    });
+  });
+
+  describe('Failure', () => {
+    const error = new Error();
+    it('should put failure GET_GENRES_COMPLETE action', () => {
+      const expectedPut = put({
+        type: 'GET_GENRES_COMPLETE',
+        error: true,
+        payload: {
+          error: expect.anything(),
+        },
+      });
+
+      expect(genFail.throw(error).value).toEqual(expectedPut);
+    });
+
+    it('should be done', () => {
+      expect(genFail.next().done).toBe(true);
     });
   });
 });

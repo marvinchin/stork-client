@@ -1,8 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import Actions from '../constants/Actions';
-import { createBookComplete } from '../ActionCreators/BookActionCreators';
-import { createBook } from '../Apis';
+import { createBookComplete, getGenresComplete } from '../ActionCreators/BookActionCreators';
+import { createBook, getGenres } from '../Apis';
 import { changeRoute } from '../ActionCreators/RouteActionCreators';
 
 export function* handleCreateBook(action) {
@@ -30,6 +30,21 @@ export function* handleCreateBook(action) {
 export function* handleCreateBookComplete(action) {
   if (action.error) return;
   yield put(changeRoute('/'));
+}
+
+export function* handleGetGenres(action) {
+  let res;
+
+  try {
+    res = yield call(getGenres);
+  } catch (err) {
+    yield put(getGenresComplete(err));
+    return;
+  }
+
+  const resBody = yield call(res.json);
+  const { genres } = resBody;
+  yield put(getGenresComplete(null, genres));
 }
 
 export const bookSagas = [
