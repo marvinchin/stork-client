@@ -17,4 +17,7 @@ export default keyMirror({
   GET_GENRES_COMPLETE: null,
   GET_INDEX_BOOKS_PENDING: null,
   GET_INDEX_BOOKS_COMPLETE: null,
+
+  GET_USER_PROFILE_PENDING: null,
+  GET_USER_PROFILE_COMPLETE: null,
 });
