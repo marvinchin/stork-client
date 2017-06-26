@@ -1,4 +1,4 @@
-import { cloneableGenerator } from 'redux-saga/Utils';
+import { cloneableGenerator } from 'redux-saga/utils';
 import { call, put } from 'redux-saga/effects';
 
 import {
@@ -27,33 +27,21 @@ describe('GetUserProfile', () => {
   describe('Success', () => {
     const status = 200;
     const body = {
-      user: {
-        id: 1,
-      },
+      username: 'test_user',
     };
     const res = {
       status,
-      json: () => (
-        new Promise((resolve) => {
-          resolve(body);
-        })
-      ),
+      body,
     };
-
-    it('should call json fnuction on res', () => {
-      const expectedCall = call(res.json);
-
-      expect(gen.next(res).value).toEqual(expectedCall);
-    });
 
     it('should put a successful GET_USER_PROFILE_COMPLETE action', () => {
       const expectedPut = put({
         type: 'GET_USER_PROFILE_COMPLETE',
         payload: {
-          user: body.user,
+          user: body,
         },
       });
-      expect(gen.next(body).value).toEqual(expectedPut);
+      expect(gen.next(res).value).toEqual(expectedPut);
     });
 
     it('should be done', () => {

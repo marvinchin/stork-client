@@ -1,4 +1,4 @@
-import { cloneableGenerator } from 'redux-saga/Utils';
+import { cloneableGenerator } from 'redux-saga/utils';
 import { call, put } from 'redux-saga/effects';
 
 import { handleUserLogin, handleUserLoginComplete, handleUserRegister, handleUserRegisterComplete } from '../../src/Sagas/AuthSagas';

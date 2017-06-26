@@ -66,14 +66,3 @@ export const authSagas = [
   takeLatest(Actions.AUTH_USER_REGISTER_PENDING, handleUserRegister),
   takeLatest(Actions.AUTH_USER_REGISTER_COMPLETE, handleUserRegisterComplete),
 ];
-
-/*
-export default function* watchAuthSagas() {
-  yield [
-    takeLatest(Actions.AUTH_USER_LOGIN_PENDING, handleUserLogin),
-    takeLatest(Actions.AUTH_USER_LOGIN_COMPLETE, handleUserLoginComplete),
-    takeLatest(Actions.AUTH_USER_REGISTER_PENDING, handleUserRegister),
-    takeLatest(Actions.AUTH_USER_REGISTER_COMPLETE, handleUserRegisterComplete),
-  ];
-}
-*/
