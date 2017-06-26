@@ -1,6 +1,8 @@
 import keyMirror from 'keymirror';
 
 export default keyMirror({
+  AUTHENTICATE_USER_PENDING: null,
+  AUTHENTICATE_USER_COMPLETE: null,
   AUTH_USER_LOGIN_PENDING: null,
   AUTH_USER_LOGIN_COMPLETE: null,
   AUTH_USER_REGISTER_PENDING: null,

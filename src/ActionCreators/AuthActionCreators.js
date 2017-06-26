@@ -1,5 +1,31 @@
 import ActionTypes from '../constants/Actions';
 
+export function authenticateUser() {
+  return {
+    type: ActionTypes.AUTHENTICATE_USER_PENDING,
+    payload: {},
+  };
+}
+
+export function authenticateUserComplete(error, user) {
+  if (error) {
+    return {
+      type: ActionTypes.AUTHENTICATE_USER_COMPLETE,
+      error: true,
+      payload: {
+        error,
+      },
+    };
+  }
+
+  return {
+    type: ActionTypes.AUTHENTICATE_USER_COMPLETE,
+    payload: {
+      user,
+    },
+  };
+}
+
 export function loginUser(error, username, password) {
   return {
     type: ActionTypes.AUTH_USER_LOGIN_PENDING,
@@ -10,7 +36,7 @@ export function loginUser(error, username, password) {
   };
 }
 
-export function loginUserComplete(error, user, status) {
+export function loginUserComplete(error, user) {
   if (error) {
     return {
       type: ActionTypes.AUTH_USER_LOGIN_COMPLETE,
@@ -25,7 +51,6 @@ export function loginUserComplete(error, user, status) {
     type: ActionTypes.AUTH_USER_LOGIN_COMPLETE,
     payload: {
       user,
-      status,
     },
   };
 }

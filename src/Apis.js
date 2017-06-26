@@ -24,6 +24,16 @@ function makeRequest(url, options) {
     .catch(err => err);
 }
 
+export function authenticateUser() {
+  const url = `${config.BACKEND_API_URL}/authentication/status`;
+  const options = {
+    method: 'GET',
+    useCredentials: true,
+  };
+
+  return makeRequest(url, options);
+}
+
 export function loginUser(username, password) {
   const url = `${config.BACKEND_API_URL}/authentication/login`;
   const data = {

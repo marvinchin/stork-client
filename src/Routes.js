@@ -10,15 +10,13 @@ import HomePage from './components/HomePage';
 
 export default [
   {
-    path: '/landing',
+    path: '/',
     exact: true,
-    navbar: false,
     component: LandingPage,
   },
   {
     path: '/login',
     exact: true,
-    navbar: false,
     component: LoginPage,
   },
   {
@@ -34,31 +32,35 @@ export default [
     component: ProfilePage,
   },
   {
-    path: '/new-book',
+    path: '/book/new',
     exact: true,
     navbar: true,
+    requireAuth: true,
     component: NewBookPage,
   },
   {
-    path: '/new-trade',
+    path: '/trade/new/:bookid',
     exact: true,
     navbar: true,
+    requireAuth: true,
     component: NewTradePage,
   },
   {
     path: '/inbox',
     exact: true,
     navbar: true,
+    requireAuth: true,
     component: InboxPage,
   },
   {
     path: '/trade',
     exact: true,
     navbar: true,
+    requireAuth: true,
     component: TradePage,
   },
   {
-    path: '/',
+    path: '/index',
     exact: true,
     navbar: true,
     component: HomePage,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
 import Routes from '../Routes';
+import AuthRoute from './AuthRoute';
 import Navbar from './Navbar';
 
 class Page extends Component {
@@ -19,14 +20,31 @@ class Page extends Component {
           ))}
         </div>
         <div>
-          { Routes.map(route => (
-            <Route
-              key={route.path}
-              path={route.path}
-              exact={route.exact}
-              component={route.component}
-            />
-          ))}
+          { Routes.map((route) => {
+            if (route.requireAuth) {
+              const ChildComponent = route.component;
+              return (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  exact={route.exact}
+                  render={() => (
+                    <AuthRoute>
+                      <ChildComponent />
+                    </AuthRoute>
+                  )}
+                />
+              );
+            }
+            return (
+              <Route
+                key={route.path}
+                path={route.path}
+                exact={route.exact}
+                component={route.component}
+              />
+            );
+          })}
         </div>
       </div>
     );

@@ -1,9 +1,32 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import Actions from '../constants/Actions';
-import { loginUserComplete, updateUser, registerUserComplete } from '../ActionCreators/AuthActionCreators';
-import { loginUser, registerUser } from '../Apis';
+import { authenticateUserComplete, loginUserComplete, updateUser, registerUserComplete } from '../ActionCreators/AuthActionCreators';
+import { authenticateUser, loginUser, registerUser } from '../Apis';
 import { changeRoute } from '../ActionCreators/RouteActionCreators';
+
+export function* handleAuthenticateUser() {
+  let res;
+
+  yield put(updateUser(null, null));
+  try {
+    res = yield call(authenticateUser);
+  } catch (err) {
+    yield put(authenticateUserComplete(err));
+    yield put(changeRoute('/login'));
+    return;
+  }
+
+  const { authenticated, user } = res.body;
+  if (authenticated) {
+    yield put(updateUser(null, user));
+    yield put(authenticateUserComplete(null, user));
+    return;
+  }
+  const authFailedError = new Error('Unable to authenticate user');
+  yield put(authenticateUserComplete(authFailedError));
+  yield put(changeRoute('/login'));
+}
 
 export function* handleUserLogin(action) {
   const { username, password } = action.payload;
@@ -17,10 +40,8 @@ export function* handleUserLogin(action) {
   }
   // If status code is 200 login is successful
   if (res.status === 200) {
-    // TODO: Should return logged in user as part of body, for now use a placeholder
-    const user = { username: 'test_user' };
-    const { status } = res; // do we need status, if its already resolved here?
-    yield put(loginUserComplete(null, user, status));
+    const { user } = res.body;
+    yield put(loginUserComplete(null, user));
   } else {
   // Else, failed to login with credentials
     const loginFailedError = new Error('Unable to login with credentials');
@@ -32,7 +53,7 @@ export function* handleUserLoginComplete(action) {
   const { error, user } = action.payload;
   if (error) return;
   yield put(updateUser(error, user));
-  yield put(changeRoute('/'));
+  yield put(changeRoute('/index'));
 }
 
 export function* handleUserRegister(action) {
@@ -46,7 +67,7 @@ export function* handleUserRegister(action) {
     return;
   }
   if (res.status === 200) {
-    const user = { username: 'test_user' }; // temporary placeholder for user returned by server
+    const { user } = res.body;
     yield put(registerUserComplete(null, user));
   } else {
     const registerFailedError = new Error('Unable to register user');
@@ -57,10 +78,11 @@ export function* handleUserRegister(action) {
 export function* handleUserRegisterComplete(action) {
   const { error } = action.payload;
   if (error) return;
-  yield put(changeRoute('/'));
+  yield put(changeRoute('/login'));
 }
 
 export const authSagas = [
+  takeLatest(Actions.AUTHENTICATE_USER_PENDING, handleAuthenticateUser),
   takeLatest(Actions.AUTH_USER_LOGIN_PENDING, handleUserLogin),
   takeLatest(Actions.AUTH_USER_LOGIN_COMPLETE, handleUserLoginComplete),
   takeLatest(Actions.AUTH_USER_REGISTER_PENDING, handleUserRegister),

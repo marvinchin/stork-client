@@ -1,4 +1,5 @@
 import {
+  authenticateUser,
   loginUser,
   registerUser,
   createBook,
@@ -63,6 +64,30 @@ describe('makeRequest', () => {
     makeRequest(url, options);
 
     expect(global.fetch).toBeCalledWith(expectedUrl, expectedParams);
+  });
+});
+
+describe('authenticateUser', () => {
+  const mockMakeRequest = jest.fn();
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency('makeRequest');
+  });
+
+  it('should make get request to endpoint', () => {
+    const expectedUrl = `${config.BACKEND_API_URL}/authentication/status`;
+    const expectedOptions = {
+      method: 'GET',
+      useCredentials: true,
+    };
+
+    authenticateUser();
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });
 });
 

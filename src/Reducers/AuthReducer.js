@@ -2,7 +2,6 @@ import Actions from '../constants/Actions';
 
 const initialState = null;
 
-// todo: action payload should contain the logged in user
 export function handleUpdateUser(state, action) {
   const { error, payload } = action;
   const { user } = payload;

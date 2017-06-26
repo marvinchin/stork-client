@@ -1,10 +1,59 @@
 import {
+  authenticateUser,
+  authenticateUserComplete,
   loginUser,
   loginUserComplete,
   updateUser,
   registerUser,
   registerUserComplete,
 } from '../../src/ActionCreators/AuthActionCreators';
+
+describe('Authenticate User', () => {
+  const action = authenticateUser();
+  it('should create an AUTHENTICATE_USER_PENDING action', () => {
+    const expectedAction = {
+      type: 'AUTHENTICATE_USER_PENDING',
+      payload: {},
+    };
+    expect(action).toEqual(expectedAction);
+  });
+});
+
+describe('Authenticate User Complete', () => {
+  describe('Success', () => {
+    const user = {
+      id: 1,
+    };
+    const action = authenticateUserComplete(null, user);
+
+    it('should return successful AUTHENTICATE_USER_COMPLETE action', () => {
+      const expectedAction = {
+        type: 'AUTHENTICATE_USER_COMPLETE',
+        payload: {
+          user,
+        },
+      };
+      expect(action).toEqual(expectedAction);
+    });
+  });
+
+  describe('Failure', () => {
+    const error = new Error();
+    const action = authenticateUserComplete(error);
+
+    it('should return failure AUTHENTICATE_USER_COMPLETE action', () => {
+      const expectedAction = {
+        type: 'AUTHENTICATE_USER_COMPLETE',
+        error: true,
+        payload: {
+          error,
+        },
+      };
+
+      expect(action).toEqual(expectedAction);
+    });
+  });
+});
 
 describe('Login User', () => {
   const username = 'test_user';
@@ -25,9 +74,8 @@ describe('Login User', () => {
 
 describe('Login User Complete', () => {
   describe('Success', () => {
-    const status = 200;
     const user = { username: 'test_user' };
-    const action = loginUserComplete(null, user, status);
+    const action = loginUserComplete(null, user);
     it('action should have type AUTH_LOGIN_USER_COMPLETE', () => {
       expect(action.type).toEqual('AUTH_USER_LOGIN_COMPLETE');
     });
@@ -37,7 +85,7 @@ describe('Login User Complete', () => {
     });
 
     it('action payload should contain username, password, expiry', () => {
-      expect(action.payload).toEqual({ user, status });
+      expect(action.payload).toEqual({ user });
     });
   });
 

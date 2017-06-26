@@ -1,8 +1,150 @@
 import { cloneableGenerator } from 'redux-saga/utils';
 import { call, put } from 'redux-saga/effects';
 
-import { handleUserLogin, handleUserLoginComplete, handleUserRegister, handleUserRegisterComplete } from '../../src/Sagas/AuthSagas';
-import { loginUser, registerUser } from '../../src/Apis';
+import {
+  handleUserLogin,
+  handleUserLoginComplete,
+  handleUserRegister,
+  handleUserRegisterComplete,
+  handleAuthenticateUser,
+} from '../../src/Sagas/AuthSagas';
+import { loginUser, registerUser, authenticateUser } from '../../src/Apis';
+
+describe('AuthenticateUser', () => {
+  const action = {
+    type: 'AUTHENTICATE_USER_PENDING',
+    payload: {},
+  };
+
+  const gen = cloneableGenerator(handleAuthenticateUser)(action);
+  let genFail;
+  let genBadAuth;
+
+  it('should reset the stored user', () => {
+    const expectedAction = {
+      type: 'AUTH_UPDATE_USER_PENDING',
+      payload: {
+        user: null,
+      },
+    };
+    expect(gen.next().value).toEqual(put(expectedAction));
+  });
+
+  it('should call authenticateUser', () => {
+    const expectedCall = call(authenticateUser);
+    expect(gen.next().value).toEqual(expectedCall);
+    genFail = gen.clone();
+    genBadAuth = gen.clone();
+  });
+
+  describe('Request Success', () => {
+    describe('Auth Success', () => {
+      const status = 200;
+      const body = {
+        authenticated: true,
+        user: {
+          id: 1,
+        },
+      };
+      const res = {
+        status,
+        body,
+      };
+
+      it('should put action of type AUTH_UPDATE_USER_PENDING', () => {
+        const expectedAction = {
+          type: 'AUTH_UPDATE_USER_PENDING',
+          payload: {
+            user: body.user,
+          },
+        };
+        expect(gen.next(res).value).toEqual(put(expectedAction));
+      });
+
+      it('should put successful AUTHENTICATE_USER_COMPLETE action', () => {
+        const expectedPut = put({
+          type: 'AUTHENTICATE_USER_COMPLETE',
+          payload: {
+            user: body.user,
+          },
+        });
+        expect(gen.next().value).toEqual(expectedPut);
+      });
+
+      it('should be done', () => {
+        expect(gen.next().done).toBe(true);
+      });
+    });
+
+    describe('Auth Failure', () => {
+      const status = 200;
+      const body = {
+        authenticated: false,
+      };
+      const res = {
+        status,
+        body,
+      };
+
+      it('should put failure AUTHENTICATE_USER_COMPLETE action', () => {
+        const expectedPut = put({
+          type: 'AUTHENTICATE_USER_COMPLETE',
+          error: true,
+          payload: {
+            error: expect.anything(),
+          },
+        });
+
+        expect(genBadAuth.next(res).value).toEqual(expectedPut);
+      });
+
+      it('should redirect user to login page', () => {
+        const route = '/login';
+        const expectedPut = put({
+          type: 'ROUTE_CHANGE_PENDING',
+          payload: {
+            route,
+          },
+        });
+        expect(genBadAuth.next().value).toEqual(expectedPut);
+      });
+
+      it('should be done', () => {
+        expect(genBadAuth.next().done).toBe(true);
+      });
+    });
+  });
+
+  describe('Request Failure', () => {
+    const error = new Error();
+    it('should put failure AUTHENTICATE_USER_COMPLETE action', () => {
+      const expectedPut = put({
+        type: 'AUTHENTICATE_USER_COMPLETE',
+        error: true,
+        payload: {
+          error: expect.anything(),
+        },
+      });
+
+      expect(genFail.throw(error).value).toEqual(expectedPut);
+    });
+
+    it('should redirect user to login page', () => {
+      const route = '/login';
+      const expectedPut = put({
+        type: 'ROUTE_CHANGE_PENDING',
+        payload: {
+          route,
+        },
+      });
+      expect(genFail.next().value).toEqual(expectedPut);
+    });
+
+    it('should be done', () => {
+      expect(genFail.next().done).toBe(true);
+    });
+  });
+});
 
 describe('HandleUserLogin', () => {
   const username = 'test_user';
@@ -29,22 +171,26 @@ describe('HandleUserLogin', () => {
   describe('Request Success', () => {
     describe('Successful Login', () => {
       const status = 200;
-      const user = {
-        username: 'test_user',
+      const body = {
+        user: {
+          username: 'test_user',
+        },
       };
       const res = {
         status,
+        body,
       };
-      const expectedPut = put({
-        type: 'AUTH_USER_LOGIN_COMPLETE',
-        payload: {
-          status,
-          user,
-        },
-      });
-      it('should put successful action of type AUTH_USER_LOGIN_COMPLETE', () => {
+      it('should put successful AUTH_USER_LOGIN_COMPLETE action', () => {
+        const expectedPut = put({
+          type: 'AUTH_USER_LOGIN_COMPLETE',
+          payload: {
+            user: body.user,
+          },
+        });
+
         expect(gen.next(res).value).toEqual(expectedPut);
       });
+
       it('should be done', () => {
         expect(gen.next().done).toBe(true);
       });
@@ -56,16 +202,18 @@ describe('HandleUserLogin', () => {
         status,
       };
       const error = new Error('Unable to login with credentials');
-      const expectedPut = put({
-        type: 'AUTH_USER_LOGIN_COMPLETE',
-        error: true,
-        payload: {
-          error,
-        },
-      });
-      it('should put error action of type AUTH_USER_LOGIN_COMPLETE', () => {
+      it('should put a failure AUTH_USER_LOGIN_COMPLETE action', () => {
+        const expectedPut = put({
+          type: 'AUTH_USER_LOGIN_COMPLETE',
+          error: true,
+          payload: {
+            error,
+          },
+        });
+
         expect(genBadLogin.next(res).value).toEqual(expectedPut);
       });
+
       it('should be done', () => {
         expect(genBadLogin.next().done).toBe(true);
       });
@@ -74,14 +222,14 @@ describe('HandleUserLogin', () => {
 
   describe('Request Failure', () => {
     const error = new Error();
-    const expectedPut = put({
-      type: 'AUTH_USER_LOGIN_COMPLETE',
-      error: true,
-      payload: {
-        error,
-      },
-    });
     it('should put error action of type AUTH_USER_LOGIN_COMPLETE', () => {
+      const expectedPut = put({
+        type: 'AUTH_USER_LOGIN_COMPLETE',
+        error: true,
+        payload: {
+          error,
+        },
+      });
       expect(genFail.throw(error).value).toEqual(expectedPut);
     });
 
@@ -115,7 +263,7 @@ describe('handleUserLoginComplete', () => {
     });
 
     it('should put action of type ROUTE_CHANGE_PENDING', () => {
-      const route = '/';
+      const route = '/index';
       const expectedAction = {
         type: 'ROUTE_CHANGE_PENDING',
         payload: {
@@ -173,17 +321,20 @@ describe('handleUserRegister', () => {
   describe('Request Success', () => {
     describe('Successful Register', () => {
       const status = 200;
-      const user = {
-        username: 'test_user',
+      const body = {
+        user: {
+          username: 'test_user',
+        },
       };
       const res = {
         status,
+        body,
       };
       it('should put a successful AUTH_USER_REGISTER_COMPLETE action', () => {
         const expectedPut = put({
           type: 'AUTH_USER_REGISTER_COMPLETE',
           payload: {
-            user,
+            user: body.user,
           },
         });
         expect(gen.next(res).value).toEqual(expectedPut);
@@ -243,8 +394,8 @@ describe('handleUserRegisterComplete', () => {
 
     const gen = handleUserRegisterComplete(action);
 
-    it('should redirect user to homepage', () => {
-      const route = '/';
+    it('should redirect user to login page', () => {
+      const route = '/login';
       const expectedAction = {
         type: 'ROUTE_CHANGE_PENDING',
         payload: {
