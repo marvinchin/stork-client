@@ -16,6 +16,7 @@ module.exports = {
   },
   output: {
     path: path.resolve('dist'),
+    publicPath: '/',
     filename: 'bundle.js',
   },
   resolve: {
@@ -65,7 +66,9 @@ module.exports = {
     ExtractTextPluginConfig,
   ],
   devServer: {
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: '/',
+    },
   },
   devtool: 'cheap-source-map',
 };

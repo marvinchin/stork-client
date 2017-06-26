@@ -28,7 +28,7 @@ export default [
     component: RegisterPage,
   },
   {
-    path: '/user',
+    path: '/user/:username',
     exact: true,
     navbar: true,
     component: ProfilePage,

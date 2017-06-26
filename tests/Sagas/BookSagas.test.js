@@ -165,20 +165,7 @@ describe('HandleGetGenres', () => {
       success: true,
       genres: ['Fiction', 'Non-Fiction'],
     };
-    const res = {
-      status,
-      json: () => (
-        new Promise((resolve) => {
-          resolve(body);
-        })
-      ),
-    };
-
-    it('should call json function on res', () => {
-      const expectedCall = call(res.json);
-
-      expect(gen.next(res).value).toEqual(expectedCall);
-    });
+    const res = { status, body };
 
     it('should put a successful GET_GENRES_COMPLETE action', () => {
       const expectedPut = put({
@@ -187,7 +174,7 @@ describe('HandleGetGenres', () => {
           genres: body.genres,
         },
       });
-      expect(gen.next(body).value).toEqual(expectedPut);
+      expect(gen.next(res).value).toEqual(expectedPut);
     });
 
     it('should be done', () => {
@@ -238,20 +225,8 @@ describe('HandleGetIndexBooks', () => {
         { id: 2 },
       ],
     };
-    const res = {
-      status,
-      json: () => (
-        new Promise((resolve) => {
-          resolve(body);
-        })
-      ),
-    };
 
-    it('should call json function on res', () => {
-      const expectedCall = call(res.json);
-
-      expect(gen.next(res).value).toEqual(expectedCall);
-    });
+    const res = { status, body };
 
     it('should put a successful GET_INDEX_BOOKS_COMPLETE action', () => {
       const expectedPut = put({
@@ -260,7 +235,7 @@ describe('HandleGetIndexBooks', () => {
           books: body.books,
         },
       });
-      expect(gen.next(body).value).toEqual(expectedPut);
+      expect(gen.next(res).value).toEqual(expectedPut);
     });
 
     it('should be done', () => {

@@ -41,8 +41,7 @@ export function* handleGetGenres() {
     yield put(getGenresComplete(err));
     return;
   }
-  const resBody = yield call(res.json);
-  const { genres } = resBody;
+  const { genres } = res.body;
   yield put(getGenresComplete(null, genres));
 }
 
@@ -55,8 +54,7 @@ export function* handleGetIndexBooks() {
     yield put(getIndexBooksComplete(err));
     return;
   }
-  const resBody = yield call(res.json);
-  const { books } = resBody;
+  const { books } = res.body;
   yield put(getIndexBooksComplete(null, books));
 }
 

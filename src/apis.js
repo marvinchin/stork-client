@@ -17,7 +17,11 @@ function makeRequest(url, options) {
     fetchParams.credentials = 'include';
   }
 
-  return fetch(url, fetchParams);
+  return fetch(url, fetchParams)
+    .then(res => (
+      res.json().then(body => ({ status: res.status, body }))
+    ))
+    .catch(err => err);
 }
 
 export function loginUser(username, password) {
@@ -81,7 +85,7 @@ export function getGenres() {
 }
 
 export function getIndexBooks() {
-  const url = `${config.BACKEND_API_URL}/books`;
+  const url = `${config.BACKEND_API_URL}/books/list/${config.NUM_BOOKS_PER_LOAD}`;
   const options = {
     method: 'GET',
   };

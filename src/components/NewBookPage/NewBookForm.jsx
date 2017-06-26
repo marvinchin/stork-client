@@ -40,7 +40,8 @@ class NewBookForm extends Component {
   onCreateBook(e) {
     e.preventDefault();
     const { title, author, genre, description } = this.state;
-    this.props.handleCreateSubmit(title, author, genre, description);
+    const genreValue = genre.value;
+    this.props.handleCreateSubmit(title, author, genreValue, description);
   }
 
   render() {

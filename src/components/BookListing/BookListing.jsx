@@ -17,7 +17,6 @@ class BookListing extends Component {
     this.setState({
       isSelected: !this.state.isSelected,
     });
-    // Handle redux state change here
   }
 
   onClick(event) {
@@ -33,9 +32,10 @@ class BookListing extends Component {
       return null;
     }
     const { description } = this.props;
+    const descriptionText = (description === '') ? 'No Description' : description;
     return (
       <div className="c-book-listing__description">
-        <p>{ description }</p>
+        <p>{ descriptionText }</p>
       </div>
     );
   }
@@ -86,7 +86,7 @@ class BookListing extends Component {
 }
 
 BookListing.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   author: PropTypes.string,
   genre: PropTypes.string.isRequired,

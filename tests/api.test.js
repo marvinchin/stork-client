@@ -10,7 +10,13 @@ import config from '../config';
 
 describe('makeRequest', () => {
   const makeRequest = RewireAPI.__GetDependency__('makeRequest');
-  global.fetch = jest.fn();
+  global.fetch = jest.fn(() => {
+    const res = {
+      status: 200,
+      body: new Promise(resolve => resolve({ key: 'value' })),
+    };
+    return new Promise(resolve => resolve(res));
+  });
 
   it('should call fetch with the appropriate params', () => {
     const url = 'http://api.storkapp.flu.cc';
@@ -203,7 +209,7 @@ describe('getIndexBooks', () => {
   });
 
   it('should make a get request to endpoint', () => {
-    const expectedUrl = `${config.BACKEND_API_URL}/books`;
+    const expectedUrl = `${config.BACKEND_API_URL}/books/list/${config.NUM_BOOKS_PER_LOAD}`;
     const expectedOptions = {
       method: 'GET',
     };
