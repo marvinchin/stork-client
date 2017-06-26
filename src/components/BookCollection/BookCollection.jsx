@@ -26,21 +26,6 @@ BookCollection.propTypes = {
 };
 
 BookCollection.defaultProps = {
-  books: [
-    {
-      id: 1,
-      title: 'The Three Little Pigs',
-      author: 'Big Bad Wolf',
-      genre: 'Fiction',
-      description: 'The Three Little Pigs meet a Big Bad Wolf',
-    },
-    {
-      id: 2,
-      title: 'Little Red Riding Hood',
-      author: 'Big Bad Wolf',
-      genre: 'Fiction',
-    },
-  ],
   isSelectable: false,
 };
 

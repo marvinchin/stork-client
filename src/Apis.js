@@ -99,5 +99,5 @@ export function getUserProfile(username) {
     method: 'GET',
   };
 
-  makeRequest(url, options);
+  return makeRequest(url, options);
 }
