@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class BookListing extends Component {
 
@@ -33,9 +34,22 @@ class BookListing extends Component {
     }
     const { description } = this.props;
     const descriptionText = (description === '') ? 'No Description' : description;
+    const { ownerUsername } = this.props;
+
+    let link = null;
+    if (ownerUsername !== '') {
+      const linkUrl = `/user/${ownerUsername}`;
+      link = (
+        <Link to={linkUrl}>
+          Listed by {ownerUsername}
+        </Link>
+      );
+    }
+
     return (
       <div className="c-book-listing__description">
         <p>{ descriptionText }</p>
+        { link }
       </div>
     );
   }
@@ -60,6 +74,18 @@ class BookListing extends Component {
     return null;
   }
 
+  renderGenre() {
+    const { genre } = this.props;
+    if (genre === 'Fiction') {
+      return (
+        <div className="c-book-listing__genre-placeholder--fiction" />
+      );
+    }
+    return (
+      <div className="c-book-listing__genre-placeholder--non-fiction" />
+    );
+  }
+
   render() {
     const { title, author } = this.props;
 
@@ -67,7 +93,7 @@ class BookListing extends Component {
       <div className="c-book-listing" role="button" tabIndex={0} onClick={this.onClick}>
         <div className="l-book-listing__header l-flex__row">
           <div className="c-book-listing__genre">
-            <div className="c-book-listing__genre-placeholder" />
+            { this.renderGenre() }
           </div>
           <div className="l-book-listing__info">
             <div className="c-book-listing__title">
@@ -91,6 +117,7 @@ BookListing.propTypes = {
   author: PropTypes.string,
   genre: PropTypes.string.isRequired,
   description: PropTypes.string,
+  ownerUsername: PropTypes.string,
   isSelectable: PropTypes.bool,
 };
 
@@ -98,6 +125,7 @@ BookListing.defaultProps = {
   author: 'Not Specified',
   description: 'No Description',
   isSelectable: false,
+  ownerUsername: '',
 };
 
 

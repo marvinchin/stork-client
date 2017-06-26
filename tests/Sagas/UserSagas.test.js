@@ -27,7 +27,9 @@ describe('GetUserProfile', () => {
   describe('Success', () => {
     const status = 200;
     const body = {
-      username: 'test_user',
+      user: {
+        username: 'test_user',
+      },
     };
     const res = {
       status,
@@ -38,7 +40,7 @@ describe('GetUserProfile', () => {
       const expectedPut = put({
         type: 'GET_USER_PROFILE_COMPLETE',
         payload: {
-          user: body,
+          user: body.user,
         },
       });
       expect(gen.next(res).value).toEqual(expectedPut);

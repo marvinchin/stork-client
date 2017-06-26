@@ -13,9 +13,7 @@ export function* handleGetUserProfile(action) {
     yield put(getUserProfileComplete(err));
     return;
   }
-  // temporary while awaiting backend change
-  // const { user } = res.body;
-  const user = res.body;
+  const { user } = res.body;
   yield put(getUserProfileComplete(null, user));
 }
 

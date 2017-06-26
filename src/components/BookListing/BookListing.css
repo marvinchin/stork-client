@@ -38,11 +38,22 @@
   margin-top: 1em;
 }
 
-.c-book-listing__genre-placeholder {
+.c-book-listing__genre-placeholder--fiction {
   width: 15px;
   height: 15px;
   border-radius: 50%;
   background-color: lightcoral;
+  margin: auto;
+  font-size: 0.8em;
+  text-align: center;
+  color: white;
+}
+
+.c-book-listing__genre-placeholder--non-fiction {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: lightsteelblue;
   margin: auto;
   font-size: 0.8em;
   text-align: center;

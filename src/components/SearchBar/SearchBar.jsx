@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { connect } from 'react-redux';
 
 import { getGenres } from '../../ActionCreators/BookActionCreators';
+import { changeRoute } from '../../ActionCreators/RouteActionCreators';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class SearchBar extends Component {
 
     this.onSearchFieldUpdate = this.onSearchFieldUpdate.bind(this);
     this.onGenreUpdate = this.onGenreUpdate.bind(this);
+    this.onListBookClick = this.onListBookClick.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +33,11 @@ class SearchBar extends Component {
     this.setState({
       genre,
     });
+  }
+
+  onListBookClick(e) {
+    e.preventDefault();
+    this.props.dispatch(changeRoute('/book/new'));
   }
 
   render() {
@@ -90,9 +97,17 @@ class SearchBar extends Component {
         <div className="l-flex__col l-search__content">
           { mainRow }
           { supplementaryRow }
-          <button className="c-button">
-            Search
-          </button>
+          <div className="l-flex__row">
+            <button
+              className="c-button"
+              onClick={this.onListBookClick}
+            >
+              List Book!
+            </button>
+            <button className="c-button">
+              Search
+            </button>
+          </div>
         </div>
       </div>
     );

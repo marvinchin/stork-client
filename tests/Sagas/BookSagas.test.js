@@ -111,7 +111,7 @@ describe('HandleCreateBookComplete', () => {
     const gen = handleCreateBookComplete(action);
 
     it('should put an action to redirect user to index', () => {
-      const route = '/';
+      const route = '/index';
       const expectedPut = put({
         type: 'ROUTE_CHANGE_PENDING',
         payload: {

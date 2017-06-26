@@ -29,7 +29,7 @@ export function* handleCreateBook(action) {
 
 export function* handleCreateBookComplete(action) {
   if (action.error) return;
-  yield put(changeRoute('/'));
+  yield put(changeRoute('/index'));
 }
 
 export function* handleGetGenres() {
