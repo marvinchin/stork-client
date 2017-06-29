@@ -13,13 +13,10 @@ class HomePage extends Component {
 
   render() {
     const { indexBooks } = this.props;
-    const indexBooksFixGenre = indexBooks.map(book => (
-      Object.assign({}, book, { genre: book.genre[0] })
-    ));
     return (
       <div className="c-home">
         <SearchBar />
-        <BookCollection books={indexBooksFixGenre} />
+        <BookCollection books={indexBooks} />
       </div>
     );
   }

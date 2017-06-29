@@ -73,7 +73,7 @@ export function createBook(title, author, genre, description) {
   const data = {
     title,
     author,
-    genre: [genre],
+    genre,
     description,
   };
   const options = {

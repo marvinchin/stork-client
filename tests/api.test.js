@@ -185,7 +185,7 @@ describe('createBook', () => {
     const data = {
       title,
       author,
-      genre: [genre],
+      genre,
       description,
     };
     const expectedOptions = {
