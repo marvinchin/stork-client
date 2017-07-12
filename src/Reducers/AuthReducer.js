@@ -1,18 +1,34 @@
 import Actions from '../constants/Actions';
 
-const initialState = null;
+const initialState = {
+  user: null,
+  authErr: null,
+};
 
-export function handleUpdateUser(state, action) {
+export function resetAuthErrors(state) {
+  const newState = Object.assign({}, state, { authErr: null });
+  return newState;
+}
+
+export function handleLoginComplete(state, action) {
   const { error, payload } = action;
-  const { user } = payload;
-  if (error) return state;
-  return user;
+  let newState;
+  if (error) {
+    const authErr = payload.error;
+    newState = Object.assign({}, state, { authErr });
+  } else {
+    const { user } = payload;
+    newState = Object.assign({}, state, { user, authErr: null });
+  }
+  return newState;
 }
 
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
-    case (Actions.AUTH_UPDATE_USER_PENDING):
-      return handleUpdateUser(state, action);
+    case (Actions.AUTH_USER_LOGIN_COMPLETE):
+      return handleLoginComplete(state, action);
+    case (Actions.AUTH_RESET_ERRORS):
+      return resetAuthErrors(state);
     default:
       return state;
   }

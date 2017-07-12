@@ -252,16 +252,6 @@ describe('handleUserLoginComplete', () => {
     };
     const gen = handleUserLoginComplete(action);
 
-    it('should put action of type AUTH_UPDATE_USER_PENDING', () => {
-      const expectedAction = {
-        type: 'AUTH_UPDATE_USER_PENDING',
-        payload: {
-          user,
-        },
-      };
-      expect(gen.next().value).toEqual(put(expectedAction));
-    });
-
     it('should put action of type ROUTE_CHANGE_PENDING', () => {
       const route = '/index';
       const expectedAction = {

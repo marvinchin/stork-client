@@ -6,6 +6,7 @@ import {
   updateUser,
   registerUser,
   registerUserComplete,
+  resetAuthErrors,
 } from '../../src/ActionCreators/AuthActionCreators';
 
 describe('Authenticate User', () => {
@@ -171,3 +172,12 @@ describe('Register User Complete', () => {
     });
   });
 });
+
+describe('Reset Auth Errors', () => {
+  const expectedAction = {
+    type: 'AUTH_RESET_ERRORS',
+    payload: {},
+  };
+  expect(resetAuthErrors()).toEqual(expectedAction);
+});
+

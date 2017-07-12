@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { loginUser } from '../../ActionCreators/AuthActionCreators';
+import { resetAuthErrors, loginUser } from '../../ActionCreators/AuthActionCreators';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -16,6 +16,10 @@ class LoginForm extends Component {
     this.onPasswordChange = this.onPasswordChange.bind(this);
   }
 
+  componentWillMount() {
+    this.props.dispatch(resetAuthErrors());
+  }
+  
   onUsernameChange(e) {
     this.setState({ username: e.target.value });
   }
@@ -28,6 +32,15 @@ class LoginForm extends Component {
     e.preventDefault();
     const { username, password } = this.state;
     this.props.dispatch(loginUser(null, username, password));
+  }
+
+  renderErrorMessage() {
+    const { authErr } = this.props;
+    return (
+      <div className="c-login-form__error">
+        { authErr != null ? authErr.message : null }
+      </div>
+    );
   }
 
   render() {
@@ -58,6 +71,7 @@ class LoginForm extends Component {
         >
           Log In
         </button>
+        { this.renderErrorMessage() }
       </form>
     );
   }
@@ -65,6 +79,17 @@ class LoginForm extends Component {
 
 LoginForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  authErr: PropTypes.instanceOf(Error),
 };
 
-export default connect()(LoginForm);
+LoginForm.defaultProps = {
+  authErr: null,
+};
+
+const mapStateToProps = state => (
+  {
+    authErr: state.auth.authErr,
+  }
+);
+
+export default connect(mapStateToProps)(LoginForm);

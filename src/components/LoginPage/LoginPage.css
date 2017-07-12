@@ -41,3 +41,9 @@
   color: white;
   background-color: transparent;
 }
+
+.c-login .c-login-form__error {
+    height: 1em;
+    font-size: 0.75em;
+    margin-top: 10px;
+}

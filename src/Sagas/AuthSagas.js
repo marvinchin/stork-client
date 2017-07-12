@@ -50,9 +50,8 @@ export function* handleUserLogin(action) {
 }
 
 export function* handleUserLoginComplete(action) {
-  const { error, user } = action.payload;
+  const { error } = action.payload;
   if (error) return;
-  yield put(updateUser(error, user));
   yield put(changeRoute('/index'));
 }
 

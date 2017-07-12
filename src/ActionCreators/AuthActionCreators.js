@@ -95,3 +95,10 @@ export function registerUserComplete(error, user) {
     },
   };
 }
+
+export function resetAuthErrors() {
+  return {
+    type: ActionTypes.AUTH_RESET_ERRORS,
+    payload: {},
+  };
+}
