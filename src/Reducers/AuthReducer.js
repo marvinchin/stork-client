@@ -23,10 +23,22 @@ export function handleLoginComplete(state, action) {
   return newState;
 }
 
+export function handleRegisterComplete(state, action) {
+  const { error, payload } = action;
+  if (error) {
+    const authErr = payload.error;
+    const newState = Object.assign({}, state, { authErr });
+    return newState;
+  }
+  return state;
+}
+
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
     case (Actions.AUTH_USER_LOGIN_COMPLETE):
       return handleLoginComplete(state, action);
+    case (Actions.AUTH_USER_REGISTER_COMPLETE):
+      return handleRegisterComplete(state, action);
     case (Actions.AUTH_RESET_ERRORS):
       return resetAuthErrors(state);
     default:

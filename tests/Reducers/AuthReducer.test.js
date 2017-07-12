@@ -48,6 +48,39 @@ describe('AuthReducer', () => {
     expect(AuthReducer(initialState, action)).toEqual(expectedState);
   });
 
+  it('should handle successful AUTH_USER_REGISTER_COMPLETE', () => {
+    const initialState = {
+      user: null,
+      authErr: null,
+    };
+    const action = {
+      type: 'AUTH_USER_REGISTER_COMPLETE',
+      payload: {},
+    };
+    const expectedState = initialState;
+    expect(AuthReducer(initialState, action)).toEqual(expectedState);
+  });
+
+  it('should handle error AUTH_USER_REGISTER_COMPLETE', () => {
+    const initialState = {
+      user: null,
+      authErr: null,
+    };
+    const authErr = new Error('Duplicate Email');
+    const action = {
+      type: 'AUTH_USER_REGISTER_COMPLETE',
+      error: true,
+      payload: {
+        error: authErr,
+      },
+    };
+    const expectedState = {
+      user: null,
+      authErr,
+    };
+    expect(AuthReducer(initialState, action)).toEqual(expectedState);
+  });
+
   it('should handle AUTH_RESET_ERRORS', () => {
     const initialState = {
       user: 'Hello',
