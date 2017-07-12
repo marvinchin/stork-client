@@ -337,11 +337,15 @@ describe('handleUserRegister', () => {
 
     describe('Bad Register', () => {
       const status = 400;
+      const body = {
+        error: 'Unable to register user',
+      };
       const res = {
         status,
+        body,
       };
       it('should put a failure AUTH_USER_REGISTER_COMPLETE action', () => {
-        const error = new Error('Unable to register user');
+        const error = new Error(body.error);
         const expectedPut = put({
           type: 'AUTH_USER_REGISTER_COMPLETE',
           error: true,
