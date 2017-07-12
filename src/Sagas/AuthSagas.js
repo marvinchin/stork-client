@@ -69,7 +69,8 @@ export function* handleUserRegister(action) {
     const { user } = res.body;
     yield put(registerUserComplete(null, user));
   } else {
-    const registerFailedError = new Error('Unable to register user');
+    const { error } = res.body;
+    const registerFailedError = new Error(error);
     yield put(registerUserComplete(registerFailedError));
   }
 }

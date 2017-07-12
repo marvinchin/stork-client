@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { registerUser } from '../../ActionCreators/AuthActionCreators';
+import { resetAuthErrors, registerUser } from '../../ActionCreators/AuthActionCreators';
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -17,6 +17,10 @@ class RegisterForm extends Component {
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
     this.onRegister = this.onRegister.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.dispatch(resetAuthErrors());
   }
 
   onEmailChange(e) {
@@ -35,6 +39,15 @@ class RegisterForm extends Component {
     e.preventDefault();
     const { email, username, password } = this.state;
     this.props.dispatch(registerUser(null, username, password, email));
+  }
+
+  renderErrorMessage() {
+    const { authErr } = this.props;
+    return (
+      <div className="c-register-page__error">
+        { authErr != null ? authErr.message : null }
+      </div>
+    );
   }
 
   render() {
@@ -85,6 +98,7 @@ class RegisterForm extends Component {
         >
           Register
         </button>
+        { this.renderErrorMessage() }
       </form>
     );
   }
@@ -92,6 +106,17 @@ class RegisterForm extends Component {
 
 RegisterForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  authErr: PropTypes.instanceOf(Error),
 };
 
-export default connect()(RegisterForm);
+RegisterForm.defaultProps = {
+  authErr: null,
+};
+
+const mapStateToProps = state => (
+  {
+    authErr: state.auth.authErr,
+  }
+);
+
+export default connect(mapStateToProps)(RegisterForm);

@@ -43,7 +43,7 @@
 }
 
 .c-login .c-login-form__error {
-    height: 1em;
-    font-size: 0.75em;
-    margin-top: 10px;
+  height: 1em;
+  margin-top: 10px;
+  font-size: 0.75em;
 }
