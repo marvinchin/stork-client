@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -9,6 +10,11 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 const ExtractTextPluginConfig = new ExtractTextPlugin('styles.css');
+
+const JQueryPlugin = new webpack.ProvidePlugin({
+  $: 'jquery',
+  jQuery: 'jquery',
+});
 
 module.exports = {
   entry: {
@@ -42,18 +48,14 @@ module.exports = {
         }),
       },
       {
-        test: /\.(ttf|eot|woff|woff2)$/,
+        test: /\.(ttf|eot|woff|woff2|svg)$/,
         loader: 'file-loader',
         options: {
           name: 'fonts/[name].[ext]',
         },
       },
       {
-        test: /\.svg$/,
-        loader: 'svg-inline-loader',
-      },
-      {
-        test: /\.(jpg|png|svg)$/,
+        test: /\.(jpg|png)$/,
         loader: 'file-loader',
         options: {
           name: 'images/[path][name].[hash].[ext]',
@@ -64,11 +66,11 @@ module.exports = {
   plugins: [
     HtmlWebpackPluginConfig,
     ExtractTextPluginConfig,
+    JQueryPlugin,
   ],
   devServer: {
     historyApiFallback: {
       index: '/',
     },
   },
-  devtool: 'cheap-source-map',
 };
