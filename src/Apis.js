@@ -111,3 +111,14 @@ export function getUserProfile(username) {
 
   return makeRequest(url, options);
 }
+
+
+export function getUserTrades(username) {
+  const url = `${config.BACKEND_API_URL}/trades/${username}`;
+  const options = {
+    method: 'GET',
+    useCredentials: true,
+  };
+
+  return makeRequest(url, options);
+}

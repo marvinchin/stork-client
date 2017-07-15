@@ -6,6 +6,7 @@ import {
   getGenres,
   getIndexBooks,
   getUserProfile,
+  getUserTrades,
   __RewireAPI__ as RewireAPI,
 } from '../src/Apis';
 import config from '../config';
@@ -265,6 +266,31 @@ describe('getUserProfile', () => {
     };
 
     getUserProfile(username);
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
+  });
+});
+
+describe('getUserTrades', () => {
+  const mockMakeRequest = jest.fn();
+  const username = 'test_user';
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency('makeRequest');
+  });
+
+  it('should make a get request to endpoint', () => {
+    const expectedUrl = `${config.BACKEND_API_URL}/trades/test_user`;
+    const expectedOptions = {
+      method: 'GET',
+      useCredentials: true,
+    };
+
+    getUserTrades(username);
 
     expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });
