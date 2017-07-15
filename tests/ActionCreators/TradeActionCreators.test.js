@@ -4,12 +4,15 @@ import {
 } from '../../src/ActionCreators/TradeActionCreators';
 
 describe('Get User Trades', () => {
+  const username = 'test_user';
   it('should create a GET_USER_TRADES_PENDING action', () => {
     const expectedAction = {
       type: 'GET_USER_TRADES_PENDING',
-      payload: {},
+      payload: {
+        username,
+      },
     };
-    const action = getUserTrades();
+    const action = getUserTrades(username);
     expect(action).toEqual(expectedAction);
   });
 });
