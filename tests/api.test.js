@@ -7,6 +7,7 @@ import {
   getIndexBooks,
   getUserProfile,
   getUserTrades,
+  createTrade,
   __RewireAPI__ as RewireAPI,
 } from '../src/Apis';
 import config from '../config';
@@ -291,6 +292,40 @@ describe('getUserTrades', () => {
     };
 
     getUserTrades(username);
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
+  });
+});
+
+describe('createTrade', () => {
+  const mockMakeRequest = jest.fn();
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency('makeRequest');
+  });
+
+  it('should make a post request to endpoint with correct body', () => {
+    const bookId = '1';
+    const offer = ['2', '3'];
+    const description = 'Hello World';
+
+    const expectedUrl = `${config.BACKEND_API_URL}/trades/create`;
+    const data = {
+      bookId,
+      offer,
+      description,
+    };
+    const expectedOptions = {
+      method: 'POST',
+      data,
+      useCredentials: true,
+    };
+
+    createTrade(bookId, offer, description);
 
     expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });

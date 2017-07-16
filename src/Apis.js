@@ -122,3 +122,19 @@ export function getUserTrades(username) {
 
   return makeRequest(url, options);
 }
+
+export function createTrade(bookId, offer, description) {
+  const url = `${config.BACKEND_API_URL}/trades/create`;
+  const data = {
+    bookId,
+    offer,
+    description,
+  };
+  const options = {
+    method: 'POST',
+    data,
+    useCredentials: true,
+  };
+
+  return makeRequest(url, options);
+}
