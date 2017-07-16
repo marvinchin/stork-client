@@ -13,6 +13,7 @@ class Navbar extends Component {
         <ul className="dropdown-menu dropdown-menu-right">
           <li>
             <Link to={profileUrl}>Profile</Link>
+            <Link to="/inbox">Inbox</Link>
             <Link to="/index">Logout</Link>
           </li>
         </ul>

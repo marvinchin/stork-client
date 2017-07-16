@@ -2,16 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class TradeSummary extends Component {
-  constructor(props) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick(event) {
-    event.preventDefault();
-    console.log('Clicked!');
-  }
-
   renderUnread() {
     const { isRead } = this.props;
     if (!isRead) {
@@ -27,7 +17,7 @@ class TradeSummary extends Component {
     const { username } = user;
     const { title, author } = book;
     return (
-      <div className="c-trade-summary l-flex__row" role="button" tabIndex={0} onClick={this.onClick}>
+      <div className="c-trade-summary l-flex__row" role="button" tabIndex={0}>
         <div className="l-trade-summary__info">
           <div className="c-trade-summary__user">
             {username}

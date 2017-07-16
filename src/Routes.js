@@ -53,7 +53,7 @@ export default [
     component: InboxPage,
   },
   {
-    path: '/trade',
+    path: '/trade/:tradeid',
     exact: true,
     navbar: true,
     requireAuth: true,
