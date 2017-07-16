@@ -1,11 +1,9 @@
 import ActionTypes from '../constants/Actions';
 
-export function getUserTrades(username) {
+export function getUserTrades() {
   return {
     type: ActionTypes.GET_USER_TRADES_PENDING,
-    payload: {
-      username,
-    },
+    payload: {},
   };
 }
 

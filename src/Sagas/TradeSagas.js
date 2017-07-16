@@ -5,16 +5,13 @@ import { getUserTradesComplete, createTradeComplete } from '../ActionCreators/Tr
 import { getUserTrades, createTrade } from '../Apis';
 
 export function* handleGetUserTrades(action) {
-  const { username } = action.payload;
   let res;
-
   try {
-    res = yield call(getUserTrades, username);
+    res = yield call(getUserTrades);
   } catch (err) {
     yield put(getUserTradesComplete(err));
     return;
   }
-
   if (res.status === 200) {
     const { trades } = res.body;
     yield put(getUserTradesComplete(null, trades));

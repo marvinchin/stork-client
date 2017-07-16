@@ -274,7 +274,6 @@ describe('getUserProfile', () => {
 
 describe('getUserTrades', () => {
   const mockMakeRequest = jest.fn();
-  const username = 'test_user';
 
   beforeAll(() => {
     RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
@@ -285,13 +284,13 @@ describe('getUserTrades', () => {
   });
 
   it('should make a get request to endpoint', () => {
-    const expectedUrl = `${config.BACKEND_API_URL}/trades/test_user`;
+    const expectedUrl = `${config.BACKEND_API_URL}/trades/list`;
     const expectedOptions = {
       method: 'GET',
       useCredentials: true,
     };
 
-    getUserTrades(username);
+    getUserTrades();
 
     expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });
