@@ -16,6 +16,8 @@ export default keyMirror({
 
   BOOK_CREATE_PENDING: null,
   BOOK_CREATE_COMPLETE: null,
+  GET_BOOK_BY_ID_PENDING: null,
+  GET_BOOK_BY_ID_COMPLETE: null,
   GET_GENRES_PENDING: null,
   GET_GENRES_COMPLETE: null,
   GET_INDEX_BOOKS_PENDING: null,

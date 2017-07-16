@@ -29,6 +29,34 @@ export function createBookComplete(error) {
   };
 }
 
+export function getBookById(bookId) {
+  return {
+    type: ActionTypes.GET_BOOK_BY_ID_PENDING,
+    payload: {
+      bookId,
+    },
+  };
+}
+
+export function getBookByIdComplete(error, book) {
+  if (error) {
+    return {
+      type: ActionTypes.GET_BOOK_BY_ID_COMPLETE,
+      error: true,
+      payload: {
+        error,
+      },
+    };
+  }
+
+  return {
+    type: ActionTypes.GET_BOOK_BY_ID_COMPLETE,
+    payload: {
+      book,
+    },
+  };
+}
+
 export function getGenres() {
   return {
     type: ActionTypes.GET_GENRES_PENDING,

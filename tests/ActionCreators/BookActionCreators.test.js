@@ -1,6 +1,8 @@
 import {
   createBook,
   createBookComplete,
+  getBookById,
+  getBookByIdComplete,
   getGenres,
   getGenresComplete,
   getIndexBooks,
@@ -72,6 +74,54 @@ describe('Create Book Complete', () => {
       };
 
       const action = createBookComplete(error);
+
+      expect(action).toEqual(expectedAction);
+    });
+  });
+});
+
+describe('Get Book By ID Pending', () => {
+  const bookId = '1';
+  it('should create a GET_BOOK_BY_ID_PENDING action', () => {
+    const expectedAction = {
+      type: 'GET_BOOK_BY_ID_PENDING',
+      payload: {
+        bookId,
+      },
+    };
+    const action = getBookById(bookId);
+
+    expect(action).toEqual(expectedAction);
+  });
+});
+
+describe('Get Book By ID Complete', () => {
+  describe('Success', () => {
+    const book = { id: '1' };
+    it('should create a successful GET_BOOK_BY_ID_COMPLETE action', () => {
+      const expectedAction = {
+        type: 'GET_BOOK_BY_ID_COMPLETE',
+        payload: {
+          book,
+        },
+      };
+      const action = getBookByIdComplete(null, book);
+
+      expect(action).toEqual(expectedAction);
+    });
+  });
+
+  describe('Failure', () => {
+    const error = new Error();
+    it('should create a faulure GET_BOOK_BY_ID_COMPLETE action', () => {
+      const expectedAction = {
+        type: 'GET_BOOK_BY_ID_COMPLETE',
+        error: true,
+        payload: {
+          error: expect.anything(),
+        },
+      };
+      const action = getBookByIdComplete(error);
 
       expect(action).toEqual(expectedAction);
     });
