@@ -35,7 +35,7 @@ AuthRoute.defaultProps = {
 
 const mapStateToProps = state => (
   {
-    user: state.auth,
+    user: state.auth.user,
   }
 );
 

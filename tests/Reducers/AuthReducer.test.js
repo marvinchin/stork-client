@@ -81,6 +81,45 @@ describe('AuthReducer', () => {
     expect(AuthReducer(initialState, action)).toEqual(expectedState);
   });
 
+  it('should handle successful AUTHENTICATE_USER_COMPLETE', () => {
+    const initialState = {
+      user: null,
+      authErr: new Error(),
+    };
+    const user = { id: 1 };
+    const action = {
+      type: 'AUTHENTICATE_USER_COMPLETE',
+      payload: {
+        user,
+      },
+    };
+    const expectedState = {
+      user,
+      authErr: null,
+    };
+    expect(AuthReducer(initialState, action)).toEqual(expectedState);
+  });
+
+  it('should handle failure AUTHENTICATE_USER_COMPLETE', () => {
+    const initialState = {
+      user: { id: 1 },
+      authErr: null,
+    };
+    const error = new Error();
+    const action = {
+      type: 'AUTHENTICATE_USER_COMPLETE',
+      error: true,
+      payload: {
+        error,
+      },
+    };
+    const expectedState = {
+      user: null,
+      authErr: error,
+    };
+    expect(AuthReducer(initialState, action)).toEqual(expectedState);
+  });
+
   it('should handle AUTH_RESET_ERRORS', () => {
     const initialState = {
       user: 'Hello',
