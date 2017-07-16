@@ -27,3 +27,31 @@ export function getUserTradesComplete(error, trades) {
     },
   };
 }
+
+export function createTrade(bookId, offer, description) {
+  return {
+    type: ActionTypes.CREATE_TRADE_PENDING,
+    payload: {
+      bookId,
+      offer,
+      description,
+    },
+  };
+}
+
+export function createTradeComplete(error) {
+  if (error) {
+    return {
+      type: ActionTypes.CREATE_TRADE_COMPLETE,
+      error: true,
+      payload: {
+        error,
+      },
+    };
+  }
+
+  return {
+    type: ActionTypes.CREATE_TRADE_COMPLETE,
+    payload: {},
+  };
+}
