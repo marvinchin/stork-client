@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import NewTradeForm from './NewTradeForm';
+import { createTrade } from '../../ActionCreators/TradeActionCreators';
 
 class NewTradePage extends Component {
   render() {
+    const { listedBook } = this.props;
+    const listedBookId = listedBook.id;
+    const handleTradeSubmit = (offeredBookIds, description) => {
+      this.props.dispatch(createTrade(listedBookId, offeredBookIds, description));
+    };
+
     return (
       <div className="c-new-trade-page">
         <div className="c-new-trade-page__title">
           Requesting trade with destinngeow
         </div>
-        <NewTradeForm {...this.props} />
+        <NewTradeForm {...this.props} handleTradeSubmit={handleTradeSubmit} />
       </div>
     );
   }
 }
 
 NewTradePage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   listedBook: PropTypes.object.isRequired,
   userBooks: PropTypes.array.isRequired,
 };
@@ -47,4 +56,10 @@ NewTradePage.defaultProps = {
   ],
 };
 
-export default NewTradePage;
+const mapStateToProps = state => (
+  {
+    userBooks: state.auth.user.books,
+  }
+);
+
+export default connect(mapStateToProps)(NewTradePage);

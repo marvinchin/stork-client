@@ -3,20 +3,8 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 
 class UserBooks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { selectedBooks: '' };
-    this.onSelectedBooksUpdate = this.onSelectedBooksUpdate.bind(this);
-  }
-
-  onSelectedBooksUpdate(selectedBooks) {
-    this.setState({
-      selectedBooks,
-    });
-  }
-
   render() {
-    const { userBooks } = this.props;
+    const { userBooks, offeredBooks, onOfferChange } = this.props;
     const bookOptions = userBooks.map(book => (
       {
         value: book.id,
@@ -27,9 +15,9 @@ class UserBooks extends Component {
     return (
       <div className="c-user-books">
         <Select
-          value={this.state.selectedBooks}
+          value={offeredBooks}
           options={bookOptions}
-          onChange={this.onSelectedBooksUpdate}
+          onChange={onOfferChange}
           multi
         />
       </div>
@@ -39,6 +27,8 @@ class UserBooks extends Component {
 
 UserBooks.propTypes = {
   userBooks: PropTypes.array.isRequired,
+  offeredBooks: PropTypes.array.isRequired,
+  onOfferChange: PropTypes.func.isRequired,
 };
 
 export default UserBooks;
