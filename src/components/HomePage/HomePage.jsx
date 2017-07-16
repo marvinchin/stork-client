@@ -16,7 +16,7 @@ class HomePage extends Component {
     return (
       <div className="c-home">
         <SearchBar />
-        <BookCollection books={indexBooks} />
+        <BookCollection books={indexBooks} showTradeLink />
       </div>
     );
   }

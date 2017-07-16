@@ -38,6 +38,14 @@
   margin-top: 1em;
 }
 
+.c-book-listing .c-book-listing__owner-link {
+  float: left;
+}
+
+.c-book-listing .c-book-listing__trade-link {
+  float: right;
+}
+
 .c-book-listing__genre-placeholder--fiction {
   width: 15px;
   height: 15px;
@@ -63,4 +71,11 @@
 .c-book-listing__checkbox {
   width: 15px;
   height: 15px;
+}
+
+.c-book-listing__expand-marker {
+  width: 15px;
+  height: 15px;
+  margin-left: 20px;
+  text-align: center;
 }

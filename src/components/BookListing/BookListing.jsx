@@ -36,22 +36,35 @@ class BookListing extends Component {
     const descriptionText = (description === '') ? 'No Description' : description;
     const { ownerUsername } = this.props;
 
-    let link = null;
-    if (ownerUsername !== '') {
-      const linkUrl = `/user/${ownerUsername}`;
-      link = (
-        <Link to={linkUrl}>
-          Listed by {ownerUsername}
-        </Link>
-      );
-    }
+
+    const ownerProfileUrl = `/user/${ownerUsername}`;
+    const ownerLink = (
+      <Link className="c-book-listing__owner-link" to={ownerProfileUrl}>
+        Listed by {ownerUsername}
+      </Link>
+    );
 
     return (
       <div className="c-book-listing__description">
         <p>{ descriptionText }</p>
-        { link }
+        {ownerLink}
+        {this.renderTradeLink()}
       </div>
     );
+  }
+
+  renderTradeLink() {
+    const { showTradeLink } = this.props;
+    if (showTradeLink) {
+      const bookId = this.props.id;
+      const tradeUrl = `/trade/new/${bookId}`;
+      return (
+        <Link className="c-book-listing__trade-link" to={tradeUrl}>
+          Make Offer
+        </Link>
+      );
+    }
+    return null;
   }
 
   renderCheckbox() {
@@ -72,6 +85,14 @@ class BookListing extends Component {
       );
     }
     return null;
+  }
+
+  renderExpandMarker() {
+    const { isExpanded } = this.state;
+    const marker = !isExpanded
+          ? <span className="c-book-listing__expand-marker glyphicon glyphicon-menu-down" />
+          : <span className="c-book-listing__expand-marker glyphicon glyphicon-menu-up" />;
+    return marker;
   }
 
   renderGenre() {
@@ -104,6 +125,7 @@ class BookListing extends Component {
             </div>
           </div>
           { this.renderCheckbox() }
+          { this.renderExpandMarker() }
         </div>
         { this.renderDescription() }
       </div>
@@ -119,12 +141,14 @@ BookListing.propTypes = {
   description: PropTypes.string,
   ownerUsername: PropTypes.string,
   isSelectable: PropTypes.bool,
+  showTradeLink: PropTypes.bool,
 };
 
 BookListing.defaultProps = {
   author: 'Not Specified',
   description: 'No Description',
   isSelectable: false,
+  showTradeLink: false,
   ownerUsername: '',
 };
 

@@ -5,9 +5,14 @@ import BookListing from '../BookListing';
 
 class BookCollection extends Component {
   renderBookListings() {
-    const { books, isSelectable } = this.props;
+    const { books, isSelectable, showTradeLink } = this.props;
     return books.map(book => (
-      <BookListing key={book.id} {...book} isSelectable={isSelectable} />
+      <BookListing
+        key={book.id}
+        isSelectable={isSelectable}
+        showTradeLink={showTradeLink}
+        {...book}
+      />
     ));
   }
 
@@ -23,10 +28,12 @@ class BookCollection extends Component {
 BookCollection.propTypes = {
   books: PropTypes.array.isRequired,
   isSelectable: PropTypes.bool,
+  showTradeLink: PropTypes.bool,
 };
 
 BookCollection.defaultProps = {
   isSelectable: false,
+  showTradeLink: false,
 };
 
 export default BookCollection;
