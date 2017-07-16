@@ -3,8 +3,9 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import Actions from '../constants/Actions';
 import { getUserTradesComplete, createTradeComplete } from '../ActionCreators/TradeActionCreators';
 import { getUserTrades, createTrade } from '../Apis';
+import { changeRoute } from '../ActionCreators/RouteActionCreators';
 
-export function* handleGetUserTrades(action) {
+export function* handleGetUserTrades() {
   let res;
   try {
     res = yield call(getUserTrades);
@@ -25,11 +26,11 @@ export function* handleGetUserTrades(action) {
 }
 
 export function* handleCreateTrade(action) {
-  const { bookId, offer, description } = action.payload;
+  const { book, offer, description } = action.payload;
   let res;
 
   try {
-    res = yield call(createTrade, bookId, offer, description);
+    res = yield call(createTrade, book, offer, description);
   } catch (err) {
     yield put(createTradeComplete(err));
     return;
@@ -43,7 +44,14 @@ export function* handleCreateTrade(action) {
   }
 }
 
+export function* handleCreateTradeComplete(action) {
+  const { error } = action.payload;
+  if (error) return;
+  yield put(changeRoute('/inbox'));
+}
+
 export const tradeSagas = [
   takeLatest(Actions.GET_USER_TRADES_PENDING, handleGetUserTrades),
   takeLatest(Actions.CREATE_TRADE_PENDING, handleCreateTrade),
+  takeLatest(Actions.CREATE_TRADE_COMPLETE, handleCreateTradeComplete),
 ];

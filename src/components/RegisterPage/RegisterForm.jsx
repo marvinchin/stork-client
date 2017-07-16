@@ -45,7 +45,7 @@ class RegisterForm extends Component {
     const { authErr } = this.props;
     return (
       <div className="c-register-page__error">
-        { authErr != null ? authErr.message : null }
+        { authErr !== null ? authErr.message : null }
       </div>
     );
   }

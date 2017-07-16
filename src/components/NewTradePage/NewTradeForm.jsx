@@ -31,11 +31,20 @@ class NewTradeForm extends Component {
 
   onTradeSubmit(e) {
     e.preventDefault();
-    const { listedBook, offeredBooks, description } = this.state;
+    const { offeredBooks, description } = this.state;
     const offeredBookIds = offeredBooks.map(book => (
       book.value
     ));
     this.props.handleTradeSubmit(offeredBookIds, description);
+  }
+
+  renderErrorMessage() {
+    const { tradeErr } = this.props;
+    return (
+      <div className="c-new-trade-form__error">
+        {tradeErr !== null ? tradeErr.message : null}
+      </div>
+    );
   }
 
   render() {
@@ -76,6 +85,7 @@ class NewTradeForm extends Component {
         >
           Request Trade
         </button>
+        {this.renderErrorMessage()}
       </div>
     );
   }
@@ -84,7 +94,12 @@ class NewTradeForm extends Component {
 NewTradeForm.propTypes = {
   listedBook: PropTypes.object.isRequired,
   userBooks: PropTypes.array.isRequired,
+  tradeErr: PropTypes.instanceOf(Error),
   handleTradeSubmit: PropTypes.func.isRequired,
+};
+
+NewTradeForm.defaultProps = {
+  tradeErr: null,
 };
 
 export default NewTradeForm;

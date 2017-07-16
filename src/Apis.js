@@ -132,10 +132,10 @@ export function getUserTrades() {
   return makeRequest(url, options);
 }
 
-export function createTrade(bookId, offer, description) {
+export function createTrade(book, offer, description) {
   const url = `${config.BACKEND_API_URL}/trades/create`;
   const data = {
-    bookId,
+    book,
     offer,
     description,
   };

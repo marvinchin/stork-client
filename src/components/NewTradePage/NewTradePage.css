@@ -26,6 +26,11 @@
   background-color: whitesmoke;
 }
 
+.c-new-trade-page .c-new-trade-form__error {
+  height: 1em;
+  margin-top: 10px;
+}
+
 /* Overrides for react-select */
 .c-form .Select-value {
   display: flex !important;

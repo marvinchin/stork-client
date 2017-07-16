@@ -3,18 +3,16 @@ import {
   getUserTradesComplete,
   createTrade,
   createTradeComplete,
+  resetTradeErrors,
 } from '../../src/ActionCreators/TradeActionCreators';
 
 describe('Get User Trades', () => {
-  const username = 'test_user';
   it('should create a GET_USER_TRADES_PENDING action', () => {
     const expectedAction = {
       type: 'GET_USER_TRADES_PENDING',
-      payload: {
-        username,
-      },
+      payload: {},
     };
-    const action = getUserTrades(username);
+    const action = getUserTrades();
     expect(action).toEqual(expectedAction);
   });
 });
@@ -63,7 +61,7 @@ describe('Create Trade', () => {
     const expectedAction = {
       type: 'CREATE_TRADE_PENDING',
       payload: {
-        bookId,
+        book: bookId,
         offer,
         description,
       },
@@ -98,5 +96,17 @@ describe('Create Trade Complete', () => {
       const action = createTradeComplete(error);
       expect(action).toEqual(expectedAction);
     });
+  });
+});
+
+
+describe('Reset Trade Errors', () => {
+  it('should create a TRADE_RESET_ERRORS action', () => {
+    const expectedAction = {
+      type: 'TRADE_RESET_ERRORS',
+      payload: {},
+    };
+    const action = resetTradeErrors();
+    expect(action).toEqual(expectedAction);
   });
 });

@@ -332,13 +332,13 @@ describe('createTrade', () => {
   });
 
   it('should make a post request to endpoint with correct body', () => {
-    const bookId = '1';
+    const book = '1';
     const offer = ['2', '3'];
     const description = 'Hello World';
 
     const expectedUrl = `${config.BACKEND_API_URL}/trades/create`;
     const data = {
-      bookId,
+      book,
       offer,
       description,
     };
@@ -348,7 +348,7 @@ describe('createTrade', () => {
       useCredentials: true,
     };
 
-    createTrade(bookId, offer, description);
+    createTrade(book, offer, description);
 
     expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });

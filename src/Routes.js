@@ -39,7 +39,7 @@ export default [
     component: NewBookPage,
   },
   {
-    path: '/trade/new/:bookid',
+    path: '/trade/new/:bookId',
     exact: true,
     navbar: true,
     requireAuth: true,
@@ -53,7 +53,7 @@ export default [
     component: InboxPage,
   },
   {
-    path: '/trade/:tradeid',
+    path: '/trade/:tradeId',
     exact: true,
     navbar: true,
     requireAuth: true,

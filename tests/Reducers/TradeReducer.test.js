@@ -57,4 +57,21 @@ describe('TradeReducer', () => {
     const state = TradeReducer(initialState, action);
     expect(state).toEqual(expectedState);
   });
+
+  it('should handle TRADE_RESET_ERRORS', () => {
+    const initialState = {
+      userTrades: [],
+      tradeErr: new Error(),
+    };
+    const action = {
+      type: 'TRADE_RESET_ERRORS',
+      payload: {},
+    };
+    const expectedState = {
+      userTrades: [],
+      tradeErr: null,
+    };
+    const state = TradeReducer(initialState, action);
+    expect(state).toEqual(expectedState);
+  });
 });

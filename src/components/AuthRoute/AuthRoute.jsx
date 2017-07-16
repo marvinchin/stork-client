@@ -15,7 +15,7 @@ class AuthRoute extends Component {
     if (user) {
       return (
         <div>
-          { children }
+          {React.cloneElement(children, this.props)}
         </div>
       );
     }

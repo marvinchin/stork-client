@@ -1,16 +1,13 @@
 import { cloneableGenerator } from 'redux-saga/utils';
 import { call, put } from 'redux-saga/effects';
 
-import { handleGetUserTrades, handleCreateTrade } from '../../src/Sagas/TradeSagas';
+import { handleGetUserTrades, handleCreateTrade, handleCreateTradeComplete } from '../../src/Sagas/TradeSagas';
 import { getUserTrades, createTrade } from '../../src/Apis';
 
 describe('HandleGetUserTrades', () => {
-  const username = 'test_user';
   const action = {
     type: 'GET_USER_TRADES_PENDING',
-    payload: {
-      username,
-    },
+    payload: {},
   };
 
   const gen = cloneableGenerator(handleGetUserTrades)(action);
@@ -19,7 +16,7 @@ describe('HandleGetUserTrades', () => {
   let genBadGet;
 
   it('should call getUserTrades with correct params', () => {
-    const expectedCall = call(getUserTrades, username);
+    const expectedCall = call(getUserTrades);
 
     expect(gen.next().value).toEqual(expectedCall);
 
@@ -127,13 +124,13 @@ describe('HandleGetUserTrades', () => {
 });
 
 describe('HandleCreateTrade', () => {
-  const bookId = '1';
+  const book = '1';
   const offer = ['2', '3'];
   const description = 'Hello World';
   const action = {
     type: 'CREATE_TRADE_PENDING',
     payload: {
-      bookId,
+      book,
       offer,
       description,
     },
@@ -144,7 +141,7 @@ describe('HandleCreateTrade', () => {
   let genBadCreate;
 
   it('should call createTrade with correct params', () => {
-    const expectedCall = call(createTrade, bookId, offer, description);
+    const expectedCall = call(createTrade, book, offer, description);
 
     expect(gen.next().value).toEqual(expectedCall);
 
@@ -218,6 +215,50 @@ describe('HandleCreateTrade', () => {
 
     it('should be done', () => {
       expect(genFail.next().done).toBe(true);
+    });
+  });
+});
+
+
+describe('HandleCreateTradeComplete', () => {
+  describe('Success', () => {
+    const action = {
+      type: 'CREATE_TRADE_COMPLETE',
+      payload: {},
+    };
+
+    const gen = handleCreateTradeComplete(action);
+
+    it('should direct user to inbox page', () => {
+      const route = '/inbox';
+      const expectedPut = put({
+        type: 'ROUTE_CHANGE_PENDING',
+        payload: {
+          route,
+        },
+      });
+      expect(gen.next().value).toEqual(expectedPut);
+    });
+
+    it('should be done', () => {
+      expect(gen.next().done).toBe(true);
+    });
+  });
+
+  describe('Failure', () => {
+    const error = new Error();
+    const action = {
+      type: 'CREATE_TRADE_COMPLETE',
+      error: true,
+      payload: {
+        error,
+      },
+    };
+
+    const gen = handleCreateTradeComplete(action);
+
+    it('should be done', () => {
+      expect(gen.next().done).toBe(true);
     });
   });
 });
