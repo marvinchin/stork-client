@@ -54,6 +54,32 @@ export function createTradeComplete(error) {
   };
 }
 
+export function cancelTrade(tradeId) {
+  return {
+    type: ActionTypes.CANCEL_TRADE_PENDING,
+    payload: {
+      tradeId,
+    },
+  };
+}
+
+export function cancelTradeComplete(error) {
+  if (error) {
+    return {
+      type: ActionTypes.CANCEL_TRADE_COMPLETE,
+      error: true,
+      payload: {
+        error,
+      },
+    };
+  }
+
+  return {
+    type: ActionTypes.CANCEL_TRADE_COMPLETE,
+    payload: {},
+  };
+}
+
 export function resetTradeErrors() {
   return {
     type: ActionTypes.TRADE_RESET_ERRORS,

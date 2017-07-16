@@ -3,6 +3,8 @@ import {
   getUserTradesComplete,
   createTrade,
   createTradeComplete,
+  cancelTrade,
+  cancelTradeComplete,
   resetTradeErrors,
 } from '../../src/ActionCreators/TradeActionCreators';
 
@@ -99,6 +101,47 @@ describe('Create Trade Complete', () => {
   });
 });
 
+describe('Cancel Trade', () => {
+  const tradeId = '123';
+  it('should create a CANCEL_TRADE_PENDING action', () => {
+    const expectedAction = {
+      type: 'CANCEL_TRADE_PENDING',
+      payload: {
+        tradeId,
+      },
+    };
+    const action = cancelTrade(tradeId);
+    expect(action).toEqual(expectedAction);
+  });
+});
+
+describe('Cancel Trade Complete', () => {
+  describe('Success', () => {
+    it('should create successful CANCEL_TRADE_COMPLETE action', () => {
+      const expectedAction = {
+        type: 'CANCEL_TRADE_COMPLETE',
+        payload: {},
+      };
+      const action = cancelTradeComplete(null);
+      expect(action).toEqual(expectedAction);
+    });
+  });
+
+  describe('Failure', () => {
+    const error = new Error();
+    it('should create failure CANCEL_TRADE_COMPLETE action', () => {
+      const expectedAction = {
+        type: 'CANCEL_TRADE_COMPLETE',
+        error: true,
+        payload: {
+          error,
+        },
+      };
+      const action = cancelTradeComplete(error);
+      expect(action).toEqual(expectedAction);
+    });
+  });
+});
 
 describe('Reset Trade Errors', () => {
   it('should create a TRADE_RESET_ERRORS action', () => {
