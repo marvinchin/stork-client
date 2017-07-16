@@ -147,3 +147,7 @@ export function createTrade(book, offer, description) {
 
   return makeRequest(url, options);
 }
+
+export function cancelTrade(tradeId) {
+  // Placeholder for cancel trade
+}
