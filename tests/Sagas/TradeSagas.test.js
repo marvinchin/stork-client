@@ -1,8 +1,13 @@
 import { cloneableGenerator } from 'redux-saga/utils';
 import { call, put } from 'redux-saga/effects';
 
-import { handleGetUserTrades, handleCreateTrade, handleCreateTradeComplete } from '../../src/Sagas/TradeSagas';
-import { getUserTrades, createTrade } from '../../src/Apis';
+import {
+  handleGetUserTrades,
+  handleCreateTrade,
+  handleCreateTradeComplete,
+  handleCancelTrade,
+} from '../../src/Sagas/TradeSagas';
+import { getUserTrades, createTrade, cancelTrade } from '../../src/Apis';
 
 describe('HandleGetUserTrades', () => {
   const action = {
@@ -259,6 +264,98 @@ describe('HandleCreateTradeComplete', () => {
 
     it('should be done', () => {
       expect(gen.next().done).toBe(true);
+    });
+  });
+});
+
+describe('HandleCancelTrade', () => {
+  const bookId = '123';
+  const action = {
+    type: 'CANCEL_TRADE_PENDING',
+    payload: {
+      bookId,
+    },
+  };
+
+  const gen = cloneableGenerator(handleCancelTrade)(action);
+  let genFail;
+  let genBadCancel;
+
+  it('should call cancelTrade with correct params', () => {
+    const expectedCall = call(cancelTrade, bookId);
+
+    expect(gen.next().value).toEqual(expectedCall);
+
+    genFail = gen.clone();
+    genBadCancel = gen.clone();
+  });
+
+  describe('Request Success', () => {
+    describe('Create Success', () => {
+      const status = 200;
+      const res = {
+        status,
+      };
+
+      it('should put a successful CANCEL_TRADE_COMPLETE action', () => {
+        const expectedPut = put({
+          type: 'CANCEL_TRADE_COMPLETE',
+          payload: {},
+        });
+
+        expect(gen.next(res).value).toEqual(expectedPut);
+      });
+
+      it('should be done', () => {
+        expect(gen.next().done).toBe(true);
+      });
+    });
+
+    describe('Bad Cancel', () => {
+      const status = 403;
+      const error = 'Not Logged In';
+      const res = {
+        status,
+        body: {
+          error,
+        },
+      };
+
+      it('should put a failure CANCEL_TRADE_COMPLETE action', () => {
+        const expectedPut = put({
+          type: 'CANCEL_TRADE_COMPLETE',
+          error: true,
+          payload: {
+            error: expect.anything(),
+          },
+        });
+
+        expect(genBadCancel.next(res).value).toEqual(expectedPut);
+      });
+
+      it('should be done', () => {
+        expect(genBadCancel.next().done).toBe(true);
+      });
+    });
+  });
+
+  describe('Request Failure', () => {
+    const error = new Error();
+
+    it('should put a faulure CANCEL_TRADE_COMPLETE action', () => {
+      const expectedPut = put({
+        type: 'CANCEL_TRADE_COMPLETE',
+        error: true,
+        payload: {
+          error: expect.anything(),
+        },
+      });
+
+      expect(genFail.throw(error).value).toEqual(expectedPut);
+    });
+
+    it('should be done', () => {
+      expect(genFail.next().done).toBe(true);
     });
   });
 });

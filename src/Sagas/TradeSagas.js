@@ -1,8 +1,12 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import Actions from '../constants/Actions';
-import { getUserTradesComplete, createTradeComplete } from '../ActionCreators/TradeActionCreators';
-import { getUserTrades, createTrade } from '../Apis';
+import {
+  getUserTradesComplete,
+  createTradeComplete,
+  cancelTradeComplete,
+} from '../ActionCreators/TradeActionCreators';
+import { getUserTrades, createTrade, cancelTrade } from '../Apis';
 import { changeRoute } from '../ActionCreators/RouteActionCreators';
 
 export function* handleGetUserTrades() {
@@ -50,8 +54,28 @@ export function* handleCreateTradeComplete(action) {
   yield put(changeRoute('/inbox'));
 }
 
+export function* handleCancelTrade(action) {
+  const { bookId } = action.payload;
+  let res;
+
+  try {
+    res = yield call(cancelTrade, bookId);
+  } catch (err) {
+    yield put(cancelTradeComplete(err));
+    return;
+  }
+
+  if (res.status === 200) {
+    yield put(cancelTradeComplete(null));
+  } else {
+    const { error } = res.body;
+    yield put(cancelTradeComplete(new Error(error)));
+  }
+}
+
 export const tradeSagas = [
   takeLatest(Actions.GET_USER_TRADES_PENDING, handleGetUserTrades),
   takeLatest(Actions.CREATE_TRADE_PENDING, handleCreateTrade),
   takeLatest(Actions.CREATE_TRADE_COMPLETE, handleCreateTradeComplete),
+  takeLatest(Actions.CANCEL_TRADE_PENDING, handleCancelTrade),
 ];
