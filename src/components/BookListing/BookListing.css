@@ -38,12 +38,12 @@
   margin-top: 1em;
 }
 
-.c-book-listing .c-book-listing__owner-link {
-  float: left;
+.c-book-listing .c-book-listing__trade-link {
+  margin-left: auto;
 }
 
-.c-book-listing .c-book-listing__trade-link {
-  float: right;
+.c-book-listing .c-book-listing__owner-link {
+  margin-right: auto;
 }
 
 .c-book-listing__genre-placeholder--fiction {

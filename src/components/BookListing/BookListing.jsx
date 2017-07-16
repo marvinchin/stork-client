@@ -27,6 +27,20 @@ class BookListing extends Component {
     ));
   }
 
+  renderTradeLink() {
+    const { showTradeLink } = this.props;
+    if (showTradeLink) {
+      const bookId = this.props.id;
+      const tradeUrl = `/trade/new/${bookId}`;
+      return (
+        <Link className="c-book-listing__trade-link" to={tradeUrl}>
+          Make Offer
+        </Link>
+      );
+    }
+    return null;
+  }
+
   renderDescription() {
     const { isExpanded } = this.state;
     if (!isExpanded) {
@@ -47,24 +61,12 @@ class BookListing extends Component {
     return (
       <div className="c-book-listing__description">
         <p>{ descriptionText }</p>
-        {ownerLink}
-        {this.renderTradeLink()}
+        <div className="l-flex__row">
+          {ownerLink}
+          {this.renderTradeLink()}
+        </div>
       </div>
     );
-  }
-
-  renderTradeLink() {
-    const { showTradeLink } = this.props;
-    if (showTradeLink) {
-      const bookId = this.props.id;
-      const tradeUrl = `/trade/new/${bookId}`;
-      return (
-        <Link className="c-book-listing__trade-link" to={tradeUrl}>
-          Make Offer
-        </Link>
-      );
-    }
-    return null;
   }
 
   renderCheckbox() {
