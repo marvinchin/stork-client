@@ -85,6 +85,15 @@ export function createBook(title, author, genre, description) {
   return makeRequest(url, options);
 }
 
+export function getBookById(bookId) {
+  const url = `${config.BACKEND_API_URL}/books/getByID/${bookId}`;
+  const options = {
+    method: 'GET',
+  };
+
+  return makeRequest(url, options);
+}
+
 export function getGenres() {
   const url = `${config.BACKEND_API_URL}/genres/list`;
   const options = {

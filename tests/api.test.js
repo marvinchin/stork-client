@@ -3,6 +3,7 @@ import {
   loginUser,
   registerUser,
   createBook,
+  getBookById,
   getGenres,
   getIndexBooks,
   getUserProfile,
@@ -197,6 +198,29 @@ describe('createBook', () => {
     };
 
     createBook(title, author, genre, description);
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
+  });
+});
+
+describe('getBookById', () => {
+  const mockMakeRequest = jest.fn();
+  const bookId = '1';
+  beforeAll(() => {
+    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency('makeRequest');
+  });
+
+  it('should make a get request to endpoint', () => {
+    const expectedUrl = `${config.BACKEND_API_URL}/books/getByID/1`;
+    const expectedOptions = {
+      method: 'GET',
+    };
+
+    getBookById(bookId);
 
     expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });
