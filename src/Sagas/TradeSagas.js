@@ -55,11 +55,11 @@ export function* handleCreateTradeComplete(action) {
 }
 
 export function* handleCancelTrade(action) {
-  const { bookId } = action.payload;
+  const { trade } = action.payload;
   let res;
 
   try {
-    res = yield call(cancelTrade, bookId);
+    res = yield call(cancelTrade, trade);
   } catch (err) {
     yield put(cancelTradeComplete(err));
     return;

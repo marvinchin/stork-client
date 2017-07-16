@@ -148,6 +148,18 @@ export function createTrade(book, offer, description) {
   return makeRequest(url, options);
 }
 
-export function cancelTrade(tradeId) {
-  // Placeholder for cancel trade
+export function cancelTrade(trade) {
+  const url = `${config.BACKEND_API_URL}/trades/update`;
+  const status = 'C';
+  const data = {
+    trade,
+    status,
+  };
+  const options = {
+    method: 'POST',
+    data,
+    useCredentials: true,
+  };
+
+  return makeRequest(url, options);
 }

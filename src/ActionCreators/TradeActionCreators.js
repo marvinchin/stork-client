@@ -54,11 +54,11 @@ export function createTradeComplete(error) {
   };
 }
 
-export function cancelTrade(tradeId) {
+export function cancelTrade(trade) {
   return {
     type: ActionTypes.CANCEL_TRADE_PENDING,
     payload: {
-      tradeId,
+      trade,
     },
   };
 }

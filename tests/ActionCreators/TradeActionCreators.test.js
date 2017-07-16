@@ -102,15 +102,15 @@ describe('Create Trade Complete', () => {
 });
 
 describe('Cancel Trade', () => {
-  const tradeId = '123';
+  const trade = '123';
   it('should create a CANCEL_TRADE_PENDING action', () => {
     const expectedAction = {
       type: 'CANCEL_TRADE_PENDING',
       payload: {
-        tradeId,
+        trade,
       },
     };
-    const action = cancelTrade(tradeId);
+    const action = cancelTrade(trade);
     expect(action).toEqual(expectedAction);
   });
 });

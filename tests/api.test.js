@@ -9,6 +9,7 @@ import {
   getUserProfile,
   getUserTrades,
   createTrade,
+  cancelTrade,
   __RewireAPI__ as RewireAPI,
 } from '../src/Apis';
 import config from '../config';
@@ -349,6 +350,36 @@ describe('createTrade', () => {
     };
 
     createTrade(book, offer, description);
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
+  });
+});
+
+describe('cancelTrade', () => {
+  const mockMakeRequest = jest.fn();
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency('makeRequest');
+  });
+
+  it('should make a post request to endpoint with correct body', () => {
+    const trade = '123';
+    const expectedUrl = `${config.BACKEND_API_URL}/trades/update`;
+    const data = {
+      trade,
+      status: 'C',
+    };
+    const expectedOptions = {
+      method: 'POST',
+      data,
+      useCredentials: true,
+    };
+
+    cancelTrade(trade);
 
     expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });

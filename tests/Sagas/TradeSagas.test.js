@@ -269,11 +269,11 @@ describe('HandleCreateTradeComplete', () => {
 });
 
 describe('HandleCancelTrade', () => {
-  const bookId = '123';
+  const trade = '123';
   const action = {
     type: 'CANCEL_TRADE_PENDING',
     payload: {
-      bookId,
+      trade,
     },
   };
 
@@ -282,7 +282,7 @@ describe('HandleCancelTrade', () => {
   let genBadCancel;
 
   it('should call cancelTrade with correct params', () => {
-    const expectedCall = call(cancelTrade, bookId);
+    const expectedCall = call(cancelTrade, trade);
 
     expect(gen.next().value).toEqual(expectedCall);
 
