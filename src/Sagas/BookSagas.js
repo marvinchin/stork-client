@@ -1,8 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import Actions from '../constants/Actions';
-import { createBookComplete, getGenresComplete, getIndexBooksComplete } from '../ActionCreators/BookActionCreators';
-import { createBook, getGenres, getIndexBooks } from '../Apis';
+import { createBookComplete, getBookByIdComplete, getGenresComplete, getIndexBooksComplete } from '../ActionCreators/BookActionCreators';
+import { createBook, getBookById, getGenres, getIndexBooks } from '../Apis';
 import { changeRoute } from '../ActionCreators/RouteActionCreators';
 
 export function* handleCreateBook(action) {
@@ -30,6 +30,26 @@ export function* handleCreateBook(action) {
 export function* handleCreateBookComplete(action) {
   if (action.error) return;
   yield put(changeRoute('/index'));
+}
+
+export function* handleGetBookById(action) {
+  const { bookId } = action.payload;
+  let res;
+
+  try {
+    res = yield call(getBookById, bookId);
+  } catch (err) {
+    yield put(getBookByIdComplete(err));
+    return;
+  }
+
+  if (res.status === 200) {
+    const { book } = res.body;
+    yield put(getBookByIdComplete(null, book));
+  } else {
+    const { error } = res.body;
+    yield put(getBookByIdComplete(new Error(error)));
+  }
 }
 
 export function* handleGetGenres() {
@@ -61,6 +81,7 @@ export function* handleGetIndexBooks() {
 export const bookSagas = [
   takeLatest(Actions.BOOK_CREATE_PENDING, handleCreateBook),
   takeLatest(Actions.BOOK_CREATE_COMPLETE, handleCreateBookComplete),
+  takeLatest(Actions.GET_BOOK_BY_ID_PENDING, handleGetBookById),
   takeLatest(Actions.GET_GENRES_PENDING, handleGetGenres),
   takeLatest(Actions.GET_INDEX_BOOKS_PENDING, handleGetIndexBooks),
 ];

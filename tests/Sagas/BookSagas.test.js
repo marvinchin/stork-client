@@ -4,10 +4,11 @@ import { call, put } from 'redux-saga/effects';
 import {
   handleCreateBook,
   handleCreateBookComplete,
+  handleGetBookById,
   handleGetGenres,
   handleGetIndexBooks,
 } from '../../src/Sagas/BookSagas';
-import { createBook, getGenres, getIndexBooks } from '../../src/Apis';
+import { createBook, getBookById, getGenres, getIndexBooks } from '../../src/Apis';
 
 describe('HandleCreateBook', () => {
   const title = 'The Three Little Pigs';
@@ -142,6 +143,98 @@ describe('HandleCreateBookComplete', () => {
     it('should be done', () => {
       expect(gen.next().done).toBe(true);
     });
+  });
+});
+
+describe('HandleGetBookById', () => {
+  const bookId = '1';
+  const action = {
+    type: 'GET_BOOK_BY_ID_PENDING',
+    payload: {
+      bookId,
+    },
+  };
+  const gen = cloneableGenerator(handleGetBookById)(action);
+  let genFail;
+  let genBadGet;
+
+  it('should call getBookById API', () => {
+    const expectedCall = call(getBookById, bookId);
+    expect(gen.next().value).toEqual(expectedCall);
+    genFail = gen.clone();
+    genBadGet = gen.clone();
+  });
+
+  describe('Request Success', () => {
+    describe('Get Success', () => {
+      const status = 200;
+      const book = { id: 1 };
+      const res = {
+        status,
+        body: {
+          book,
+        },
+      };
+
+      it('should put a successful GET_BOOK_BY_ID_COMPLETE action', () => {
+        const expectedPut = put({
+          type: 'GET_BOOK_BY_ID_COMPLETE',
+          payload: {
+            book,
+          },
+        });
+        expect(gen.next(res).value).toEqual(expectedPut);
+      });
+
+      it('should be done', () => {
+        expect(gen.next().done).toBe(true);
+      });
+    });
+
+    describe('Get Failure', () => {
+      const status = 400;
+      const res = {
+        status,
+        body: {
+          error: new Error(),
+        },
+      };
+      it('should put failure GET_BOOK_BY_ID_COMPLETE action', () => {
+        const expectedPut = put({
+          type: 'GET_BOOK_BY_ID_COMPLETE',
+          error: true,
+          payload: {
+            error: expect.anything(),
+          },
+        });
+
+        expect(genBadGet.next(res).value).toEqual(expectedPut);
+      });
+
+      it('should be done', () => {
+        expect(genBadGet.next().done).toBe(true);
+      });
+    });
+  });
+
+  describe('Request Failure', () => {
+    const error = new Error();
+    it('should put failure GET_BOOK_BY_ID_COMPLETE action', () => {
+      const expectedPut = put({
+        type: 'GET_BOOK_BY_ID_COMPLETE',
+        error: true,
+        payload: {
+          error: expect.anything(),
+        },
+      });
+
+      expect(genFail.throw(error).value).toEqual(expectedPut);
+    });
+
+    it('should be done', () => {
+      expect(genFail.next().done).toBe(true);
+    });
+    
   });
 });
 
