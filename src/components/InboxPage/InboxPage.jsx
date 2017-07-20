@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import TradeSummary from "./TradeSummary";
 import { getUserTrades } from "../../ActionCreators/TradeActionCreators";
 
+const TRADE_CANCELLED = "C";
+
 class InboxPage extends Component {
   componentDidMount() {
     this.props.dispatch(getUserTrades());
@@ -13,7 +15,10 @@ class InboxPage extends Component {
 
   renderTrades() {
     const { trades, user } = this.props;
-    return trades.map(trade => {
+    const filteredTrades = trades.filter(
+      trade => trade.tradeStatus !== TRADE_CANCELLED
+    );
+    return filteredTrades.map(trade => {
       const otherUser =
         user.username !== trade.listUser.username
           ? trade.listUser

@@ -19,7 +19,7 @@ class ProfilePage extends Component {
       return (
         <div className="c-profile l-flex__col">
           <UserProfile user={user} />
-          <BookCollection books={userBooks} />
+          <BookCollection books={userBooks} showOwner={false} />
         </div>
       );
     }

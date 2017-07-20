@@ -50,16 +50,21 @@ class BookListing extends Component {
     if (!isExpanded) {
       return null;
     }
-    const { description } = this.props;
+    const { description, showOwner } = this.props;
     const descriptionText = description === "" ? "No Description" : description;
-    const { ownerUsername } = this.props;
 
-    const ownerProfileUrl = `/user/${ownerUsername}`;
-    const ownerLink = (
-      <Link className="c-book-listing__owner-link" to={ownerProfileUrl}>
-        Listed by {ownerUsername}
-      </Link>
-    );
+    let ownerLink;
+    if (showOwner) {
+      const { ownerUsername } = this.props;
+      const ownerProfileUrl = `/user/${ownerUsername}`;
+      ownerLink = (
+        <Link className="c-book-listing__owner-link" to={ownerProfileUrl}>
+          Listed by {ownerUsername}
+        </Link>
+      );
+    } else {
+      ownerLink = null;
+    }
 
     return (
       <div className="c-book-listing__description">
@@ -150,7 +155,8 @@ BookListing.propTypes = {
   ownerUsername: PropTypes.string,
   isSelectable: PropTypes.bool,
   onSelect: PropTypes.func,
-  showTradeLink: PropTypes.bool
+  showTradeLink: PropTypes.bool,
+  showOwner: PropTypes.bool
 };
 
 BookListing.defaultProps = {
@@ -159,6 +165,7 @@ BookListing.defaultProps = {
   isSelectable: false,
   onSelect: null,
   showTradeLink: false,
+  showOwner: true,
   ownerUsername: ""
 };
 
