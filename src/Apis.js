@@ -135,6 +135,16 @@ export function getUserTrades() {
   return makeRequest(url, options);
 }
 
+export function getTradeById(tradeId) {
+  const url = `${config.BACKEND_API_URL}/trades/getByID/${tradeId}`;
+  const options = {
+    method: "GET",
+    useCredentials: true
+  };
+
+  return makeRequest(url, options);
+}
+
 export function createTrade(book, offer, description) {
   const url = `${config.BACKEND_API_URL}/trades/create`;
   const data = {

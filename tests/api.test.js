@@ -8,6 +8,7 @@ import {
   getIndexBooks,
   getUserProfile,
   getUserTrades,
+  getTradeById,
   createTrade,
   acceptTrade,
   cancelTrade,
@@ -316,6 +317,32 @@ describe("getUserTrades", () => {
     };
 
     getUserTrades();
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
+  });
+});
+
+describe("getTradeById", () => {
+  const mockMakeRequest = jest.fn();
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency("makeRequest");
+  });
+
+  it("should make a get request to endpoint", () => {
+    const tradeId = "123";
+
+    const expectedUrl = `${config.BACKEND_API_URL}/trades/getByID/123`;
+    const expectedOptions = {
+      method: "GET",
+      useCredentials: true
+    };
+
+    getTradeById(tradeId);
 
     expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });
