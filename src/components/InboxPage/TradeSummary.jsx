@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class TradeSummary extends Component {
   renderUnread() {
     const { isRead } = this.props;
     if (!isRead) {
-      return (
-        <div className="c-trade-summary__unread" />
-      );
+      return <div className="c-trade-summary__unread" />;
     }
     return null;
   }
@@ -38,7 +36,7 @@ class TradeSummary extends Component {
 TradeSummary.propTypes = {
   user: PropTypes.object.isRequired,
   book: PropTypes.object.isRequired,
-  isRead: PropTypes.bool.isRequired,
+  isRead: PropTypes.bool.isRequired
 };
 
 export default TradeSummary;

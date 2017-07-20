@@ -1,12 +1,12 @@
-import config from '../config';
+import config from "../config";
 
 function makeRequest(url, options) {
   const { method, data, useCredentials } = options;
   const fetchParams = {
     method,
     headers: {
-      'Content-Type': 'application/json',
-    },
+      "Content-Type": "application/json"
+    }
   };
 
   if (data) {
@@ -14,21 +14,19 @@ function makeRequest(url, options) {
   }
 
   if (useCredentials) {
-    fetchParams.credentials = 'include';
+    fetchParams.credentials = "include";
   }
 
   return fetch(url, fetchParams)
-    .then(res => (
-      res.json().then(body => ({ status: res.status, body }))
-    ))
+    .then(res => res.json().then(body => ({ status: res.status, body })))
     .catch(err => err);
 }
 
 export function authenticateUser() {
   const url = `${config.BACKEND_API_URL}/authentication/status`;
   const options = {
-    method: 'GET',
-    useCredentials: true,
+    method: "GET",
+    useCredentials: true
   };
 
   return makeRequest(url, options);
@@ -39,30 +37,36 @@ export function loginUser(username, password) {
   const data = {
     username,
     password,
-    expiry: config.SESSION_EXPIRY,
+    expiry: config.SESSION_EXPIRY
   };
   const options = {
-    method: 'POST',
+    method: "POST",
     data,
-    useCredentials: true,
+    useCredentials: true
   };
 
   return makeRequest(url, options);
 }
 
-export function registerUser(username, password, email, gender = 'Male', description = '') {
+export function registerUser(
+  username,
+  password,
+  email,
+  gender = "Male",
+  description = ""
+) {
   const url = `${config.BACKEND_API_URL}/authentication/create`;
   const data = {
     username,
     password,
     email,
     gender,
-    description,
+    description
   };
   const options = {
-    method: 'POST',
+    method: "POST",
     data,
-    useCredentials: true,
+    useCredentials: true
   };
 
   return makeRequest(url, options);
@@ -74,12 +78,12 @@ export function createBook(title, author, genre, description) {
     title,
     author,
     genre,
-    description,
+    description
   };
   const options = {
-    method: 'POST',
+    method: "POST",
     data,
-    useCredentials: true,
+    useCredentials: true
   };
 
   return makeRequest(url, options);
@@ -88,7 +92,7 @@ export function createBook(title, author, genre, description) {
 export function getBookById(bookId) {
   const url = `${config.BACKEND_API_URL}/books/getByID/${bookId}`;
   const options = {
-    method: 'GET',
+    method: "GET"
   };
 
   return makeRequest(url, options);
@@ -97,7 +101,7 @@ export function getBookById(bookId) {
 export function getGenres() {
   const url = `${config.BACKEND_API_URL}/genres/list`;
   const options = {
-    method: 'GET',
+    method: "GET"
   };
 
   return makeRequest(url, options);
@@ -106,7 +110,7 @@ export function getGenres() {
 export function getIndexBooks() {
   const url = `${config.BACKEND_API_URL}/books/list/${config.NUM_BOOKS_PER_LOAD}`;
   const options = {
-    method: 'GET',
+    method: "GET"
   };
 
   return makeRequest(url, options);
@@ -115,18 +119,17 @@ export function getIndexBooks() {
 export function getUserProfile(username) {
   const url = `${config.BACKEND_API_URL}/users/${username}`;
   const options = {
-    method: 'GET',
+    method: "GET"
   };
 
   return makeRequest(url, options);
 }
 
-
 export function getUserTrades() {
   const url = `${config.BACKEND_API_URL}/trades/list`;
   const options = {
-    method: 'GET',
-    useCredentials: true,
+    method: "GET",
+    useCredentials: true
   };
 
   return makeRequest(url, options);
@@ -137,12 +140,12 @@ export function createTrade(book, offer, description) {
   const data = {
     book,
     offer,
-    description,
+    description
   };
   const options = {
-    method: 'POST',
+    method: "POST",
     data,
-    useCredentials: true,
+    useCredentials: true
   };
 
   return makeRequest(url, options);
@@ -150,15 +153,15 @@ export function createTrade(book, offer, description) {
 
 export function cancelTrade(trade) {
   const url = `${config.BACKEND_API_URL}/trades/update`;
-  const status = 'C';
+  const status = "C";
   const data = {
     trade,
-    status,
+    status
   };
   const options = {
-    method: 'POST',
+    method: "POST",
     data,
-    useCredentials: true,
+    useCredentials: true
   };
 
   return makeRequest(url, options);

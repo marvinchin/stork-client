@@ -1,8 +1,8 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from "redux-saga/effects";
 
-import Actions from '../constants/Actions';
-import { getUserProfileComplete } from '../ActionCreators/UserActionCreators';
-import { getUserProfile } from '../Apis';
+import Actions from "../constants/Actions";
+import { getUserProfileComplete } from "../ActionCreators/UserActionCreators";
+import { getUserProfile } from "../Apis";
 
 export function* handleGetUserProfile(action) {
   const { username } = action.payload;
@@ -18,5 +18,5 @@ export function* handleGetUserProfile(action) {
 }
 
 export const userSagas = [
-  takeLatest(Actions.GET_USER_PROFILE_PENDING, handleGetUserProfile),
+  takeLatest(Actions.GET_USER_PROFILE_PENDING, handleGetUserProfile)
 ];

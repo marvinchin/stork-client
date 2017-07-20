@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Select from 'react-select';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Select from "react-select";
 
 class NewBookForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      author: '',
-      genre: 'None',
-      description: '',
+      title: "",
+      author: "",
+      genre: "None",
+      description: ""
     };
 
     this.onTitleChange = this.onTitleChange.bind(this);
@@ -29,7 +29,7 @@ class NewBookForm extends Component {
 
   onGenreUpdate(genre) {
     this.setState({
-      genre,
+      genre
     });
   }
 
@@ -46,19 +46,15 @@ class NewBookForm extends Component {
 
   render() {
     const { genres } = this.props;
-    const genreOptions = genres.map(genre => (
-      {
-        value: genre,
-        label: genre,
-      }
-    ));
+    const genreOptions = genres.map(genre => ({
+      value: genre,
+      label: genre
+    }));
 
     return (
       <form className="c-form l-flex__col c-new-book-form">
         <div className="l-form__input-group">
-          <label htmlFor="title">
-            Title
-          </label>
+          <label htmlFor="title">Title</label>
           <input
             type="text"
             id="title"
@@ -69,9 +65,7 @@ class NewBookForm extends Component {
           />
         </div>
         <div className="l-form__input-group">
-          <label htmlFor="author">
-            Author
-          </label>
+          <label htmlFor="author">Author</label>
           <input
             type="text"
             id="author"
@@ -82,9 +76,7 @@ class NewBookForm extends Component {
           />
         </div>
         <div className="l-form__input-group">
-          <label htmlFor="genre">
-            Genre
-          </label>
+          <label htmlFor="genre">Genre</label>
           <Select
             id="genre"
             value={this.state.genre}
@@ -93,9 +85,7 @@ class NewBookForm extends Component {
           />
         </div>
         <div className="l-form__input-group">
-          <label htmlFor="details">
-            Additional Details
-          </label>
+          <label htmlFor="details">Additional Details</label>
           <textarea
             id="details"
             rows="3"
@@ -105,10 +95,7 @@ class NewBookForm extends Component {
             onChange={this.onDescriptionChange}
           />
         </div>
-        <button
-          className="c-button"
-          onClick={this.onCreateBook}
-        >
+        <button className="c-button" onClick={this.onCreateBook}>
           List
         </button>
       </form>
@@ -118,7 +105,7 @@ class NewBookForm extends Component {
 
 NewBookForm.propTypes = {
   genres: PropTypes.array.isRequired,
-  handleCreateSubmit: PropTypes.func.isRequired,
+  handleCreateSubmit: PropTypes.func.isRequired
 };
 
 export default NewBookForm;

@@ -1,68 +1,68 @@
-import LandingPage from './components/LandingPage';
-import LoginPage from './components/LoginPage';
-import RegisterPage from './components/RegisterPage';
-import ProfilePage from './components/ProfilePage';
-import NewBookPage from './components/NewBookPage';
-import NewTradePage from './components/NewTradePage';
-import InboxPage from './components/InboxPage';
-import TradePage from './components/TradePage';
-import HomePage from './components/HomePage';
+import LandingPage from "./components/LandingPage";
+import LoginPage from "./components/LoginPage";
+import RegisterPage from "./components/RegisterPage";
+import ProfilePage from "./components/ProfilePage";
+import NewBookPage from "./components/NewBookPage";
+import NewTradePage from "./components/NewTradePage";
+import InboxPage from "./components/InboxPage";
+import TradePage from "./components/TradePage";
+import HomePage from "./components/HomePage";
 
 export default [
   {
-    path: '/',
+    path: "/",
     exact: true,
-    component: LandingPage,
+    component: LandingPage
   },
   {
-    path: '/login',
+    path: "/login",
     exact: true,
-    component: LoginPage,
+    component: LoginPage
   },
   {
-    path: '/register',
-    exact: true,
-    navbar: true,
-    component: RegisterPage,
-  },
-  {
-    path: '/user/:username',
+    path: "/register",
     exact: true,
     navbar: true,
-    component: ProfilePage,
+    component: RegisterPage
   },
   {
-    path: '/book/new',
+    path: "/user/:username",
     exact: true,
     navbar: true,
-    requireAuth: true,
-    component: NewBookPage,
+    component: ProfilePage
   },
   {
-    path: '/trade/new/:bookId',
+    path: "/book/new",
     exact: true,
     navbar: true,
     requireAuth: true,
-    component: NewTradePage,
+    component: NewBookPage
   },
   {
-    path: '/inbox',
+    path: "/trade/new/:bookId",
     exact: true,
     navbar: true,
     requireAuth: true,
-    component: InboxPage,
+    component: NewTradePage
   },
   {
-    path: '/trade/:tradeId',
+    path: "/inbox",
     exact: true,
     navbar: true,
     requireAuth: true,
-    component: TradePage,
+    component: InboxPage
   },
   {
-    path: '/index',
+    path: "/trade/:tradeId",
     exact: true,
     navbar: true,
-    component: HomePage,
+    requireAuth: true,
+    component: TradePage
   },
+  {
+    path: "/index",
+    exact: true,
+    navbar: true,
+    component: HomePage
+  }
 ];

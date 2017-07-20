@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Select from 'react-select';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Select from "react-select";
+import { connect } from "react-redux";
 
-import { getGenres } from '../../ActionCreators/BookActionCreators';
-import { changeRoute } from '../../ActionCreators/RouteActionCreators';
+import { getGenres } from "../../ActionCreators/BookActionCreators";
+import { changeRoute } from "../../ActionCreators/RouteActionCreators";
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchField: { value: 'title', label: 'Title' },
-      genre: null,
+      searchField: { value: "title", label: "Title" },
+      genre: null
     };
 
     this.onSearchFieldUpdate = this.onSearchFieldUpdate.bind(this);
@@ -25,44 +25,38 @@ class SearchBar extends Component {
 
   onSearchFieldUpdate(searchField) {
     this.setState({
-      searchField,
+      searchField
     });
   }
 
   onGenreUpdate(genre) {
     this.setState({
-      genre,
+      genre
     });
   }
 
   onListBookClick(e) {
     e.preventDefault();
-    this.props.dispatch(changeRoute('/book/new'));
+    this.props.dispatch(changeRoute("/book/new"));
   }
 
   render() {
     const searchOptions = [
-      { value: 'title', label: 'Title' },
-      { value: 'author', label: 'Author' },
+      { value: "title", label: "Title" },
+      { value: "author", label: "Author" }
     ];
 
     const { genres } = this.props;
-    const genreOptions = genres.map(genre => (
-      {
-        value: genre,
-        label: genre,
-      }
-    ));
+    const genreOptions = genres.map(genre => ({
+      value: genre,
+      label: genre
+    }));
 
     const mainRow = (
       <div className="c-search__input l-form__input-group">
-        <label htmlFor="searchInput">
-          Search
-        </label>
+        <label htmlFor="searchInput">Search</label>
         <div className="l-search__main-row l-flex__row">
-          <input
-            className="c-form__input--text"
-          />
+          <input className="c-form__input--text" />
           <Select
             id="searchField"
             className="c-search__field-select"
@@ -78,9 +72,7 @@ class SearchBar extends Component {
     const supplementaryRow = (
       <div className="l-flex__row">
         <div className="c-search__input l-form__input-group">
-          <label htmlFor="genreInput">
-            Genre
-          </label>
+          <label htmlFor="genreInput">Genre</label>
           <Select
             id="genre"
             value={this.state.genre}
@@ -95,18 +87,13 @@ class SearchBar extends Component {
     return (
       <div className="c-search">
         <div className="l-flex__col l-search__content">
-          { mainRow }
-          { supplementaryRow }
+          {mainRow}
+          {supplementaryRow}
           <div className="l-flex__row">
-            <button
-              className="c-button"
-              onClick={this.onListBookClick}
-            >
+            <button className="c-button" onClick={this.onListBookClick}>
               List Book!
             </button>
-            <button className="c-button">
-              Search
-            </button>
+            <button className="c-button">Search</button>
           </div>
         </div>
       </div>
@@ -116,13 +103,11 @@ class SearchBar extends Component {
 
 SearchBar.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  genres: PropTypes.array.isRequired,
+  genres: PropTypes.array.isRequired
 };
 
-const mapStateToProps = state => (
-  {
-    genres: state.books.genres,
-  }
-);
+const mapStateToProps = state => ({
+  genres: state.books.genres
+});
 
 export default connect(mapStateToProps)(SearchBar);

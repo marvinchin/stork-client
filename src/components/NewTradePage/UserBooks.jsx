@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Select from 'react-select';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Select from "react-select";
 
 class UserBooks extends Component {
   render() {
     const { userBooks, offeredBooks, onOfferChange } = this.props;
-    const bookOptions = userBooks.map(book => (
-      {
-        value: book.id,
-        label: book.title,
-      }
-    ));
+    const bookOptions = userBooks.map(book => ({
+      value: book.id,
+      label: book.title
+    }));
 
     return (
       <div className="c-user-books">
@@ -28,7 +26,7 @@ class UserBooks extends Component {
 UserBooks.propTypes = {
   userBooks: PropTypes.array.isRequired,
   offeredBooks: PropTypes.array.isRequired,
-  onOfferChange: PropTypes.func.isRequired,
+  onOfferChange: PropTypes.func.isRequired
 };
 
 export default UserBooks;

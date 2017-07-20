@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import BookListing from '../BookListing';
+import BookListing from "../BookListing";
 
 class BookCollection extends Component {
   renderBookListings() {
     const { books, isSelectable, showTradeLink } = this.props;
-    return books.map(book => (
+    return books.map(book =>
       <BookListing
         key={book.id}
         isSelectable={isSelectable}
         showTradeLink={showTradeLink}
         {...book}
       />
-    ));
+    );
   }
 
   render() {
@@ -28,12 +28,12 @@ class BookCollection extends Component {
 BookCollection.propTypes = {
   books: PropTypes.array.isRequired,
   isSelectable: PropTypes.bool,
-  showTradeLink: PropTypes.bool,
+  showTradeLink: PropTypes.bool
 };
 
 BookCollection.defaultProps = {
   isSelectable: false,
-  showTradeLink: false,
+  showTradeLink: false
 };
 
 export default BookCollection;

@@ -1,5 +1,5 @@
-import RegisterPage from './RegisterPage';
+import RegisterPage from "./RegisterPage";
 
-require('./RegisterPage.css');
+require("./RegisterPage.css");
 
 export default RegisterPage;

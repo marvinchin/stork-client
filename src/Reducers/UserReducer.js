@@ -1,7 +1,7 @@
-import Actions from '../constants/Actions';
+import Actions from "../constants/Actions";
 
 const initialState = {
-  user: null,
+  user: null
 };
 
 export function handleGetUserProfileComplete(state = initialState, action) {
@@ -15,7 +15,7 @@ export function handleGetUserProfileComplete(state = initialState, action) {
 
 export default function UserReducer(state = initialState, action) {
   switch (action.type) {
-    case (Actions.GET_USER_PROFILE_COMPLETE):
+    case Actions.GET_USER_PROFILE_COMPLETE:
       return handleGetUserProfileComplete(state, action);
     default:
       return state;

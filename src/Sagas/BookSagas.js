@@ -1,9 +1,14 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from "redux-saga/effects";
 
-import Actions from '../constants/Actions';
-import { createBookComplete, getBookByIdComplete, getGenresComplete, getIndexBooksComplete } from '../ActionCreators/BookActionCreators';
-import { createBook, getBookById, getGenres, getIndexBooks } from '../Apis';
-import { changeRoute } from '../ActionCreators/RouteActionCreators';
+import Actions from "../constants/Actions";
+import {
+  createBookComplete,
+  getBookByIdComplete,
+  getGenresComplete,
+  getIndexBooksComplete
+} from "../ActionCreators/BookActionCreators";
+import { createBook, getBookById, getGenres, getIndexBooks } from "../Apis";
+import { changeRoute } from "../ActionCreators/RouteActionCreators";
 
 export function* handleCreateBook(action) {
   const { title, author, genre, description } = action.payload;
@@ -19,17 +24,19 @@ export function* handleCreateBook(action) {
   if (res.status === 200) {
     yield put(createBookComplete(null));
   } else if (res.status === 403) {
-    const authError = new Error('User not logged in');
+    const authError = new Error("User not logged in");
     yield put(createBookComplete(authError));
   } else {
-    const createBookFailedError = new Error('Failed to create book with provided information');
+    const createBookFailedError = new Error(
+      "Failed to create book with provided information"
+    );
     yield put(createBookComplete(createBookFailedError));
   }
 }
 
 export function* handleCreateBookComplete(action) {
   if (action.error) return;
-  yield put(changeRoute('/index'));
+  yield put(changeRoute("/index"));
 }
 
 export function* handleGetBookById(action) {
@@ -83,6 +90,5 @@ export const bookSagas = [
   takeLatest(Actions.BOOK_CREATE_COMPLETE, handleCreateBookComplete),
   takeLatest(Actions.GET_BOOK_BY_ID_PENDING, handleGetBookById),
   takeLatest(Actions.GET_GENRES_PENDING, handleGetGenres),
-  takeLatest(Actions.GET_INDEX_BOOKS_PENDING, handleGetIndexBooks),
+  takeLatest(Actions.GET_INDEX_BOOKS_PENDING, handleGetIndexBooks)
 ];
-

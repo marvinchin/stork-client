@@ -1,39 +1,33 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import BookListing from '../BookListing';
-import BookCollection from '../BookCollection';
+import BookListing from "../BookListing";
+import BookCollection from "../BookCollection";
 
 class TradePage extends Component {
   render() {
     const { user, trade } = this.props;
     const { listUser, offerUser, listedBook, offeredBooks, details } = trade;
 
-    const isListUser = (user.id === listUser.id);
+    const isListUser = user.id === listUser.id;
     const otherUser = isListUser ? offerUser : listUser;
 
-    const listLabel = isListUser ? `${otherUser.username} wants` : 'You want';
-    const offerLabel = isListUser ? `${otherUser.username} offered` : 'You offered';
+    const listLabel = isListUser ? `${otherUser.username} wants` : "You want";
+    const offerLabel = isListUser
+      ? `${otherUser.username} offered`
+      : "You offered";
 
     let buttons;
 
     if (isListUser) {
       buttons = (
         <div className="l-flex__row l-trade-page__buttons">
-          <button className="c-button">
-            Accept
-          </button>
-          <button className="c-button">
-            Reject
-          </button>
+          <button className="c-button">Accept</button>
+          <button className="c-button">Reject</button>
         </div>
       );
     } else {
-      buttons = (
-        <button className="c-button">
-          Cancel
-        </button>
-      );
+      buttons = <button className="c-button">Cancel</button>;
     }
 
     return (
@@ -59,9 +53,7 @@ class TradePage extends Component {
             </div>
           </div>
           <div className="l-form__input-group">
-            <label htmlFor="details">
-              Additional Details
-            </label>
+            <label htmlFor="details">Additional Details</label>
             <textarea
               id="details"
               rows="3"
@@ -79,50 +71,50 @@ class TradePage extends Component {
 
 TradePage.propTypes = {
   user: PropTypes.object,
-  trade: PropTypes.object,
+  trade: PropTypes.object
 };
 
 TradePage.defaultProps = {
   user: {
     id: 421,
-    username: 'noobscrub',
+    username: "noobscrub"
   },
   trade: {
     id: 1,
     listedBook: {
       id: 1,
-      title: 'Fifty Shades of Gray',
-      author: 'E L James',
-      genre: 'Non-Fiction',
-      description: 'Good condition',
+      title: "Fifty Shades of Gray",
+      author: "E L James",
+      genre: "Non-Fiction",
+      description: "Good condition"
     },
     offeredBooks: [
       {
         id: 2,
-        title: 'The Three Little Pigs',
-        author: 'Big Bad Wolf',
-        genre: 'Sci-Fi',
-        description: 'The Three Little Pigs is a classic hit',
+        title: "The Three Little Pigs",
+        author: "Big Bad Wolf",
+        genre: "Sci-Fi",
+        description: "The Three Little Pigs is a classic hit"
       },
       {
         id: 3,
-        title: 'The Life and Times of Foo Yong Jie',
-        author: 'Foo Yong Jie',
-        genre: 'Fiction',
-        description: 'Great book!',
-      },
+        title: "The Life and Times of Foo Yong Jie",
+        author: "Foo Yong Jie",
+        genre: "Fiction",
+        description: "Great book!"
+      }
     ],
-    details: 'Pick any one of the books I offered',
+    details: "Pick any one of the books I offered",
     offerUser: {
       id: 123,
-      username: 'destinngeow',
+      username: "destinngeow"
     },
     listUser: {
       id: 421,
-      username: 'noobscrub',
+      username: "noobscrub"
     },
-    status: 'P',
-  },
+    status: "P"
+  }
 };
 
 export default TradePage;

@@ -1,15 +1,18 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import { resetAuthErrors, loginUser } from '../../ActionCreators/AuthActionCreators';
+import {
+  resetAuthErrors,
+  loginUser
+} from "../../ActionCreators/AuthActionCreators";
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      username: "",
+      password: ""
     };
     this.onLogin = this.onLogin.bind(this);
     this.onUsernameChange = this.onUsernameChange.bind(this);
@@ -19,7 +22,7 @@ class LoginForm extends Component {
   componentWillMount() {
     this.props.dispatch(resetAuthErrors());
   }
-  
+
   onUsernameChange(e) {
     this.setState({ username: e.target.value });
   }
@@ -38,7 +41,7 @@ class LoginForm extends Component {
     const { authErr } = this.props;
     return (
       <div className="c-login-form__error">
-        { authErr != null ? authErr.message : null }
+        {authErr != null ? authErr.message : null}
       </div>
     );
   }
@@ -46,9 +49,7 @@ class LoginForm extends Component {
   render() {
     return (
       <form className="c-login-form c-form l-flex__col">
-        <div className="c-login-form__title c-logo">
-          Stork
-        </div>
+        <div className="c-login-form__title c-logo">Stork</div>
         <div className="l-login-form__inputs l-flex__col">
           <input
             className="c-form__input--text"
@@ -71,7 +72,7 @@ class LoginForm extends Component {
         >
           Log In
         </button>
-        { this.renderErrorMessage() }
+        {this.renderErrorMessage()}
       </form>
     );
   }
@@ -79,17 +80,15 @@ class LoginForm extends Component {
 
 LoginForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  authErr: PropTypes.instanceOf(Error),
+  authErr: PropTypes.instanceOf(Error)
 };
 
 LoginForm.defaultProps = {
-  authErr: null,
+  authErr: null
 };
 
-const mapStateToProps = state => (
-  {
-    authErr: state.auth.authErr,
-  }
-);
+const mapStateToProps = state => ({
+  authErr: state.auth.authErr
+});
 
 export default connect(mapStateToProps)(LoginForm);

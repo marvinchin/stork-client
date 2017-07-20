@@ -1,3 +1,3 @@
-import BookCollection from './BookCollection';
+import BookCollection from "./BookCollection";
 
 export default BookCollection;

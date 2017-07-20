@@ -1,8 +1,8 @@
-import Actions from '../constants/Actions';
+import Actions from "../constants/Actions";
 
 const initialState = {
   userTrades: [],
-  tradeErr: null,
+  tradeErr: null
 };
 
 function handleGetUserTradesComplete(state, action) {
@@ -10,7 +10,10 @@ function handleGetUserTradesComplete(state, action) {
   let newState;
   if (error) {
     const tradeErr = payload.error;
-    newState = Object.assign({}, state, { userTrades: initialState.userTrades, tradeErr });
+    newState = Object.assign({}, state, {
+      userTrades: initialState.userTrades,
+      tradeErr
+    });
   } else {
     const { trades } = payload;
     newState = Object.assign({}, state, { userTrades: trades, tradeErr: null });
@@ -37,11 +40,11 @@ function resetTradeErrors(state) {
 
 export default function TradeReducer(state = initialState, action) {
   switch (action.type) {
-    case (Actions.GET_USER_TRADES_COMPLETE):
+    case Actions.GET_USER_TRADES_COMPLETE:
       return handleGetUserTradesComplete(state, action);
-    case (Actions.CREATE_TRADE_COMPLETE):
+    case Actions.CREATE_TRADE_COMPLETE:
       return handleCreateTradeComplete(state, action);
-    case (Actions.TRADE_RESET_ERRORS):
+    case Actions.TRADE_RESET_ERRORS:
       return resetTradeErrors(state);
     default:
       return state;

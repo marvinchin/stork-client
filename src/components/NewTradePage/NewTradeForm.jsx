@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import ListedBook from './ListedBook';
-import UserBooks from './UserBooks';
+import ListedBook from "./ListedBook";
+import UserBooks from "./UserBooks";
 
 class NewTradeForm extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class NewTradeForm extends Component {
     this.state = {
       listedBook,
       offeredBooks: [],
-      description: '',
+      description: ""
     };
 
     this.onOfferChange = this.onOfferChange.bind(this);
@@ -21,7 +21,7 @@ class NewTradeForm extends Component {
 
   onOfferChange(offeredBooks) {
     this.setState({
-      offeredBooks,
+      offeredBooks
     });
   }
 
@@ -32,9 +32,7 @@ class NewTradeForm extends Component {
   onTradeSubmit(e) {
     e.preventDefault();
     const { offeredBooks, description } = this.state;
-    const offeredBookIds = offeredBooks.map(book => (
-      book.value
-    ));
+    const offeredBookIds = offeredBooks.map(book => book.value);
     this.props.handleTradeSubmit(offeredBookIds, description);
   }
 
@@ -52,15 +50,11 @@ class NewTradeForm extends Component {
     return (
       <div className="c-form c-new-trade-form l-flex__col">
         <div className="l-form__input-group">
-          <label htmlFor="listedBook">
-            You Want
-          </label>
+          <label htmlFor="listedBook">You Want</label>
           <ListedBook listedBook={listedBook} />
         </div>
         <div className="l-form__input-group">
-          <label htmlFor="userBooks">
-            You're Offering
-          </label>
+          <label htmlFor="userBooks">You're Offering</label>
           <UserBooks
             userBooks={userBooks}
             offeredBooks={this.state.offeredBooks}
@@ -68,9 +62,7 @@ class NewTradeForm extends Component {
           />
         </div>
         <div className="l-form__input-group">
-          <label htmlFor="details">
-            Additional Details
-          </label>
+          <label htmlFor="details">Additional Details</label>
           <textarea
             id="details"
             rows="3"
@@ -79,10 +71,7 @@ class NewTradeForm extends Component {
             onChange={this.onDescriptionChange}
           />
         </div>
-        <button
-          className="c-button"
-          onClick={this.onTradeSubmit}
-        >
+        <button className="c-button" onClick={this.onTradeSubmit}>
           Request Trade
         </button>
         {this.renderErrorMessage()}
@@ -95,11 +84,11 @@ NewTradeForm.propTypes = {
   listedBook: PropTypes.object.isRequired,
   userBooks: PropTypes.array.isRequired,
   tradeErr: PropTypes.instanceOf(Error),
-  handleTradeSubmit: PropTypes.func.isRequired,
+  handleTradeSubmit: PropTypes.func.isRequired
 };
 
 NewTradeForm.defaultProps = {
-  tradeErr: null,
+  tradeErr: null
 };
 
 export default NewTradeForm;

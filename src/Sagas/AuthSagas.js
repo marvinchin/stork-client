@@ -1,9 +1,14 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from "redux-saga/effects";
 
-import Actions from '../constants/Actions';
-import { authenticateUserComplete, loginUserComplete, updateUser, registerUserComplete } from '../ActionCreators/AuthActionCreators';
-import { authenticateUser, loginUser, registerUser } from '../Apis';
-import { changeRoute } from '../ActionCreators/RouteActionCreators';
+import Actions from "../constants/Actions";
+import {
+  authenticateUserComplete,
+  loginUserComplete,
+  updateUser,
+  registerUserComplete
+} from "../ActionCreators/AuthActionCreators";
+import { authenticateUser, loginUser, registerUser } from "../Apis";
+import { changeRoute } from "../ActionCreators/RouteActionCreators";
 
 export function* handleAuthenticateUser() {
   let res;
@@ -13,7 +18,7 @@ export function* handleAuthenticateUser() {
     res = yield call(authenticateUser);
   } catch (err) {
     yield put(authenticateUserComplete(err));
-    yield put(changeRoute('/login'));
+    yield put(changeRoute("/login"));
     return;
   }
 
@@ -23,9 +28,9 @@ export function* handleAuthenticateUser() {
     yield put(authenticateUserComplete(null, user));
     return;
   }
-  const authFailedError = new Error('Unable to authenticate user');
+  const authFailedError = new Error("Unable to authenticate user");
   yield put(authenticateUserComplete(authFailedError));
-  yield put(changeRoute('/login'));
+  yield put(changeRoute("/login"));
 }
 
 export function* handleUserLogin(action) {
@@ -43,8 +48,8 @@ export function* handleUserLogin(action) {
     const { user } = res.body;
     yield put(loginUserComplete(null, user));
   } else {
-  // Else, failed to login with credentials
-    const loginFailedError = new Error('Unable to login with credentials');
+    // Else, failed to login with credentials
+    const loginFailedError = new Error("Unable to login with credentials");
     yield put(loginUserComplete(loginFailedError));
   }
 }
@@ -52,7 +57,7 @@ export function* handleUserLogin(action) {
 export function* handleUserLoginComplete(action) {
   const { error } = action.payload;
   if (error) return;
-  yield put(changeRoute('/index'));
+  yield put(changeRoute("/index"));
 }
 
 export function* handleUserRegister(action) {
@@ -78,7 +83,7 @@ export function* handleUserRegister(action) {
 export function* handleUserRegisterComplete(action) {
   const { error } = action.payload;
   if (error) return;
-  yield put(changeRoute('/login'));
+  yield put(changeRoute("/login"));
 }
 
 export const authSagas = [
@@ -86,5 +91,5 @@ export const authSagas = [
   takeLatest(Actions.AUTH_USER_LOGIN_PENDING, handleUserLogin),
   takeLatest(Actions.AUTH_USER_LOGIN_COMPLETE, handleUserLoginComplete),
   takeLatest(Actions.AUTH_USER_REGISTER_PENDING, handleUserRegister),
-  takeLatest(Actions.AUTH_USER_REGISTER_COMPLETE, handleUserRegisterComplete),
+  takeLatest(Actions.AUTH_USER_REGISTER_COMPLETE, handleUserRegisterComplete)
 ];

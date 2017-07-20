@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import NewTradeForm from './NewTradeForm';
-import { getBookById } from '../../ActionCreators/BookActionCreators';
-import { createTrade, resetTradeErrors } from '../../ActionCreators/TradeActionCreators';
+import NewTradeForm from "./NewTradeForm";
+import { getBookById } from "../../ActionCreators/BookActionCreators";
+import {
+  createTrade,
+  resetTradeErrors
+} from "../../ActionCreators/TradeActionCreators";
 
 class NewTradePage extends Component {
   componentWillMount() {
@@ -22,7 +25,9 @@ class NewTradePage extends Component {
     if (listedBook) {
       const listedBookId = listedBook.id;
       const handleTradeSubmit = (offeredBookIds, description) => {
-        this.props.dispatch(createTrade(listedBookId, offeredBookIds, description));
+        this.props.dispatch(
+          createTrade(listedBookId, offeredBookIds, description)
+        );
       };
 
       return (
@@ -43,20 +48,18 @@ NewTradePage.propTypes = {
   match: PropTypes.object.isRequired,
   listedBook: PropTypes.object,
   userBooks: PropTypes.array.isRequired,
-  tradeErr: PropTypes.instanceOf(Error),
+  tradeErr: PropTypes.instanceOf(Error)
 };
 
 NewTradePage.defaultProps = {
   listedBook: null,
-  tradeErr: null,
+  tradeErr: null
 };
 
-const mapStateToProps = state => (
-  {
-    listedBook: state.books.book,
-    userBooks: state.auth.user.books,
-    tradeErr: state.trades.tradeErr,
-  }
-);
+const mapStateToProps = state => ({
+  listedBook: state.books.book,
+  userBooks: state.auth.user.books,
+  tradeErr: state.trades.tradeErr
+});
 
 export default connect(mapStateToProps)(NewTradePage);

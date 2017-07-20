@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Hero from './Hero';
+import Hero from "./Hero";
 
 class LandingPage extends Component {
   render() {

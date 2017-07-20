@@ -1,9 +1,9 @@
-import Actions from '../constants/Actions';
+import Actions from "../constants/Actions";
 
 const initialState = {
   genres: [],
   book: null,
-  indexBooks: [],
+  indexBooks: []
 };
 
 export function handleGetBookByIdComplete(state, action) {
@@ -35,11 +35,11 @@ export function handleGetIndexBooksComplete(state, action) {
 
 export default function BookReducer(state = initialState, action) {
   switch (action.type) {
-    case (Actions.GET_BOOK_BY_ID_COMPLETE):
+    case Actions.GET_BOOK_BY_ID_COMPLETE:
       return handleGetBookByIdComplete(state, action);
-    case (Actions.GET_GENRES_COMPLETE):
+    case Actions.GET_GENRES_COMPLETE:
       return handleGetGenresComplete(state, action);
-    case (Actions.GET_INDEX_BOOKS_COMPLETE):
+    case Actions.GET_INDEX_BOOKS_COMPLETE:
       return handleGetIndexBooksComplete(state, action);
     default:
       return state;

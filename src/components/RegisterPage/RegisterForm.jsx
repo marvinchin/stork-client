@@ -1,16 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import { resetAuthErrors, registerUser } from '../../ActionCreators/AuthActionCreators';
+import {
+  resetAuthErrors,
+  registerUser
+} from "../../ActionCreators/AuthActionCreators";
 
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      username: '',
-      password: '',
+      email: "",
+      username: "",
+      password: ""
     };
 
     this.onEmailChange = this.onEmailChange.bind(this);
@@ -45,7 +48,7 @@ class RegisterForm extends Component {
     const { authErr } = this.props;
     return (
       <div className="c-register-page__error">
-        { authErr !== null ? authErr.message : null }
+        {authErr !== null ? authErr.message : null}
       </div>
     );
   }
@@ -54,9 +57,7 @@ class RegisterForm extends Component {
     return (
       <form className="c-form l-flex__col">
         <div className="l-form__input-group">
-          <label htmlFor="email">
-            Email
-          </label>
+          <label htmlFor="email">Email</label>
           <input
             type="text"
             id="email"
@@ -67,9 +68,7 @@ class RegisterForm extends Component {
           />
         </div>
         <div className="l-form__input-group">
-          <label htmlFor="username">
-            Username
-          </label>
+          <label htmlFor="username">Username</label>
           <input
             type="text"
             id="username"
@@ -80,9 +79,7 @@ class RegisterForm extends Component {
           />
         </div>
         <div className="l-form__input-group">
-          <label htmlFor="password">
-            Password
-          </label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
@@ -92,13 +89,10 @@ class RegisterForm extends Component {
             onChange={this.onPasswordChange}
           />
         </div>
-        <button
-          className="c-button"
-          onClick={this.onRegister}
-        >
+        <button className="c-button" onClick={this.onRegister}>
           Register
         </button>
-        { this.renderErrorMessage() }
+        {this.renderErrorMessage()}
       </form>
     );
   }
@@ -106,17 +100,15 @@ class RegisterForm extends Component {
 
 RegisterForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  authErr: PropTypes.instanceOf(Error),
+  authErr: PropTypes.instanceOf(Error)
 };
 
 RegisterForm.defaultProps = {
-  authErr: null,
+  authErr: null
 };
 
-const mapStateToProps = state => (
-  {
-    authErr: state.auth.authErr,
-  }
-);
+const mapStateToProps = state => ({
+  authErr: state.auth.authErr
+});
 
 export default connect(mapStateToProps)(RegisterForm);

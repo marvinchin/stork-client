@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import UserProfile from './UserProfile';
-import BookCollection from '../BookCollection';
-import { getUserProfile } from '../../ActionCreators/UserActionCreators';
+import UserProfile from "./UserProfile";
+import BookCollection from "../BookCollection";
+import { getUserProfile } from "../../ActionCreators/UserActionCreators";
 
 class ProfilePage extends Component {
   componentDidMount() {
@@ -30,17 +30,15 @@ class ProfilePage extends Component {
 ProfilePage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
-  user: PropTypes.object,
+  user: PropTypes.object
 };
 
 ProfilePage.defaultProps = {
-  user: null,
+  user: null
 };
 
-const mapStateToProps = state => (
-  {
-    user: state.users.user,
-  }
-);
+const mapStateToProps = state => ({
+  user: state.users.user
+});
 
 export default connect(mapStateToProps)(ProfilePage);

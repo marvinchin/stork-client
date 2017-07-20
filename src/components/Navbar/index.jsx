@@ -1,5 +1,5 @@
-import Navbar from './Navbar';
+import Navbar from "./Navbar";
 
-require('./Navbar.css');
+require("./Navbar.css");
 
 export default Navbar;

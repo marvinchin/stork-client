@@ -1,5 +1,5 @@
-import TradePage from './TradePage';
+import TradePage from "./TradePage";
 
-require('./TradePage.css');
+require("./TradePage.css");
 
 export default TradePage;

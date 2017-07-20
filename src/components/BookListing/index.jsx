@@ -1,5 +1,5 @@
-import BookListing from './BookListing';
+import BookListing from "./BookListing";
 
-require('./BookListing.css');
+require("./BookListing.css");
 
 export default BookListing;

@@ -1,5 +1,5 @@
-import LandingPage from './LandingPage';
+import LandingPage from "./LandingPage";
 
-require('./LandingPage.css');
+require("./LandingPage.css");
 
 export default LandingPage;

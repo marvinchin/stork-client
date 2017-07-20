@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class Navbar extends Component {
   renderDropdown() {
@@ -30,10 +30,7 @@ class Navbar extends Component {
     }
     return (
       <div className="c-navbar__dropdown">
-        <a
-          className="dropdown-toggle"
-          data-toggle="dropdown"
-        >
+        <a className="dropdown-toggle" data-toggle="dropdown">
           <span className="glyphicon glyphicon-menu-hamburger" />
         </a>
         {dropdownItems}
@@ -46,9 +43,7 @@ class Navbar extends Component {
       <div className="c-navbar l-flex__col">
         <div className="l-navbar">
           <Link className="c-navbar__logo" to="/index">
-            <div className="c-logo">
-              Stork
-            </div>
+            <div className="c-logo">Stork</div>
           </Link>
           {this.renderDropdown()}
         </div>
@@ -58,17 +53,15 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.object
 };
 
 Navbar.defaultProps = {
-  user: null,
+  user: null
 };
 
-const mapStateToProps = state => (
-  {
-    user: state.auth.user,
-  }
-);
+const mapStateToProps = state => ({
+  user: state.auth.user
+});
 
 export default connect(mapStateToProps)(Navbar);

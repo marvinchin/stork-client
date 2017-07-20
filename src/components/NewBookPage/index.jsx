@@ -1,5 +1,5 @@
-import NewBookPage from './NewBookPage';
+import NewBookPage from "./NewBookPage";
 
-require('./NewBookPage.css');
+require("./NewBookPage.css");
 
 export default NewBookPage;

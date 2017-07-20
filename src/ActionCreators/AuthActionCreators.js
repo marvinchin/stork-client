@@ -1,9 +1,9 @@
-import ActionTypes from '../constants/Actions';
+import ActionTypes from "../constants/Actions";
 
 export function authenticateUser() {
   return {
     type: ActionTypes.AUTHENTICATE_USER_PENDING,
-    payload: {},
+    payload: {}
   };
 }
 
@@ -13,16 +13,16 @@ export function authenticateUserComplete(error, user) {
       type: ActionTypes.AUTHENTICATE_USER_COMPLETE,
       error: true,
       payload: {
-        error,
-      },
+        error
+      }
     };
   }
 
   return {
     type: ActionTypes.AUTHENTICATE_USER_COMPLETE,
     payload: {
-      user,
-    },
+      user
+    }
   };
 }
 
@@ -31,8 +31,8 @@ export function loginUser(error, username, password) {
     type: ActionTypes.AUTH_USER_LOGIN_PENDING,
     payload: {
       username,
-      password,
-    },
+      password
+    }
   };
 }
 
@@ -42,16 +42,16 @@ export function loginUserComplete(error, user) {
       type: ActionTypes.AUTH_USER_LOGIN_COMPLETE,
       error: true,
       payload: {
-        error,
-      },
+        error
+      }
     };
   }
 
   return {
     type: ActionTypes.AUTH_USER_LOGIN_COMPLETE,
     payload: {
-      user,
-    },
+      user
+    }
   };
 }
 
@@ -59,8 +59,8 @@ export function updateUser(error, user) {
   return {
     type: ActionTypes.AUTH_UPDATE_USER_PENDING,
     payload: {
-      user,
-    },
+      user
+    }
   };
 }
 
@@ -73,8 +73,8 @@ export function registerUser(error, username, password, email) {
     payload: {
       username,
       password,
-      email,
-    },
+      email
+    }
   };
 }
 
@@ -84,21 +84,21 @@ export function registerUserComplete(error, user) {
       type: ActionTypes.AUTH_USER_REGISTER_COMPLETE,
       error: true,
       payload: {
-        error,
-      },
+        error
+      }
     };
   }
   return {
     type: ActionTypes.AUTH_USER_REGISTER_COMPLETE,
     payload: {
-      user,
-    },
+      user
+    }
   };
 }
 
 export function resetAuthErrors() {
   return {
     type: ActionTypes.AUTH_RESET_ERRORS,
-    payload: {},
+    payload: {}
   };
 }

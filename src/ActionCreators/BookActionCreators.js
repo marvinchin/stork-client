@@ -1,14 +1,14 @@
-import ActionTypes from '../constants/Actions';
+import ActionTypes from "../constants/Actions";
 
-export function createBook(title, author, genre, description = '') {
+export function createBook(title, author, genre, description = "") {
   return {
     type: ActionTypes.BOOK_CREATE_PENDING,
     payload: {
       title,
       author,
       genre,
-      description,
-    },
+      description
+    }
   };
 }
 
@@ -18,14 +18,14 @@ export function createBookComplete(error) {
       type: ActionTypes.BOOK_CREATE_COMPLETE,
       error: true,
       payload: {
-        error,
-      },
+        error
+      }
     };
   }
 
   return {
     type: ActionTypes.BOOK_CREATE_COMPLETE,
-    payload: {},
+    payload: {}
   };
 }
 
@@ -33,8 +33,8 @@ export function getBookById(bookId) {
   return {
     type: ActionTypes.GET_BOOK_BY_ID_PENDING,
     payload: {
-      bookId,
-    },
+      bookId
+    }
   };
 }
 
@@ -44,23 +44,23 @@ export function getBookByIdComplete(error, book) {
       type: ActionTypes.GET_BOOK_BY_ID_COMPLETE,
       error: true,
       payload: {
-        error,
-      },
+        error
+      }
     };
   }
 
   return {
     type: ActionTypes.GET_BOOK_BY_ID_COMPLETE,
     payload: {
-      book,
-    },
+      book
+    }
   };
 }
 
 export function getGenres() {
   return {
     type: ActionTypes.GET_GENRES_PENDING,
-    payload: {},
+    payload: {}
   };
 }
 
@@ -70,23 +70,23 @@ export function getGenresComplete(error, genres) {
       type: ActionTypes.GET_GENRES_COMPLETE,
       error: true,
       payload: {
-        error,
-      },
+        error
+      }
     };
   }
 
   return {
     type: ActionTypes.GET_GENRES_COMPLETE,
     payload: {
-      genres,
-    },
+      genres
+    }
   };
 }
 
 export function getIndexBooks() {
   return {
     type: ActionTypes.GET_INDEX_BOOKS_PENDING,
-    payload: {},
+    payload: {}
   };
 }
 
@@ -96,15 +96,15 @@ export function getIndexBooksComplete(error, books) {
       type: ActionTypes.GET_INDEX_BOOKS_COMPLETE,
       error: true,
       payload: {
-        error,
-      },
+        error
+      }
     };
   }
 
   return {
     type: ActionTypes.GET_INDEX_BOOKS_COMPLETE,
     payload: {
-      books,
-    },
+      books
+    }
   };
 }

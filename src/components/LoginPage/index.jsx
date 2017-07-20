@@ -1,5 +1,5 @@
-import LoginPage from './LoginPage';
+import LoginPage from "./LoginPage";
 
-require('./LoginPage.css');
+require("./LoginPage.css");
 
 export default LoginPage;

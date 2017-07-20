@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import NewBookForm from './NewBookForm';
-import { createBook, getGenres } from '../../ActionCreators/BookActionCreators';
+import NewBookForm from "./NewBookForm";
+import { createBook, getGenres } from "../../ActionCreators/BookActionCreators";
 
 class NewBookPage extends Component {
   componentDidMount() {
@@ -29,13 +29,11 @@ class NewBookPage extends Component {
 
 NewBookPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  genres: PropTypes.array.isRequired,
+  genres: PropTypes.array.isRequired
 };
 
-const mapStateToProps = state => (
-  {
-    genres: state.books.genres,
-  }
-);
+const mapStateToProps = state => ({
+  genres: state.books.genres
+});
 
 export default connect(mapStateToProps)(NewBookPage);

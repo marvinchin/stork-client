@@ -1,4 +1,4 @@
-import keyMirror from 'keymirror';
+import keyMirror from "keymirror";
 
 export default keyMirror({
   AUTHENTICATE_USER_PENDING: null,
@@ -32,5 +32,5 @@ export default keyMirror({
   TRADE_RESET_ERRORS: null,
 
   GET_USER_PROFILE_PENDING: null,
-  GET_USER_PROFILE_COMPLETE: null,
+  GET_USER_PROFILE_COMPLETE: null
 });

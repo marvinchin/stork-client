@@ -1,5 +1,5 @@
-import ProfilePage from './ProfilePage';
+import ProfilePage from "./ProfilePage";
 
-require('./ProfilePage.css');
+require("./ProfilePage.css");
 
 export default ProfilePage;

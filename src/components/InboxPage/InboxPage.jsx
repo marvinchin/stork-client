@@ -1,27 +1,25 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-import TradeSummary from './TradeSummary';
-import { getUserTrades } from '../../ActionCreators/TradeActionCreators';
+import TradeSummary from "./TradeSummary";
+import { getUserTrades } from "../../ActionCreators/TradeActionCreators";
 
 class InboxPage extends Component {
-
   componentDidMount() {
     this.props.dispatch(getUserTrades());
   }
 
   renderTrades() {
     const { trades, user } = this.props;
-    return trades.map((trade) => {
-      const otherUser = user.id !== trade.listUser.id
-            ? trade.listUser
-            : trade.offerUser;
+    return trades.map(trade => {
+      const otherUser =
+        user.id !== trade.listUser.id ? trade.listUser : trade.offerUser;
       const tradeUrl = `/trade/${trade.id}`;
 
       return (
-        <Link key={trade.id} to={tradeUrl} >
+        <Link key={trade.id} to={tradeUrl}>
           <TradeSummary
             key={trade.id}
             user={otherUser}
@@ -36,11 +34,9 @@ class InboxPage extends Component {
   render() {
     return (
       <div className="c-inbox">
-        <div className="c-inbox__title">
-          Your Trades
-        </div>
+        <div className="c-inbox__title">Your Trades</div>
         <div className="c-inbox__trades">
-          { this.renderTrades() }
+          {this.renderTrades()}
         </div>
       </div>
     );
@@ -50,15 +46,12 @@ class InboxPage extends Component {
 InboxPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   trades: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => (
-  {
-    user: state.auth.user,
-    trades: state.trades.userTrades,
-  }
-);
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  trades: state.trades.userTrades
+});
 
 export default connect(mapStateToProps)(InboxPage);
-

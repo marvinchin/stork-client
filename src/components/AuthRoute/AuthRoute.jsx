@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { withRouter } from "react-router";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import { authenticateUser } from '../../ActionCreators/AuthActionCreators';
+import { authenticateUser } from "../../ActionCreators/AuthActionCreators";
 
 class AuthRoute extends Component {
   componentDidMount() {
@@ -26,17 +26,15 @@ class AuthRoute extends Component {
 AuthRoute.propTypes = {
   children: PropTypes.any.isRequired,
   user: PropTypes.object,
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 AuthRoute.defaultProps = {
-  user: null,
+  user: null
 };
 
-const mapStateToProps = state => (
-  {
-    user: state.auth.user,
-  }
-);
+const mapStateToProps = state => ({
+  user: state.auth.user
+});
 
 export default withRouter(connect(mapStateToProps)(AuthRoute));

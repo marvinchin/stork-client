@@ -1,11 +1,11 @@
-import ActionTypes from '../constants/Actions';
+import ActionTypes from "../constants/Actions";
 
 export function changeRoute(route) {
   return {
     type: ActionTypes.ROUTE_CHANGE_PENDING,
     payload: {
-      route,
-    },
+      route
+    }
   };
 }
 
@@ -16,6 +16,6 @@ export function changeRoute(route) {
 export function changeRouteComplete() {
   return {
     type: ActionTypes.ROUTE_CHANGE_COMPLETE,
-    payload: {},
+    payload: {}
   };
 }

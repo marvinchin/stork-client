@@ -1,8 +1,8 @@
-import Actions from '../constants/Actions';
+import Actions from "../constants/Actions";
 
 const initialState = {
   user: null,
-  authErr: null,
+  authErr: null
 };
 
 export function resetAuthErrors(state) {
@@ -48,13 +48,13 @@ export function handleAuthenticateUserComplete(state, action) {
 
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
-    case (Actions.AUTH_USER_LOGIN_COMPLETE):
+    case Actions.AUTH_USER_LOGIN_COMPLETE:
       return handleLoginComplete(state, action);
-    case (Actions.AUTH_USER_REGISTER_COMPLETE):
+    case Actions.AUTH_USER_REGISTER_COMPLETE:
       return handleRegisterComplete(state, action);
-    case (Actions.AUTHENTICATE_USER_COMPLETE):
+    case Actions.AUTHENTICATE_USER_COMPLETE:
       return handleAuthenticateUserComplete(state, action);
-    case (Actions.AUTH_RESET_ERRORS):
+    case Actions.AUTH_RESET_ERRORS:
       return resetAuthErrors(state);
     default:
       return state;

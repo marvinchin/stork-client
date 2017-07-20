@@ -1,16 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import BookListing from '../BookListing';
+import BookListing from "../BookListing";
 
-const ListedBook = ({ listedBook }) => (
+const ListedBook = ({ listedBook }) =>
   <div className="c-listed-book">
     <BookListing {...listedBook} />
-  </div>
-);
+  </div>;
 
 ListedBook.propTypes = {
-  listedBook: PropTypes.object.isRequired,
+  listedBook: PropTypes.object.isRequired
 };
 
 export default ListedBook;

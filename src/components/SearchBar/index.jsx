@@ -1,5 +1,5 @@
-import SearchBar from './SearchBar';
+import SearchBar from "./SearchBar";
 
-require('./SearchBar.css');
+require("./SearchBar.css");
 
 export default SearchBar;

@@ -1,5 +1,5 @@
-import InboxPage from './InboxPage';
+import InboxPage from "./InboxPage";
 
-require('./InboxPage.css');
+require("./InboxPage.css");
 
 export default InboxPage;

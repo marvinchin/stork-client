@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
 
-import Routes from '../Routes';
-import AuthRoute from './AuthRoute';
-import Navbar from './Navbar';
+import Routes from "../Routes";
+import AuthRoute from "./AuthRoute";
+import Navbar from "./Navbar";
 
 class Page extends Component {
   render() {
     return (
       <div>
         <div>
-          { Routes.map(route => (
+          {Routes.map(route =>
             <Route
               key={route.path}
               path={route.path}
               exact={route.exact}
               component={route.navbar ? Navbar : null}
             />
-          ))}
+          )}
         </div>
         <div>
-          { Routes.map((route) => {
+          {Routes.map(route => {
             if (route.requireAuth) {
               const ChildComponent = route.component;
               return (
@@ -28,11 +28,10 @@ class Page extends Component {
                   key={route.path}
                   path={route.path}
                   exact={route.exact}
-                  render={() => (
+                  render={() =>
                     <AuthRoute>
                       <ChildComponent />
-                    </AuthRoute>
-                  )}
+                    </AuthRoute>}
                 />
               );
             }

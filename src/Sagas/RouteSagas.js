@@ -1,8 +1,8 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { put, call, takeLatest } from "redux-saga/effects";
 
-import Actions from '../constants/Actions';
-import { changeRouteComplete } from '../ActionCreators/RouteActionCreators';
-import history from '../history';
+import Actions from "../constants/Actions";
+import { changeRouteComplete } from "../ActionCreators/RouteActionCreators";
+import history from "../history";
 
 export function* handleChangeRoute(action) {
   const { route } = action.payload;
@@ -11,6 +11,5 @@ export function* handleChangeRoute(action) {
 }
 
 export const routeSagas = [
-  takeLatest(Actions.ROUTE_CHANGE_PENDING, handleChangeRoute),
+  takeLatest(Actions.ROUTE_CHANGE_PENDING, handleChangeRoute)
 ];
-

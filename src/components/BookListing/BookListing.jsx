@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 class BookListing extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       isExpanded: false,
-      isSelected: false,
+      isSelected: false
     };
     this.onClick = this.onClick.bind(this);
     this.onSelectChange = this.onSelectChange.bind(this);
@@ -16,15 +15,13 @@ class BookListing extends Component {
 
   onSelectChange() {
     this.setState({
-      isSelected: !this.state.isSelected,
+      isSelected: !this.state.isSelected
     });
   }
 
   onClick(event) {
     event.preventDefault();
-    this.setState(previousState => (
-      { isExpanded: !previousState.isExpanded }
-    ));
+    this.setState(previousState => ({ isExpanded: !previousState.isExpanded }));
   }
 
   renderTradeLink() {
@@ -47,9 +44,8 @@ class BookListing extends Component {
       return null;
     }
     const { description } = this.props;
-    const descriptionText = (description === '') ? 'No Description' : description;
+    const descriptionText = description === "" ? "No Description" : description;
     const { ownerUsername } = this.props;
-
 
     const ownerProfileUrl = `/user/${ownerUsername}`;
     const ownerLink = (
@@ -60,7 +56,9 @@ class BookListing extends Component {
 
     return (
       <div className="c-book-listing__description">
-        <p>{ descriptionText }</p>
+        <p>
+          {descriptionText}
+        </p>
         <div className="l-flex__row">
           {ownerLink}
           {this.renderTradeLink()}
@@ -71,7 +69,7 @@ class BookListing extends Component {
 
   renderCheckbox() {
     const { isSelectable } = this.props;
-    const preventClickPropagate = (event) => {
+    const preventClickPropagate = event => {
       event.stopPropagation();
     };
 
@@ -92,44 +90,45 @@ class BookListing extends Component {
   renderExpandMarker() {
     const { isExpanded } = this.state;
     const marker = !isExpanded
-          ? <span className="c-book-listing__expand-marker glyphicon glyphicon-menu-down" />
-          : <span className="c-book-listing__expand-marker glyphicon glyphicon-menu-up" />;
+      ? <span className="c-book-listing__expand-marker glyphicon glyphicon-menu-down" />
+      : <span className="c-book-listing__expand-marker glyphicon glyphicon-menu-up" />;
     return marker;
   }
 
   renderGenre() {
     const { genre } = this.props;
-    if (genre === 'Fiction') {
-      return (
-        <div className="c-book-listing__genre-placeholder--fiction" />
-      );
+    if (genre === "Fiction") {
+      return <div className="c-book-listing__genre-placeholder--fiction" />;
     }
-    return (
-      <div className="c-book-listing__genre-placeholder--non-fiction" />
-    );
+    return <div className="c-book-listing__genre-placeholder--non-fiction" />;
   }
 
   render() {
     const { title, author } = this.props;
 
     return (
-      <div className="c-book-listing" role="button" tabIndex={0} onClick={this.onClick}>
+      <div
+        className="c-book-listing"
+        role="button"
+        tabIndex={0}
+        onClick={this.onClick}
+      >
         <div className="l-book-listing__header l-flex__row">
           <div className="c-book-listing__genre">
-            { this.renderGenre() }
+            {this.renderGenre()}
           </div>
           <div className="l-book-listing__info">
             <div className="c-book-listing__title">
-              { title }
+              {title}
             </div>
             <div className="c-book-listing__author">
-              by { author }
+              by {author}
             </div>
           </div>
-          { this.renderCheckbox() }
-          { this.renderExpandMarker() }
+          {this.renderCheckbox()}
+          {this.renderExpandMarker()}
         </div>
-        { this.renderDescription() }
+        {this.renderDescription()}
       </div>
     );
   }
@@ -143,16 +142,15 @@ BookListing.propTypes = {
   description: PropTypes.string,
   ownerUsername: PropTypes.string,
   isSelectable: PropTypes.bool,
-  showTradeLink: PropTypes.bool,
+  showTradeLink: PropTypes.bool
 };
 
 BookListing.defaultProps = {
-  author: 'Not Specified',
-  description: 'No Description',
+  author: "Not Specified",
+  description: "No Description",
   isSelectable: false,
   showTradeLink: false,
-  ownerUsername: '',
+  ownerUsername: ""
 };
-
 
 export default BookListing;

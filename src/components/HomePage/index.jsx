@@ -1,5 +1,5 @@
-import HomePage from './HomePage';
+import HomePage from "./HomePage";
 
-require('./HomePage.css');
+require("./HomePage.css");
 
 export default HomePage;
