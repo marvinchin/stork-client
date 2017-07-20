@@ -1,6 +1,8 @@
 import {
   getUserTrades,
   getUserTradesComplete,
+  getTradeById,
+  getTradeByIdComplete,
   createTrade,
   createTradeComplete,
   acceptTrade,
@@ -47,6 +49,52 @@ describe("Get User Trades Complete", () => {
         }
       };
       const action = getUserTradesComplete(error, null);
+      expect(action).toEqual(expectedAction);
+    });
+  });
+});
+
+describe("Get Trade By Id", () => {
+  const tradeId = "123";
+
+  it("should create a GET_TRADE_BY_ID_PENDING action", () => {
+    const expectedAction = {
+      type: "GET_TRADE_BY_ID_PENDING",
+      payload: {
+        tradeId
+      }
+    };
+    const action = getTradeById(tradeId);
+    expect(action).toEqual(expectedAction);
+  });
+});
+
+describe("Get Trade By Id Complete", () => {
+  describe("Success", () => {
+    const trade = { id: "123" };
+    it("should create a successful GET_TRADE_BY_ID_COMPLETE action", () => {
+      const expectedAction = {
+        type: "GET_TRADE_BY_ID_COMPLETE",
+        payload: {
+          trade
+        }
+      };
+      const action = getTradeByIdComplete(null, trade);
+      expect(action).toEqual(expectedAction);
+    });
+  });
+
+  describe("Failure", () => {
+    const error = new Error();
+    it("should create a failure GET_TRADE_BY_ID_COMPLETE action", () => {
+      const expectedAction = {
+        type: "GET_TRADE_BY_ID_COMPLETE",
+        error: true,
+        payload: {
+          error
+        }
+      };
+      const action = getTradeByIdComplete(error, null);
       expect(action).toEqual(expectedAction);
     });
   });

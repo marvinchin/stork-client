@@ -26,6 +26,34 @@ export function getUserTradesComplete(error, trades) {
   };
 }
 
+export function getTradeById(tradeId) {
+  return {
+    type: ActionTypes.GET_TRADE_BY_ID_PENDING,
+    payload: {
+      tradeId
+    }
+  };
+}
+
+export function getTradeByIdComplete(error, trade) {
+  if (error) {
+    return {
+      type: ActionTypes.GET_TRADE_BY_ID_COMPLETE,
+      error: true,
+      payload: {
+        error
+      }
+    };
+  }
+
+  return {
+    type: ActionTypes.GET_TRADE_BY_ID_COMPLETE,
+    payload: {
+      trade
+    }
+  };
+}
+
 export function createTrade(book, offer, description) {
   return {
     type: ActionTypes.CREATE_TRADE_PENDING,
