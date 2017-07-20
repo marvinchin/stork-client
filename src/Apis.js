@@ -48,6 +48,16 @@ export function loginUser(username, password) {
   return makeRequest(url, options);
 }
 
+export function logoutUser() {
+  const url = `${config.BACKEND_API_URL}/authentication/logout`;
+  const options = {
+    method: "POST",
+    useCredentials: true
+  };
+
+  return makeRequest(url, options);
+}
+
 export function registerUser(
   username,
   password,

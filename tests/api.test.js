@@ -1,6 +1,7 @@
 import {
   authenticateUser,
   loginUser,
+  logoutUser,
   registerUser,
   createBook,
   getBookById,
@@ -125,6 +126,30 @@ describe("loginUser", () => {
     };
 
     loginUser(username, password);
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
+  });
+});
+
+describe("logoutUser", () => {
+  const mockMakeRequest = jest.fn();
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency("makeRequest");
+  });
+
+  it("should make post request to endpoint with correct body", () => {
+    const expectedUrl = `${config.BACKEND_API_URL}/authentication/logout`;
+    const expectedOptions = {
+      method: "POST",
+      useCredentials: true
+    };
+
+    logoutUser();
 
     expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });
