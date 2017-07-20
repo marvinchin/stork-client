@@ -55,6 +55,30 @@ export function loginUserComplete(error, user) {
   };
 }
 
+export function logoutUser() {
+  return {
+    type: ActionTypes.AUTH_USER_LOGOUT_PENDING,
+    payload: {}
+  };
+}
+
+export function logoutUserComplete(error) {
+  if (error) {
+    return {
+      type: ActionTypes.AUTH_USER_LOGOUT_COMPLETE,
+      error: true,
+      payload: {
+        error
+      }
+    };
+  }
+
+  return {
+    type: ActionTypes.AUTH_USER_LOGOUT_COMPLETE,
+    payload: {}
+  };
+}
+
 export function updateUser(error, user) {
   return {
     type: ActionTypes.AUTH_UPDATE_USER_PENDING,
