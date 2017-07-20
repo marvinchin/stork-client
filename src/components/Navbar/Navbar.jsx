@@ -3,7 +3,20 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { logoutUser } from "../../ActionCreators/AuthActionCreators";
+
 class Navbar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onClickLogout = this.onClickLogout.bind(this);
+  }
+
+  onClickLogout(e) {
+    e.preventDefault();
+    this.props.dispatch(logoutUser());
+  }
+
   renderDropdown() {
     const { user } = this.props;
     let dropdownItems;
@@ -14,7 +27,9 @@ class Navbar extends Component {
           <li>
             <Link to={profileUrl}>Profile</Link>
             <Link to="/inbox">Inbox</Link>
-            <Link to="/index">Logout</Link>
+            <Link to="#" onClick={this.onClickLogout}>
+              Logout
+            </Link>
           </li>
         </ul>
       );
@@ -53,6 +68,7 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   user: PropTypes.object
 };
 

@@ -377,13 +377,13 @@ describe("HandleUserLogout", () => {
 describe("handleUserLogoutComplete", () => {
   describe("Success", () => {
     const action = {
-      type: "AUTH_USER_LOGIN_COMPLETE",
+      type: "AUTH_USER_LOGOUT_COMPLETE",
       payload: {}
     };
     const gen = handleUserLogoutComplete(action);
 
     it("should put action of type ROUTE_CHANGE_PENDING", () => {
-      const route = "/index";
+      const route = "/";
       const expectedAction = {
         type: "ROUTE_CHANGE_PENDING",
         payload: {

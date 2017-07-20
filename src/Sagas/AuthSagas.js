@@ -82,7 +82,7 @@ export function* handleUserLogout() {
 export function* handleUserLogoutComplete(action) {
   const { error } = action.payload;
   if (error) return;
-  yield put(changeRoute("/index"));
+  yield put(changeRoute("/"));
 }
 
 export function* handleUserRegister(action) {
