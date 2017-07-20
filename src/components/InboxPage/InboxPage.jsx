@@ -15,7 +15,9 @@ class InboxPage extends Component {
     const { trades, user } = this.props;
     return trades.map(trade => {
       const otherUser =
-        user.id !== trade.listUser.id ? trade.listUser : trade.offerUser;
+        user.username !== trade.listUser.username
+          ? trade.listUser
+          : trade.offerUser;
       const tradeUrl = `/trade/${trade.id}`;
 
       return (

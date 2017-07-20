@@ -11,6 +11,10 @@ import {
   resetTradeErrors
 } from "../../ActionCreators/TradeActionCreators";
 
+const TRADE_PENDING = "P";
+const TRADE_CANCELLED = "C";
+const TRADE_ACCEPTED = "A";
+
 class TradePage extends Component {
   constructor(props) {
     super(props);
@@ -53,33 +57,12 @@ class TradePage extends Component {
     );
   }
 
-  render() {
-    const { trade } = this.props;
-
-    if (trade) {
-      const { user } = this.props;
-      const { listUser, offerUser, listBook, offerBooks, description } = trade;
-
-      const isListUser = user.id === listUser.id;
-      const otherUser = isListUser ? offerUser : listUser;
-
-      const onBookSelect = (bookId, isSelected) => {
-        if (isSelected) {
-          this.setState(() => ({ selected: bookId }));
-        } else if (!isSelected && this.state.selected === bookId) {
-          this.setState(() => ({ selected: null }));
-        }
-      };
-
-      const listLabel = isListUser ? `${otherUser.username} wants` : "You want";
-      const offerLabel = isListUser
-        ? `${otherUser.username} offered`
-        : "You offered";
-
-      let buttons;
-
+  renderButtons() {
+    const { trade, user } = this.props;
+    if (trade.tradeStatus === TRADE_PENDING) {
+      const isListUser = user.username === trade.listUser.username;
       if (isListUser) {
-        buttons = (
+        return (
           <div className="l-flex__row l-trade-page__buttons">
             <button className="c-button" onClick={this.onAcceptTrade}>
               Accept
@@ -89,9 +72,91 @@ class TradePage extends Component {
             </button>
           </div>
         );
-      } else {
-        buttons = <button className="c-button">Cancel</button>;
       }
+      return (
+        <button className="c-button" onClick={this.onCancelTrade}>
+          Cancel
+        </button>
+      );
+    }
+    return null;
+  }
+
+  renderStatus() {
+    const tradeStatus = this.props.trade.tradeStatus;
+    if (tradeStatus === TRADE_ACCEPTED) {
+      return (
+        <div className="c-trade-page__trade-status">
+          This trade has been accepted.
+        </div>
+      );
+    } else if (tradeStatus === TRADE_CANCELLED) {
+      return (
+        <div className="c-trade-page__trade-status">
+          This trade has been cancelled.
+        </div>
+      );
+    }
+    return null;
+  }
+
+  renderOfferedBooks() {
+    const { trade, user } = this.props;
+    const { listUser, offerUser } = trade;
+    const isListUser = user.username === listUser.username;
+    const otherUser = isListUser ? offerUser : listUser;
+
+    let offerLabel;
+    let renderBooks;
+
+    if (trade.tradeStatus === TRADE_ACCEPTED) {
+      const { selectedBook } = trade;
+
+      renderBooks = <BookListing {...selectedBook} />;
+      offerLabel = isListUser
+        ? `${otherUser.username} selected`
+        : "You selected";
+    } else {
+      const { offerBooks } = trade;
+      const onBookSelect = (bookId, isSelected) => {
+        if (isSelected) {
+          this.setState(() => ({ selected: bookId }));
+        } else if (!isSelected && this.state.selected === bookId) {
+          this.setState(() => ({ selected: null }));
+        }
+      };
+      renderBooks = (
+        <BookCollection
+          books={offerBooks}
+          isSelectable={isListUser}
+          onSelect={onBookSelect}
+        />
+      );
+      offerLabel = isListUser ? `${otherUser.username} offered` : "You offered";
+    }
+    return (
+      <div className="l-form__input-group">
+        <label htmlFor="offeredBooks">
+          {offerLabel}
+        </label>
+        <div className="c-trade__offered-books">
+          {renderBooks}
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    const { trade } = this.props;
+
+    if (trade) {
+      console.log(trade);
+      const { user } = this.props;
+      const { listUser, offerUser, listBook, description } = trade;
+
+      const isListUser = user.username === listUser.username;
+      const otherUser = isListUser ? offerUser : listUser;
+      const listLabel = isListUser ? `${otherUser.username} wants` : "You want";
 
       return (
         <div className="c-trade-page">
@@ -107,18 +172,7 @@ class TradePage extends Component {
                 <BookListing {...listBook} />
               </div>
             </div>
-            <div className="l-form__input-group">
-              <label htmlFor="offeredBooks">
-                {offerLabel}
-              </label>
-              <div className="c-trade__offered-books">
-                <BookCollection
-                  books={offerBooks}
-                  isSelectable={isListUser}
-                  onSelect={onBookSelect}
-                />
-              </div>
-            </div>
+            {this.renderOfferedBooks()}
             <div className="l-form__input-group">
               <label htmlFor="details">Additional Details</label>
               <textarea
@@ -129,7 +183,8 @@ class TradePage extends Component {
                 disabled
               />
             </div>
-            {buttons}
+            {this.renderButtons()}
+            {this.renderStatus()}
             {this.renderErrorMessage()}
           </div>
         </div>

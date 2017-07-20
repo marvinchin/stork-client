@@ -3,6 +3,7 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import Actions from "../constants/Actions";
 import {
   getUserTradesComplete,
+  getTradeById as getTradeByIdActionCreator,
   getTradeByIdComplete,
   createTradeComplete,
   cancelTradeComplete,
@@ -94,6 +95,7 @@ export function* handleCancelTrade(action) {
 
   if (res.status === 200) {
     yield put(cancelTradeComplete(null));
+    yield put(getTradeByIdActionCreator(trade));
   } else {
     const { error } = res.body;
     yield put(cancelTradeComplete(new Error(error)));
@@ -113,6 +115,7 @@ export function* handleAcceptTrade(action) {
 
   if (res.status === 200) {
     yield put(acceptTradeComplete(null));
+    yield put(getTradeByIdActionCreator(trade));
   } else {
     const { error } = res.body;
     yield put(acceptTradeComplete(new Error(error)));

@@ -408,6 +408,16 @@ describe("HandleCancelTrade", () => {
         expect(gen.next(res).value).toEqual(expectedPut);
       });
 
+      it("should put a GET_TRADE_BY_ID_PENDING action", () => {
+        const expectedPut = put({
+          type: "GET_TRADE_BY_ID_PENDING",
+          payload: {
+            tradeId: trade
+          }
+        });
+        expect(gen.next().value).toEqual(expectedPut);
+      });
+
       it("should be done", () => {
         expect(gen.next().done).toBe(true);
       });
@@ -500,6 +510,16 @@ describe("HandleAcceptTrade", () => {
         });
 
         expect(gen.next(res).value).toEqual(expectedPut);
+      });
+
+      it("should put a GET_TRADE_BY_ID_PENDING action", () => {
+        const expectedPut = put({
+          type: "GET_TRADE_BY_ID_PENDING",
+          payload: {
+            tradeId: trade
+          }
+        });
+        expect(gen.next().value).toEqual(expectedPut);
       });
 
       it("should be done", () => {

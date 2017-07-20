@@ -31,6 +31,11 @@
   margin-top: 10px;
 }
 
+.c-trade-page .c-trade-page__trade-status {
+  margin-top: 10px;
+  font-size: 1.5em;
+}
+
 .c-trade-page .l-trade-page__buttons {
   justify-content: space-between;
   align-items: space-between;
