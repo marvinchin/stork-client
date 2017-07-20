@@ -23,6 +23,18 @@ export function handleLoginComplete(state, action) {
   return newState;
 }
 
+export function handleLogoutComplete(state, action) {
+  const { error, payload } = action;
+  let newState;
+  if (error) {
+    const authErr = payload.error;
+    newState = Object.assign({}, state, { authErr });
+  } else {
+    newState = Object.assign({}, state, { user: null, authErr: null });
+  }
+  return newState;
+}
+
 export function handleRegisterComplete(state, action) {
   const { error, payload } = action;
   if (error) {
@@ -50,6 +62,8 @@ export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
     case Actions.AUTH_USER_LOGIN_COMPLETE:
       return handleLoginComplete(state, action);
+    case Actions.AUTH_USER_LOGOUT_COMPLETE:
+      return handleLogoutComplete(state, action);
     case Actions.AUTH_USER_REGISTER_COMPLETE:
       return handleRegisterComplete(state, action);
     case Actions.AUTHENTICATE_USER_COMPLETE:
