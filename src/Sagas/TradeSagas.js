@@ -4,9 +4,10 @@ import Actions from "../constants/Actions";
 import {
   getUserTradesComplete,
   createTradeComplete,
-  cancelTradeComplete
+  cancelTradeComplete,
+  acceptTradeComplete
 } from "../ActionCreators/TradeActionCreators";
-import { getUserTrades, createTrade, cancelTrade } from "../Apis";
+import { getUserTrades, createTrade, cancelTrade, acceptTrade } from "../Apis";
 import { changeRoute } from "../ActionCreators/RouteActionCreators";
 
 export function* handleGetUserTrades() {
@@ -73,9 +74,29 @@ export function* handleCancelTrade(action) {
   }
 }
 
+export function* handleAcceptTrade(action) {
+  const { trade, selection } = action.payload;
+  let res;
+
+  try {
+    res = yield call(acceptTrade, trade, selection);
+  } catch (err) {
+    yield put(acceptTradeComplete(err));
+    return;
+  }
+
+  if (res.status === 200) {
+    yield put(acceptTradeComplete(null));
+  } else {
+    const { error } = res.body;
+    yield put(acceptTradeComplete(new Error(error)));
+  }
+}
+
 export const tradeSagas = [
   takeLatest(Actions.GET_USER_TRADES_PENDING, handleGetUserTrades),
   takeLatest(Actions.CREATE_TRADE_PENDING, handleCreateTrade),
   takeLatest(Actions.CREATE_TRADE_COMPLETE, handleCreateTradeComplete),
-  takeLatest(Actions.CANCEL_TRADE_PENDING, handleCancelTrade)
+  takeLatest(Actions.CANCEL_TRADE_PENDING, handleCancelTrade),
+  takeLatest(Actions.ACCEPT_TRADE__PENDING, handleAcceptTrade)
 ];
