@@ -26,6 +26,11 @@
   background-color: whitesmoke;
 }
 
+.c-trade-page .c-trade-page__error {
+  height: 1em;
+  margin-top: 10px;
+}
+
 .c-trade-page .l-trade-page__buttons {
   justify-content: space-between;
   align-items: space-between;

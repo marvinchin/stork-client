@@ -53,6 +53,32 @@ function handleCreateTradeComplete(state, action) {
   return newState;
 }
 
+function handleCancelTradeComplete(state, action) {
+  const { error, payload } = action;
+  let newState;
+  if (error) {
+    const tradeErr = payload.error;
+    newState = Object.assign({}, state, { tradeErr });
+  } else {
+    newState = Object.assign({}, state, { tradeErr: null });
+  }
+
+  return newState;
+}
+
+function handleAcceptTradeComplete(state, action) {
+  const { error, payload } = action;
+  let newState;
+  if (error) {
+    const tradeErr = payload.error;
+    newState = Object.assign({}, state, { tradeErr });
+  } else {
+    newState = Object.assign({}, state, { tradeErr: null });
+  }
+
+  return newState;
+}
+
 function resetTradeErrors(state) {
   const newState = Object.assign({}, state, { tradeErr: null });
   return newState;
@@ -66,6 +92,10 @@ export default function TradeReducer(state = initialState, action) {
       return handleGetTradeById(state, action);
     case Actions.CREATE_TRADE_COMPLETE:
       return handleCreateTradeComplete(state, action);
+    case Actions.CANCEL_TRADE_COMPLETE:
+      return handleCancelTradeComplete(state, action);
+    case Actions.ACCEPT_TRADE_COMPLETE:
+      return handleAcceptTradeComplete(state, action);
     case Actions.TRADE_RESET_ERRORS:
       return resetTradeErrors(state);
     default:

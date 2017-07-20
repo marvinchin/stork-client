@@ -44,6 +44,15 @@ class TradePage extends Component {
     this.props.dispatch(cancelTrade(tradeId));
   }
 
+  renderErrorMessage() {
+    const { tradeErr } = this.props;
+    return (
+      <div className="c-trade-page__error">
+        {tradeErr != null ? tradeErr.message : null}
+      </div>
+    );
+  }
+
   render() {
     const { trade } = this.props;
 
@@ -121,6 +130,7 @@ class TradePage extends Component {
               />
             </div>
             {buttons}
+            {this.renderErrorMessage()}
           </div>
         </div>
       );
@@ -133,16 +143,19 @@ TradePage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  trade: PropTypes.object
+  trade: PropTypes.object,
+  tradeErr: PropTypes.instanceOf(Error)
 };
 
 TradePage.defaultProps = {
-  trade: null
+  trade: null,
+  tradeErr: null
 };
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  trade: state.trades.tradeById
+  trade: state.trades.tradeById,
+  tradeErr: state.trades.tradeErr
 });
 
 export default connect(mapStateToProps)(TradePage);

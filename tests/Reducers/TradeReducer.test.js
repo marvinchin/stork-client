@@ -78,6 +78,90 @@ describe("TradeReducer", () => {
     expect(state).toEqual(expectedState);
   });
 
+  it("should handle successful ACCEPT_TRADE_COMPLETE", () => {
+    const initialState = {
+      userTrades: [],
+      tradeById: null,
+      tradeErr: new Error()
+    };
+    const action = {
+      type: "ACCEPT_TRADE_COMPLETE",
+      payload: {}
+    };
+    const expectedState = {
+      userTrades: [],
+      tradeById: null,
+      tradeErr: null
+    };
+    const state = TradeReducer(initialState, action);
+    expect(state).toEqual(expectedState);
+  });
+
+  it("should handle failure ACCEPT_TRADE_COMPLETE", () => {
+    const initialState = {
+      userTrades: [],
+      tradeById: null,
+      tradeErr: null
+    };
+    const error = new Error();
+    const action = {
+      type: "ACCEPT_TRADE_COMPLETE",
+      error: true,
+      payload: {
+        error
+      }
+    };
+    const expectedState = {
+      userTrades: [],
+      tradeById: null,
+      tradeErr: error
+    };
+    const state = TradeReducer(initialState, action);
+    expect(state).toEqual(expectedState);
+  });
+
+  it("should handle successful CANCEL_TRADE_COMPLETE", () => {
+    const initialState = {
+      userTrades: [],
+      tradeById: null,
+      tradeErr: new Error()
+    };
+    const action = {
+      type: "CANCEL_TRADE_COMPLETE",
+      payload: {}
+    };
+    const expectedState = {
+      userTrades: [],
+      tradeById: null,
+      tradeErr: null
+    };
+    const state = TradeReducer(initialState, action);
+    expect(state).toEqual(expectedState);
+  });
+
+  it("should handle failure CANCEL_TRADE_COMPLETE", () => {
+    const initialState = {
+      userTrades: [],
+      tradeById: null,
+      tradeErr: null
+    };
+    const error = new Error();
+    const action = {
+      type: "CANCEL_TRADE_COMPLETE",
+      error: true,
+      payload: {
+        error
+      }
+    };
+    const expectedState = {
+      userTrades: [],
+      tradeById: null,
+      tradeErr: error
+    };
+    const state = TradeReducer(initialState, action);
+    expect(state).toEqual(expectedState);
+  });
+
   it("should handle TRADE_RESET_ERRORS", () => {
     const initialState = {
       userTrades: [],
