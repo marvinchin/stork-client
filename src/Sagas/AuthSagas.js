@@ -4,10 +4,11 @@ import Actions from "../constants/Actions";
 import {
   authenticateUserComplete,
   loginUserComplete,
+  logoutUserComplete,
   updateUser,
   registerUserComplete
 } from "../ActionCreators/AuthActionCreators";
-import { authenticateUser, loginUser, registerUser } from "../Apis";
+import { authenticateUser, loginUser, logoutUser, registerUser } from "../Apis";
 import { changeRoute } from "../ActionCreators/RouteActionCreators";
 
 export function* handleAuthenticateUser() {
@@ -60,6 +61,30 @@ export function* handleUserLoginComplete(action) {
   yield put(changeRoute("/index"));
 }
 
+export function* handleUserLogout() {
+  let res;
+
+  try {
+    res = yield call(logoutUser);
+  } catch (err) {
+    yield put(logoutUserComplete(err));
+    return;
+  }
+
+  if (res.status === 200) {
+    yield put(logoutUserComplete());
+  } else {
+    const { error } = res.body;
+    yield put(logoutUserComplete(error));
+  }
+}
+
+export function* handleUserLogoutComplete(action) {
+  const { error } = action.payload;
+  if (error) return;
+  yield put(changeRoute("/index"));
+}
+
 export function* handleUserRegister(action) {
   const { username, password, email } = action.payload;
   let res;
@@ -90,6 +115,8 @@ export const authSagas = [
   takeLatest(Actions.AUTHENTICATE_USER_PENDING, handleAuthenticateUser),
   takeLatest(Actions.AUTH_USER_LOGIN_PENDING, handleUserLogin),
   takeLatest(Actions.AUTH_USER_LOGIN_COMPLETE, handleUserLoginComplete),
+  takeLatest(Actions.AUTH_USER_LOGOUT_PENDING, handleUserLogout),
+  takeLatest(Actions.AUTH_USER_LOGOUT_COMPLETE, handleUserLogoutComplete),
   takeLatest(Actions.AUTH_USER_REGISTER_PENDING, handleUserRegister),
   takeLatest(Actions.AUTH_USER_REGISTER_COMPLETE, handleUserRegisterComplete)
 ];
