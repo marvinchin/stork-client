@@ -121,8 +121,9 @@ export function* handleAcceptTrade(action) {
 
 export const tradeSagas = [
   takeLatest(Actions.GET_USER_TRADES_PENDING, handleGetUserTrades),
+  takeLatest(Actions.GET_TRADE_BY_ID_PENDING, handleGetTradeById),
   takeLatest(Actions.CREATE_TRADE_PENDING, handleCreateTrade),
   takeLatest(Actions.CREATE_TRADE_COMPLETE, handleCreateTradeComplete),
   takeLatest(Actions.CANCEL_TRADE_PENDING, handleCancelTrade),
-  takeLatest(Actions.ACCEPT_TRADE__PENDING, handleAcceptTrade)
+  takeLatest(Actions.ACCEPT_TRADE_PENDING, handleAcceptTrade)
 ];

@@ -14,8 +14,15 @@ class BookListing extends Component {
   }
 
   onSelectChange() {
-    this.setState({
-      isSelected: !this.state.isSelected
+    const { id, onSelect } = this.props;
+    const updateState = previousState => ({
+      isSelected: !previousState.isSelected
+    });
+    this.setState(updateState, () => {
+      console.log(this.state.isSelected);
+      if (onSelect) {
+        onSelect(id, this.state.isSelected);
+      }
     });
   }
 
@@ -142,6 +149,7 @@ BookListing.propTypes = {
   description: PropTypes.string,
   ownerUsername: PropTypes.string,
   isSelectable: PropTypes.bool,
+  onSelect: PropTypes.func,
   showTradeLink: PropTypes.bool
 };
 
@@ -149,6 +157,7 @@ BookListing.defaultProps = {
   author: "Not Specified",
   description: "No Description",
   isSelectable: false,
+  onSelect: null,
   showTradeLink: false,
   ownerUsername: ""
 };
