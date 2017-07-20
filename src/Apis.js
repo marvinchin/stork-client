@@ -166,3 +166,20 @@ export function cancelTrade(trade) {
 
   return makeRequest(url, options);
 }
+
+export function acceptTrade(trade, selection) {
+  const url = `${config.BACKEND_API_URL}/trades/update`;
+  const status = "A";
+  const data = {
+    trade,
+    selection,
+    status
+  };
+  const options = {
+    method: "POST",
+    data,
+    useCredentials: true
+  };
+
+  return makeRequest(url, options);
+}

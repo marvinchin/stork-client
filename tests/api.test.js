@@ -9,41 +9,42 @@ import {
   getUserProfile,
   getUserTrades,
   createTrade,
+  acceptTrade,
   cancelTrade,
-  __RewireAPI__ as RewireAPI,
-} from '../src/Apis';
-import config from '../config';
+  __RewireAPI__ as RewireAPI
+} from "../src/Apis";
+import config from "../config";
 
-describe('makeRequest', () => {
-  const makeRequest = RewireAPI.__GetDependency__('makeRequest');
+describe("makeRequest", () => {
+  const makeRequest = RewireAPI.__GetDependency__("makeRequest");
   global.fetch = jest.fn(() => {
     const res = {
       status: 200,
-      body: new Promise(resolve => resolve({ key: 'value' })),
+      body: new Promise(resolve => resolve({ key: "value" }))
     };
     return new Promise(resolve => resolve(res));
   });
 
-  it('should call fetch with the appropriate params', () => {
-    const url = 'http://api.storkapp.flu.cc';
+  it("should call fetch with the appropriate params", () => {
+    const url = "http://api.storkapp.flu.cc";
     const data = {
-      hello: 'world',
-      key: 'value',
+      hello: "world",
+      key: "value"
     };
     const options = {
-      method: 'POST',
+      method: "POST",
       data,
-      useCredentials: true,
+      useCredentials: true
     };
 
     const expectedUrl = url;
     const expectedParams = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(data),
-      credentials: 'include',
+      credentials: "include"
     };
 
     makeRequest(url, options);
@@ -51,18 +52,18 @@ describe('makeRequest', () => {
     expect(global.fetch).toBeCalledWith(expectedUrl, expectedParams);
   });
 
-  it('should call fetch with no body if no data is provided', () => {
-    const url = 'http://api.storkapp.flu.cc';
+  it("should call fetch with no body if no data is provided", () => {
+    const url = "http://api.storkapp.flu.cc";
     const options = {
-      method: 'GET',
+      method: "GET"
     };
 
     const expectedUrl = url;
     const expectedParams = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-      },
+        "Content-Type": "application/json"
+      }
     };
 
     makeRequest(url, options);
@@ -71,22 +72,22 @@ describe('makeRequest', () => {
   });
 });
 
-describe('authenticateUser', () => {
+describe("authenticateUser", () => {
   const mockMakeRequest = jest.fn();
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('makeRequest');
+    RewireAPI.__ResetDependency("makeRequest");
   });
 
-  it('should make get request to endpoint', () => {
+  it("should make get request to endpoint", () => {
     const expectedUrl = `${config.BACKEND_API_URL}/authentication/status`;
     const expectedOptions = {
-      method: 'GET',
-      useCredentials: true,
+      method: "GET",
+      useCredentials: true
     };
 
     authenticateUser();
@@ -95,31 +96,31 @@ describe('authenticateUser', () => {
   });
 });
 
-describe('loginUser', () => {
+describe("loginUser", () => {
   const mockMakeRequest = jest.fn();
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('makeRequest');
+    RewireAPI.__ResetDependency("makeRequest");
   });
 
-  it('should make post request to endpoint with correct body', () => {
-    const username = 'test_user';
-    const password = 'test_pass';
+  it("should make post request to endpoint with correct body", () => {
+    const username = "test_user";
+    const password = "test_pass";
 
     const expectedUrl = `${config.BACKEND_API_URL}/authentication/login`;
     const data = {
       username,
       password,
-      expiry: config.SESSION_EXPIRY,
+      expiry: config.SESSION_EXPIRY
     };
     const expectedOptions = {
-      method: 'POST',
+      method: "POST",
       data,
-      useCredentials: true,
+      useCredentials: true
     };
 
     loginUser(username, password);
@@ -128,25 +129,24 @@ describe('loginUser', () => {
   });
 });
 
-
-describe('registerUser', () => {
+describe("registerUser", () => {
   const mockMakeRequest = jest.fn();
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('makeRequest');
+    RewireAPI.__ResetDependency("makeRequest");
   });
 
-  it('should make a post request to endpoint with correct body', () => {
-    const username = 'test_user';
-    const password = 'test_pass';
-    const email = 'test@example.com';
+  it("should make a post request to endpoint with correct body", () => {
+    const username = "test_user";
+    const password = "test_pass";
+    const email = "test@example.com";
     // Defaults for gender and description for now
-    const gender = 'Male';
-    const description = '';
+    const gender = "Male";
+    const description = "";
 
     const expectedUrl = `${config.BACKEND_API_URL}/authentication/create`;
     const data = {
@@ -154,12 +154,12 @@ describe('registerUser', () => {
       password,
       email,
       gender,
-      description,
+      description
     };
     const expectedOptions = {
-      method: 'POST',
+      method: "POST",
       data,
-      useCredentials: true,
+      useCredentials: true
     };
 
     registerUser(username, password, email, gender, description);
@@ -168,34 +168,34 @@ describe('registerUser', () => {
   });
 });
 
-describe('createBook', () => {
+describe("createBook", () => {
   const mockMakeRequest = jest.fn();
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('makeRequest');
+    RewireAPI.__ResetDependency("makeRequest");
   });
 
-  it('should make a post request to endpoint with correct body', () => {
-    const title = 'The Three Little Pigs';
-    const author = 'Big Bad Wolf';
-    const genre = 'Fiction';
-    const description = 'Cool book';
+  it("should make a post request to endpoint with correct body", () => {
+    const title = "The Three Little Pigs";
+    const author = "Big Bad Wolf";
+    const genre = "Fiction";
+    const description = "Cool book";
 
     const expectedUrl = `${config.BACKEND_API_URL}/books/create`;
     const data = {
       title,
       author,
       genre,
-      description,
+      description
     };
     const expectedOptions = {
-      method: 'POST',
+      method: "POST",
       data,
-      useCredentials: true,
+      useCredentials: true
     };
 
     createBook(title, author, genre, description);
@@ -204,21 +204,21 @@ describe('createBook', () => {
   });
 });
 
-describe('getBookById', () => {
+describe("getBookById", () => {
   const mockMakeRequest = jest.fn();
-  const bookId = '1';
+  const bookId = "1";
   beforeAll(() => {
-    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('makeRequest');
+    RewireAPI.__ResetDependency("makeRequest");
   });
 
-  it('should make a get request to endpoint', () => {
+  it("should make a get request to endpoint", () => {
     const expectedUrl = `${config.BACKEND_API_URL}/books/getByID/1`;
     const expectedOptions = {
-      method: 'GET',
+      method: "GET"
     };
 
     getBookById(bookId);
@@ -227,21 +227,21 @@ describe('getBookById', () => {
   });
 });
 
-describe('getGenres', () => {
+describe("getGenres", () => {
   const mockMakeRequest = jest.fn();
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('makeRequest');
+    RewireAPI.__ResetDependency("makeRequest");
   });
 
-  it('should make a get request to endpoint', () => {
+  it("should make a get request to endpoint", () => {
     const expectedUrl = `${config.BACKEND_API_URL}/genres/list`;
     const expectedOptions = {
-      method: 'GET',
+      method: "GET"
     };
 
     getGenres();
@@ -250,21 +250,21 @@ describe('getGenres', () => {
   });
 });
 
-describe('getIndexBooks', () => {
+describe("getIndexBooks", () => {
   const mockMakeRequest = jest.fn();
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('makeRequest');
+    RewireAPI.__ResetDependency("makeRequest");
   });
 
-  it('should make a get request to endpoint', () => {
+  it("should make a get request to endpoint", () => {
     const expectedUrl = `${config.BACKEND_API_URL}/books/list/${config.NUM_BOOKS_PER_LOAD}`;
     const expectedOptions = {
-      method: 'GET',
+      method: "GET"
     };
 
     getIndexBooks();
@@ -273,22 +273,22 @@ describe('getIndexBooks', () => {
   });
 });
 
-describe('getUserProfile', () => {
+describe("getUserProfile", () => {
   const mockMakeRequest = jest.fn();
-  const username = 'test_user';
+  const username = "test_user";
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('makeRequest');
+    RewireAPI.__ResetDependency("makeRequest");
   });
 
-  it('should make a get request to endpoint', () => {
+  it("should make a get request to endpoint", () => {
     const expectedUrl = `${config.BACKEND_API_URL}/users/test_user`;
     const expectedOptions = {
-      method: 'GET',
+      method: "GET"
     };
 
     getUserProfile(username);
@@ -297,22 +297,22 @@ describe('getUserProfile', () => {
   });
 });
 
-describe('getUserTrades', () => {
+describe("getUserTrades", () => {
   const mockMakeRequest = jest.fn();
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('makeRequest');
+    RewireAPI.__ResetDependency("makeRequest");
   });
 
-  it('should make a get request to endpoint', () => {
+  it("should make a get request to endpoint", () => {
     const expectedUrl = `${config.BACKEND_API_URL}/trades/list`;
     const expectedOptions = {
-      method: 'GET',
-      useCredentials: true,
+      method: "GET",
+      useCredentials: true
     };
 
     getUserTrades();
@@ -321,32 +321,32 @@ describe('getUserTrades', () => {
   });
 });
 
-describe('createTrade', () => {
+describe("createTrade", () => {
   const mockMakeRequest = jest.fn();
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('makeRequest');
+    RewireAPI.__ResetDependency("makeRequest");
   });
 
-  it('should make a post request to endpoint with correct body', () => {
-    const book = '1';
-    const offer = ['2', '3'];
-    const description = 'Hello World';
+  it("should make a post request to endpoint with correct body", () => {
+    const book = "1";
+    const offer = ["2", "3"];
+    const description = "Hello World";
 
     const expectedUrl = `${config.BACKEND_API_URL}/trades/create`;
     const data = {
       book,
       offer,
-      description,
+      description
     };
     const expectedOptions = {
-      method: 'POST',
+      method: "POST",
       data,
-      useCredentials: true,
+      useCredentials: true
     };
 
     createTrade(book, offer, description);
@@ -355,31 +355,63 @@ describe('createTrade', () => {
   });
 });
 
-describe('cancelTrade', () => {
+describe("cancelTrade", () => {
   const mockMakeRequest = jest.fn();
 
   beforeAll(() => {
-    RewireAPI.__Rewire__('makeRequest', mockMakeRequest);
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
   });
 
   afterAll(() => {
-    RewireAPI.__ResetDependency('makeRequest');
+    RewireAPI.__ResetDependency("makeRequest");
   });
 
-  it('should make a post request to endpoint with correct body', () => {
-    const trade = '123';
+  it("should make a post request to endpoint with correct body", () => {
+    const trade = "123";
     const expectedUrl = `${config.BACKEND_API_URL}/trades/update`;
     const data = {
       trade,
-      status: 'C',
+      status: "C"
     };
     const expectedOptions = {
-      method: 'POST',
+      method: "POST",
       data,
-      useCredentials: true,
+      useCredentials: true
     };
 
     cancelTrade(trade);
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
+  });
+});
+
+describe("acceptTrade", () => {
+  const mockMakeRequest = jest.fn();
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency("makeRequest");
+  });
+
+  it("should make a post request to endpoint with correct body", () => {
+    const trade = "123";
+    const selection = "321";
+    const expectedUrl = `${config.BACKEND_API_URL}/trades/update`;
+    const data = {
+      trade,
+      selection,
+      status: "A"
+    };
+    const expectedOptions = {
+      method: "POST",
+      data,
+      useCredentials: true
+    };
+
+    acceptTrade(trade, selection);
 
     expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });
