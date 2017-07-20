@@ -80,6 +80,32 @@ export function cancelTradeComplete(error) {
   };
 }
 
+export function acceptTrade(trade, selection) {
+  return {
+    type: ActionTypes.ACCEPT_TRADE_PENDING,
+    payload: {
+      trade,
+      selection
+    }
+  };
+}
+
+export function acceptTradeComplete(error) {
+  if (error) {
+    return {
+      type: ActionTypes.ACCEPT_TRADE_COMPLETE,
+      error: true,
+      payload: {
+        error
+      }
+    };
+  }
+  return {
+    type: ActionTypes.ACCEPT_TRADE_COMPLETE,
+    payload: {}
+  };
+}
+
 export function resetTradeErrors() {
   return {
     type: ActionTypes.TRADE_RESET_ERRORS,
