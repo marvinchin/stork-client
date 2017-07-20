@@ -3,6 +3,7 @@ import { call, put } from "redux-saga/effects";
 
 import {
   handleGetUserTrades,
+  handleGetTradeById,
   handleCreateTrade,
   handleCreateTradeComplete,
   handleCancelTrade,
@@ -10,6 +11,7 @@ import {
 } from "../../src/Sagas/TradeSagas";
 import {
   getUserTrades,
+  getTradeById,
   createTrade,
   cancelTrade,
   acceptTrade
@@ -116,6 +118,104 @@ describe("HandleGetUserTrades", () => {
     it("should put a failure GET_USER_TRADES_COMPLETE action", () => {
       const expectedPut = put({
         type: "GET_USER_TRADES_COMPLETE",
+        error: true,
+        payload: {
+          error: expect.anything()
+        }
+      });
+
+      expect(genFail.throw(error).value).toEqual(expectedPut);
+    });
+
+    it("should be done", () => {
+      expect(genFail.next().done).toBe(true);
+    });
+  });
+});
+
+describe("HandleGetTradeById", () => {
+  const tradeId = "123";
+  const action = {
+    type: "GET_TRADE_BY_ID_PENDING",
+    payload: {
+      tradeId
+    }
+  };
+
+  const gen = cloneableGenerator(handleGetTradeById)(action);
+  let genFail;
+  let genBadGet;
+
+  it("should call getTradeById with correct params", () => {
+    const expectedCall = call(getTradeById, tradeId);
+
+    expect(gen.next().value).toEqual(expectedCall);
+
+    genFail = gen.clone();
+    genBadGet = gen.clone();
+  });
+
+  describe("Request Success", () => {
+    describe("Get Success", () => {
+      const status = 200;
+      const trade = { id: 1 };
+      const res = {
+        status,
+        body: {
+          trade
+        }
+      };
+
+      it("should put a successful GET_TRADE_BY_ID_COMPLETE action", () => {
+        const expectedPut = put({
+          type: "GET_TRADE_BY_ID_COMPLETE",
+          payload: {
+            trade
+          }
+        });
+
+        expect(gen.next(res).value).toEqual(expectedPut);
+      });
+
+      it("should be done", () => {
+        expect(gen.next().done).toBe(true);
+      });
+    });
+
+    describe("Bad Get", () => {
+      const status = 400;
+      const error = "Not Logged In";
+      const res = {
+        status,
+        body: {
+          error
+        }
+      };
+
+      it("should put a failure GET_TRADE_BY_ID_COMPLETE action", () => {
+        const expectedPut = put({
+          type: "GET_TRADE_BY_ID_COMPLETE",
+          error: true,
+          payload: {
+            error: expect.anything()
+          }
+        });
+
+        expect(genBadGet.next(res).value).toEqual(expectedPut);
+      });
+
+      it("should be done", () => {
+        expect(genBadGet.next().done).toBe(true);
+      });
+    });
+  });
+
+  describe("Request Failure", () => {
+    const error = new Error();
+
+    it("should put a failure GET_TRADE_BY_ID_COMPLETE action", () => {
+      const expectedPut = put({
+        type: "GET_TRADE_BY_ID_COMPLETE",
         error: true,
         payload: {
           error: expect.anything()

@@ -3,11 +3,18 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import Actions from "../constants/Actions";
 import {
   getUserTradesComplete,
+  getTradeByIdComplete,
   createTradeComplete,
   cancelTradeComplete,
   acceptTradeComplete
 } from "../ActionCreators/TradeActionCreators";
-import { getUserTrades, createTrade, cancelTrade, acceptTrade } from "../Apis";
+import {
+  getUserTrades,
+  getTradeById,
+  createTrade,
+  cancelTrade,
+  acceptTrade
+} from "../Apis";
 import { changeRoute } from "../ActionCreators/RouteActionCreators";
 
 export function* handleGetUserTrades() {
@@ -27,6 +34,25 @@ export function* handleGetUserTrades() {
   } else {
     const tradeErr = new Error("Failed to get trades for user");
     yield put(getUserTradesComplete(tradeErr));
+  }
+}
+
+export function* handleGetTradeById(action) {
+  const { tradeId } = action.payload;
+  let res;
+
+  try {
+    res = yield call(getTradeById, tradeId);
+  } catch (err) {
+    yield put(getTradeByIdComplete(err));
+    return;
+  }
+  if (res.status === 200) {
+    const { trade } = res.body;
+    yield put(getTradeByIdComplete(null, trade));
+  } else {
+    const { error } = res.body;
+    yield put(getTradeByIdComplete(error));
   }
 }
 
