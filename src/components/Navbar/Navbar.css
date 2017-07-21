@@ -15,8 +15,8 @@
 
 .c-navbar__dropdown {
   position: absolute;
-  right: 10px;
-  top: -2px;
+  right: 0;
+  top: 0;
 }
 
 .c-navbar__logo {
