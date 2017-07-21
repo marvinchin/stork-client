@@ -11,8 +11,8 @@ import sagas from "../Sagas";
 
 require("jquery");
 require("react-select/dist/react-select.css");
-require("../Styles/bootstrap/css/bootstrap.css");
 require("../Styles/bootstrap/js/bootstrap.min.js");
+require("../Styles/bootstrap/css/bootstrap.css");
 require("../Styles/common.css");
 
 // initialize redux store and sagas

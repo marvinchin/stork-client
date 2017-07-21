@@ -45,9 +45,9 @@ class Navbar extends Component {
     }
     return (
       <div className="c-navbar__dropdown">
-        <a className="dropdown-toggle" data-toggle="dropdown">
+        <button className="dropdown-toggle" data-toggle="dropdown">
           <span className="glyphicon glyphicon-menu-hamburger" />
-        </a>
+        </button>
         {dropdownItems}
       </div>
     );
@@ -57,8 +57,8 @@ class Navbar extends Component {
     return (
       <div className="c-navbar l-flex__col">
         <div className="l-navbar">
-          <Link className="c-navbar__logo" to="/index">
-            <div className="c-logo">Stork</div>
+          <Link to="/index">
+            <div className="c-logo c-navbar__logo">Stork</div>
           </Link>
           {this.renderDropdown()}
         </div>

@@ -18,3 +18,7 @@
   right: 10px;
   top: 2px;
 }
+
+.c-navbar__logo {
+  display: inline-block;
+}
