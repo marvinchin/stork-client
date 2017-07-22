@@ -7,22 +7,24 @@ import {
   getGenresComplete,
   getIndexBooks,
   getIndexBooksComplete,
-} from '../../src/ActionCreators/BookActionCreators';
+  searchBooks,
+  searchBooksComplete
+} from "../../src/ActionCreators/BookActionCreators";
 
-describe('Create Book', () => {
-  const title = 'The Three Little Pigs';
-  const author = 'Big Bad Wolf';
-  const genre = 'Fiction';
-  const description = 'Cool book';
-  it('should create a BOOK_CREATE_PENDING action with correct payload', () => {
+describe("Create Book", () => {
+  const title = "The Three Little Pigs";
+  const author = "Big Bad Wolf";
+  const genre = "Fiction";
+  const description = "Cool book";
+  it("should create a BOOK_CREATE_PENDING action with correct payload", () => {
     const expectedAction = {
-      type: 'BOOK_CREATE_PENDING',
+      type: "BOOK_CREATE_PENDING",
       payload: {
         title,
         author,
         genre,
-        description,
-      },
+        description
+      }
     };
 
     const action = createBook(title, author, genre, description);
@@ -30,15 +32,15 @@ describe('Create Book', () => {
     expect(action).toEqual(expectedAction);
   });
 
-  it('should create a BOOK_CREATE_PENDING action with empty string as description if no description is provided', () => {
+  it("should create a BOOK_CREATE_PENDING action with empty string as description if no description is provided", () => {
     const expectedAction = {
-      type: 'BOOK_CREATE_PENDING',
+      type: "BOOK_CREATE_PENDING",
       payload: {
         title,
         author,
         genre,
-        description: '',
-      },
+        description: ""
+      }
     };
 
     const action = createBook(title, author, genre);
@@ -47,13 +49,12 @@ describe('Create Book', () => {
   });
 });
 
-
-describe('Create Book Complete', () => {
-  describe('Success', () => {
-    it('should create a successful BOOK_CREATE_COMPLETE action', () => {
+describe("Create Book Complete", () => {
+  describe("Success", () => {
+    it("should create a successful BOOK_CREATE_COMPLETE action", () => {
       const expectedAction = {
-        type: 'BOOK_CREATE_COMPLETE',
-        payload: {},
+        type: "BOOK_CREATE_COMPLETE",
+        payload: {}
       };
 
       const action = createBookComplete(null);
@@ -62,15 +63,15 @@ describe('Create Book Complete', () => {
     });
   });
 
-  describe('Failure', () => {
+  describe("Failure", () => {
     const error = new Error();
-    it('should create a failure BOOK_CREATE_COMPLETE action', () => {
+    it("should create a failure BOOK_CREATE_COMPLETE action", () => {
       const expectedAction = {
-        type: 'BOOK_CREATE_COMPLETE',
+        type: "BOOK_CREATE_COMPLETE",
         error: true,
         payload: {
-          error,
-        },
+          error
+        }
       };
 
       const action = createBookComplete(error);
@@ -80,14 +81,14 @@ describe('Create Book Complete', () => {
   });
 });
 
-describe('Get Book By ID Pending', () => {
-  const bookId = '1';
-  it('should create a GET_BOOK_BY_ID_PENDING action', () => {
+describe("Get Book By ID Pending", () => {
+  const bookId = "1";
+  it("should create a GET_BOOK_BY_ID_PENDING action", () => {
     const expectedAction = {
-      type: 'GET_BOOK_BY_ID_PENDING',
+      type: "GET_BOOK_BY_ID_PENDING",
       payload: {
-        bookId,
-      },
+        bookId
+      }
     };
     const action = getBookById(bookId);
 
@@ -95,15 +96,15 @@ describe('Get Book By ID Pending', () => {
   });
 });
 
-describe('Get Book By ID Complete', () => {
-  describe('Success', () => {
-    const book = { id: '1' };
-    it('should create a successful GET_BOOK_BY_ID_COMPLETE action', () => {
+describe("Get Book By ID Complete", () => {
+  describe("Success", () => {
+    const book = { id: "1" };
+    it("should create a successful GET_BOOK_BY_ID_COMPLETE action", () => {
       const expectedAction = {
-        type: 'GET_BOOK_BY_ID_COMPLETE',
+        type: "GET_BOOK_BY_ID_COMPLETE",
         payload: {
-          book,
-        },
+          book
+        }
       };
       const action = getBookByIdComplete(null, book);
 
@@ -111,15 +112,15 @@ describe('Get Book By ID Complete', () => {
     });
   });
 
-  describe('Failure', () => {
+  describe("Failure", () => {
     const error = new Error();
-    it('should create a faulure GET_BOOK_BY_ID_COMPLETE action', () => {
+    it("should create a faulure GET_BOOK_BY_ID_COMPLETE action", () => {
       const expectedAction = {
-        type: 'GET_BOOK_BY_ID_COMPLETE',
+        type: "GET_BOOK_BY_ID_COMPLETE",
         error: true,
         payload: {
-          error: expect.anything(),
-        },
+          error: expect.anything()
+        }
       };
       const action = getBookByIdComplete(error);
 
@@ -128,11 +129,11 @@ describe('Get Book By ID Complete', () => {
   });
 });
 
-describe('Get Genres', () => {
-  it('should create a GET_GENRES_PENDING', () => {
+describe("Get Genres", () => {
+  it("should create a GET_GENRES_PENDING", () => {
     const expectedAction = {
-      type: 'GET_GENRES_PENDING',
-      payload: {},
+      type: "GET_GENRES_PENDING",
+      payload: {}
     };
 
     const action = getGenres();
@@ -141,19 +142,16 @@ describe('Get Genres', () => {
   });
 });
 
-describe('Get Genres Complete', () => {
-  describe('Success', () => {
-    const genres = [
-      'Fiction',
-      'Non-Fiction',
-    ];
+describe("Get Genres Complete", () => {
+  describe("Success", () => {
+    const genres = ["Fiction", "Non-Fiction"];
 
-    it('should create a successful GET_GENRE_COMPLETE action', () => {
+    it("should create a successful GET_GENRE_COMPLETE action", () => {
       const expectedAction = {
-        type: 'GET_GENRES_COMPLETE',
+        type: "GET_GENRES_COMPLETE",
         payload: {
-          genres,
-        },
+          genres
+        }
       };
 
       const action = getGenresComplete(null, genres);
@@ -162,16 +160,16 @@ describe('Get Genres Complete', () => {
     });
   });
 
-  describe('Failure', () => {
+  describe("Failure", () => {
     const error = new Error();
 
-    it('should create a failure GET_GENRE_COMPLETE action', () => {
+    it("should create a failure GET_GENRE_COMPLETE action", () => {
       const expectedAction = {
-        type: 'GET_GENRES_COMPLETE',
+        type: "GET_GENRES_COMPLETE",
         error: true,
         payload: {
-          error,
-        },
+          error
+        }
       };
 
       const action = getGenresComplete(error, null);
@@ -181,11 +179,11 @@ describe('Get Genres Complete', () => {
   });
 });
 
-describe('Get Index Books', () => {
-  it('should create a GET_INDEX_BOOKS_PENDING action', () => {
+describe("Get Index Books", () => {
+  it("should create a GET_INDEX_BOOKS_PENDING action", () => {
     const expectedAction = {
-      type: 'GET_INDEX_BOOKS_PENDING',
-      payload: {},
+      type: "GET_INDEX_BOOKS_PENDING",
+      payload: {}
     };
 
     const action = getIndexBooks();
@@ -194,20 +192,16 @@ describe('Get Index Books', () => {
   });
 });
 
+describe("Get Index Books Complete", () => {
+  describe("Success", () => {
+    const books = [{ id: 1 }, { id: 2 }];
 
-describe('Get Index Books Complete', () => {
-  describe('Success', () => {
-    const books = [
-      { id: 1 },
-      { id: 2 },
-    ];
-
-    it('should create a successful GET_INDEX_BOOKS_COMPLETE action', () => {
+    it("should create a successful GET_INDEX_BOOKS_COMPLETE action", () => {
       const expectedAction = {
-        type: 'GET_INDEX_BOOKS_COMPLETE',
+        type: "GET_INDEX_BOOKS_COMPLETE",
         payload: {
-          books,
-        },
+          books
+        }
       };
 
       const action = getIndexBooksComplete(null, books);
@@ -216,20 +210,72 @@ describe('Get Index Books Complete', () => {
     });
   });
 
-  describe('Failure', () => {
+  describe("Failure", () => {
     const error = new Error();
 
-    it('should create a failure GET_INDEX_BOOKS_COMPLETE action', () => {
+    it("should create a failure GET_INDEX_BOOKS_COMPLETE action", () => {
       const expectedAction = {
-        type: 'GET_INDEX_BOOKS_COMPLETE',
+        type: "GET_INDEX_BOOKS_COMPLETE",
         error: true,
         payload: {
-          error,
-        },
+          error
+        }
       };
 
       const action = getIndexBooksComplete(error, null);
 
+      expect(action).toEqual(expectedAction);
+    });
+  });
+});
+
+describe("Search Books", () => {
+  const query = "Hello";
+  const searchBy = "title";
+  const genre = ["Non-Fiction"];
+
+  it("should create a SEARCH_BOOKS_PENDING action", () => {
+    const expectedAction = {
+      type: "SEARCH_BOOKS_PENDING",
+      payload: {
+        query,
+        searchBy,
+        genre
+      }
+    };
+    const action = searchBooks(query, searchBy, genre);
+    expect(action).toEqual(expectedAction);
+  });
+});
+
+describe("Search Books Complete", () => {
+  describe("Success", () => {
+    const books = [{ id: 1 }, { id: 2 }];
+
+    it("should create a successful SEARCH_BOOKS_COMPLETE action", () => {
+      const expectedAction = {
+        type: "SEARCH_BOOKS_COMPLETE",
+        payload: {
+          books
+        }
+      };
+      const action = searchBooksComplete(null, books);
+      expect(action).toEqual(expectedAction);
+    });
+  });
+
+  describe("Failure", () => {
+    const error = new Error();
+
+    it("should create a failure SEARCH_BOOKS_COMPLETE action", () => {
+      const expectedAction = {
+        type: "SEARCH_BOOKS_COMPLETE",
+        error: true,
+        payload: {
+          error
+        }
+      };
+      const action = searchBooksComplete(error);
       expect(action).toEqual(expectedAction);
     });
   });

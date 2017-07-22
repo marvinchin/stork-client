@@ -108,3 +108,33 @@ export function getIndexBooksComplete(error, books) {
     }
   };
 }
+
+export function searchBooks(query, searchBy, genre) {
+  return {
+    type: ActionTypes.SEARCH_BOOKS_PENDING,
+    payload: {
+      query,
+      searchBy,
+      genre
+    }
+  };
+}
+
+export function searchBooksComplete(error, books) {
+  if (error) {
+    return {
+      type: ActionTypes.SEARCH_BOOKS_COMPLETE,
+      error: true,
+      payload: {
+        error
+      }
+    };
+  }
+
+  return {
+    type: ActionTypes.SEARCH_BOOKS_COMPLETE,
+    payload: {
+      books
+    }
+  };
+}
