@@ -126,6 +126,21 @@ export function getIndexBooks() {
   return makeRequest(url, options);
 }
 
+export function searchBooks(query, searchBy, genre) {
+  const url = `${config.BACKEND_API_URL}/books/search`;
+  const data = {
+    query,
+    searchBy,
+    genre
+  };
+  const options = {
+    method: "POST",
+    data
+  };
+
+  return makeRequest(url, options);
+}
+
 export function getUserProfile(username) {
   const url = `${config.BACKEND_API_URL}/users/${username}`;
   const options = {

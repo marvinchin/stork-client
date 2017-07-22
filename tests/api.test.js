@@ -7,6 +7,7 @@ import {
   getBookById,
   getGenres,
   getIndexBooks,
+  searchBooks,
   getUserProfile,
   getUserTrades,
   getTradeById,
@@ -294,6 +295,38 @@ describe("getIndexBooks", () => {
     };
 
     getIndexBooks();
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
+  });
+});
+
+describe("searchBooks", () => {
+  const mockMakeRequest = jest.fn();
+  const query = "Hello";
+  const searchBy = "title";
+  const genre = ["Non-Fiction"];
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency("makeRequest");
+  });
+
+  it("should make a post request to endpoint with correct params", () => {
+    const expectedUrl = `${config.BACKEND_API_URL}/books/search`;
+    const data = {
+      query,
+      searchBy,
+      genre
+    };
+    const expectedOptions = {
+      method: "POST",
+      data
+    };
+
+    searchBooks(query, searchBy, genre);
 
     expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });
