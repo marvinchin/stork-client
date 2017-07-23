@@ -1,74 +1,97 @@
-import BookReducer from '../../src/Reducers/BookReducer';
+import BookReducer from "../../src/Reducers/BookReducer";
 
-describe('BookReducer', () => {
+describe("BookReducer", () => {
   const initialState = {
     genres: [],
     book: null,
-    indexBooks: [],
+    indexBooks: []
   };
 
-  it('should return correct initial state', () => {
+  it("should return correct initial state", () => {
     expect(BookReducer(undefined, {})).toEqual(initialState);
   });
 
-  it('should handle successful GET_BOOK_BY_ID_COMPLETE', () => {
-    const book = { id: '1' };
+  it("should handle successful GET_BOOK_BY_ID_COMPLETE", () => {
+    const book = { id: "1" };
     const action = {
-      type: 'GET_BOOK_BY_ID_COMPLETE',
+      type: "GET_BOOK_BY_ID_COMPLETE",
       payload: {
-        book,
-      },
+        book
+      }
     };
     const expectedState = {
       genres: [],
       book,
-      indexBooks: [],
+      indexBooks: []
     };
 
     expect(BookReducer(initialState, action)).toEqual(expectedState);
   });
 
-  it('should handle failure GET_BOOK_BY_ID_COMPLETE', () => {
+  it("should handle failure GET_BOOK_BY_ID_COMPLETE", () => {
     const error = new Error();
     const action = {
-      type: 'GET_BOOK_BY_ID_COMPLETE',
+      type: "GET_BOOK_BY_ID_COMPLETE",
       error: true,
       payload: {
-        error,
-      },
+        error
+      }
     };
     const expectedState = initialState;
     expect(BookReducer(initialState, action)).toEqual(expectedState);
   });
 
-  it('should handle GET_GENRES_COMPLETE', () => {
-    const genres = [
-      'Fiction',
-      'Non-Fiction',
-    ];
+  it("should handle GET_GENRES_COMPLETE", () => {
+    const genres = ["Fiction", "Non-Fiction"];
     const action = {
-      type: 'GET_GENRES_COMPLETE',
+      type: "GET_GENRES_COMPLETE",
       payload: {
-        genres,
-      },
+        genres
+      }
     };
     const expectedState = Object.assign({}, initialState, { genres });
 
     expect(BookReducer(initialState, action)).toEqual(expectedState);
   });
 
-  it('should handle GET_INDEX_BOOKS_COMPLETE', () => {
-    const books = [
-      { id: 1 },
-      { id: 2 },
-    ];
+  it("should handle GET_INDEX_BOOKS_COMPLETE", () => {
+    const books = [{ id: 1 }, { id: 2 }];
     const action = {
-      type: 'GET_INDEX_BOOKS_COMPLETE',
+      type: "GET_INDEX_BOOKS_COMPLETE",
       payload: {
-        books,
-      },
+        books
+      }
     };
-    const expectedState = Object.assign({}, initialState, { indexBooks: books });
+    const expectedState = Object.assign({}, initialState, {
+      indexBooks: books
+    });
+    expect(BookReducer(initialState, action)).toEqual(expectedState);
+  });
+
+  it("should handle successful SEARCH_BOOKS_COMPLETE", () => {
+    const books = [{ id: 1 }, { id: 2 }];
+    const action = {
+      type: "SEARCH_BOOKS_COMPLETE",
+      payload: {
+        books
+      }
+    };
+    const expectedState = Object.assign({}, initialState, {
+      indexBooks: books
+    });
+    expect(BookReducer(initialState, action)).toEqual(expectedState);
+  });
+
+  it("should handle failure SEARCH_BOOKS_COMPLETE", () => {
+    const error = new Error();
+    const action = {
+      type: "SEARCH_BOOKS_COMPLETE",
+      error: true,
+      payload: {
+        error
+      }
+    };
+    const expectedState = initialState;
     expect(BookReducer(initialState, action)).toEqual(expectedState);
   });
 });

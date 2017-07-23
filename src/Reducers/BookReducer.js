@@ -33,6 +33,15 @@ export function handleGetIndexBooksComplete(state, action) {
   return newState;
 }
 
+export function handleSearchBooksComplete(state, action) {
+  const { error, payload } = action;
+  if (error) return state;
+  const { books } = payload;
+  const newState = Object.assign({}, state, { indexBooks: books });
+
+  return newState;
+}
+
 export default function BookReducer(state = initialState, action) {
   switch (action.type) {
     case Actions.GET_BOOK_BY_ID_COMPLETE:
@@ -41,6 +50,8 @@ export default function BookReducer(state = initialState, action) {
       return handleGetGenresComplete(state, action);
     case Actions.GET_INDEX_BOOKS_COMPLETE:
       return handleGetIndexBooksComplete(state, action);
+    case Actions.SEARCH_BOOKS_COMPLETE:
+      return handleSearchBooksComplete(state, action);
     default:
       return state;
   }
