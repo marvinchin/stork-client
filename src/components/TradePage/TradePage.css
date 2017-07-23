@@ -32,8 +32,10 @@
 }
 
 .c-trade-page .c-trade-page__trade-status {
+  width: 50%;
   margin-top: 10px;
-  font-size: 1.5em;
+  font-size: 1.25em;
+  text-align: center;
 }
 
 .c-trade-page .l-trade-page__buttons {
