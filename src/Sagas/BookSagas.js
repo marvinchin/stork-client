@@ -5,9 +5,16 @@ import {
   createBookComplete,
   getBookByIdComplete,
   getGenresComplete,
-  getIndexBooksComplete
+  getIndexBooksComplete,
+  searchBooksComplete
 } from "../ActionCreators/BookActionCreators";
-import { createBook, getBookById, getGenres, getIndexBooks } from "../Apis";
+import {
+  createBook,
+  getBookById,
+  getGenres,
+  getIndexBooks,
+  searchBooks
+} from "../Apis";
 import { changeRoute } from "../ActionCreators/RouteActionCreators";
 
 export function* handleCreateBook(action) {
@@ -85,10 +92,31 @@ export function* handleGetIndexBooks() {
   yield put(getIndexBooksComplete(null, books));
 }
 
+export function* handleSearchBooks(action) {
+  const { query, searchBy, genre } = action.payload;
+  let res;
+
+  try {
+    res = yield call(searchBooks, query, searchBy, genre);
+  } catch (err) {
+    yield put(searchBooksComplete(err));
+    return;
+  }
+
+  if (res.status === 200) {
+    const { books } = res.body;
+    yield put(searchBooksComplete(null, books));
+  } else {
+    const { error } = res.body;
+    yield put(searchBooksComplete(new Error(error)));
+  }
+}
+
 export const bookSagas = [
   takeLatest(Actions.BOOK_CREATE_PENDING, handleCreateBook),
   takeLatest(Actions.BOOK_CREATE_COMPLETE, handleCreateBookComplete),
   takeLatest(Actions.GET_BOOK_BY_ID_PENDING, handleGetBookById),
   takeLatest(Actions.GET_GENRES_PENDING, handleGetGenres),
-  takeLatest(Actions.GET_INDEX_BOOKS_PENDING, handleGetIndexBooks)
+  takeLatest(Actions.GET_INDEX_BOOKS_PENDING, handleGetIndexBooks),
+  takeLatest(Actions.SEARCH_BOOKS_PENDING, handleSearchBooks)
 ];
