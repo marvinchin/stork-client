@@ -150,7 +150,6 @@ class TradePage extends Component {
     const { trade } = this.props;
 
     if (trade) {
-      console.log(trade);
       const { user } = this.props;
       const { listUser, offerUser, listBook, description } = trade;
 

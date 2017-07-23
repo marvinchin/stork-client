@@ -19,7 +19,6 @@ class BookListing extends Component {
       isSelected: !previousState.isSelected
     });
     this.setState(updateState, () => {
-      console.log(this.state.isSelected);
       if (onSelect) {
         onSelect(id, this.state.isSelected);
       }

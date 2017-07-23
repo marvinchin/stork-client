@@ -4,7 +4,10 @@ import { connect } from "react-redux";
 
 import SearchBar from "../SearchBar";
 import BookCollection from "../BookCollection";
-import { getIndexBooks } from "../../ActionCreators/BookActionCreators";
+import {
+  getIndexBooks,
+  searchBooks
+} from "../../ActionCreators/BookActionCreators";
 
 class HomePage extends Component {
   componentDidMount() {
@@ -13,9 +16,13 @@ class HomePage extends Component {
 
   render() {
     const { indexBooks } = this.props;
+
+    const onSearch = (query, searchBy, genre) => {
+      this.props.dispatch(searchBooks(query, searchBy, genre));
+    };
     return (
       <div className="c-home">
-        <SearchBar />
+        <SearchBar onSearch={onSearch} />
         <BookCollection books={indexBooks} showTradeLink />
       </div>
     );

@@ -10,12 +10,15 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchField: { value: "title", label: "Title" },
+      query: "",
+      searchBy: { value: "title", label: "Title" },
       genre: null
     };
 
-    this.onSearchFieldUpdate = this.onSearchFieldUpdate.bind(this);
+    this.onQueryUpdate = this.onQueryUpdate.bind(this);
+    this.onSearchByUpdate = this.onSearchByUpdate.bind(this);
     this.onGenreUpdate = this.onGenreUpdate.bind(this);
+    this.onSearchClick = this.onSearchClick.bind(this);
     this.onListBookClick = this.onListBookClick.bind(this);
   }
 
@@ -23,9 +26,13 @@ class SearchBar extends Component {
     this.props.dispatch(getGenres());
   }
 
-  onSearchFieldUpdate(searchField) {
+  onQueryUpdate(e) {
+    this.setState({ query: e.target.value });
+  }
+
+  onSearchByUpdate(searchBy) {
     this.setState({
-      searchField
+      searchBy
     });
   }
 
@@ -33,6 +40,16 @@ class SearchBar extends Component {
     this.setState({
       genre
     });
+  }
+
+  onSearchClick(e) {
+    e.preventDefault();
+    const { onSearch } = this.props;
+    const { query, searchBy, genre } = this.state;
+    const searchByValue = searchBy ? searchBy.value : null;
+    const genreValue = genre ? [genre.value] : [];
+
+    onSearch(query, searchByValue, genreValue);
   }
 
   onListBookClick(e) {
@@ -52,17 +69,27 @@ class SearchBar extends Component {
       label: genre
     }));
 
+    const genreNullOption = {
+      value: null,
+      label: "No Restriction"
+    };
+    const genreOptionsWithNull = [genreNullOption, ...genreOptions];
+
     const mainRow = (
       <div className="c-search__input l-form__input-group">
         <label htmlFor="searchInput">Search</label>
         <div className="l-search__main-row l-flex__row">
-          <input className="c-form__input--text" />
+          <input
+            className="c-form__input--text"
+            value={this.state.query}
+            onChange={this.onQueryUpdate}
+          />
           <Select
             id="searchField"
             className="c-search__field-select"
-            value={this.state.searchField}
+            value={this.state.searchBy}
             options={searchOptions}
-            onChange={this.onSearchFieldUpdate}
+            onChange={this.onSearchByUpdate}
             clearable={false}
           />
         </div>
@@ -76,7 +103,7 @@ class SearchBar extends Component {
           <Select
             id="genre"
             value={this.state.genre}
-            options={genreOptions}
+            options={genreOptionsWithNull}
             onChange={this.onGenreUpdate}
             clearable={false}
           />
@@ -93,7 +120,9 @@ class SearchBar extends Component {
             <button className="c-button" onClick={this.onListBookClick}>
               List Book!
             </button>
-            <button className="c-button">Search</button>
+            <button className="c-button" onClick={this.onSearchClick}>
+              Search
+            </button>
           </div>
         </div>
       </div>
@@ -103,6 +132,7 @@ class SearchBar extends Component {
 
 SearchBar.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
   genres: PropTypes.array.isRequired
 };
 
