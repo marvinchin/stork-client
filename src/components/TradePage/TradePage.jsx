@@ -130,6 +130,7 @@ class TradePage extends Component {
           books={offerBooks}
           isSelectable={isListUser}
           onSelect={onBookSelect}
+          selected={this.state.selected}
         />
       );
       offerLabel = isListUser ? `${otherUser.username} offered` : "You offered";

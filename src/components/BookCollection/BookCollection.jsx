@@ -3,12 +3,16 @@ import PropTypes from "prop-types";
 
 import BookListing from "../BookListing";
 
+// TODO: this class has way too many different options
+// We should refactor to either extend this class to more specific classes
+// Or split it out into different classes entirely
 class BookCollection extends Component {
   renderBookListings() {
     const {
       books,
       isSelectable,
       onSelect,
+      selected,
       showTradeLink,
       showOwner
     } = this.props;
@@ -17,6 +21,7 @@ class BookCollection extends Component {
         key={book.id}
         isSelectable={isSelectable}
         onSelect={onSelect}
+        selected={selected}
         showTradeLink={showTradeLink}
         showOwner={showOwner}
         {...book}
@@ -37,6 +42,7 @@ BookCollection.propTypes = {
   books: PropTypes.array.isRequired,
   isSelectable: PropTypes.bool,
   onSelect: PropTypes.func,
+  selected: PropTypes.string,
   showTradeLink: PropTypes.bool,
   showOwner: PropTypes.bool
 };
@@ -44,6 +50,7 @@ BookCollection.propTypes = {
 BookCollection.defaultProps = {
   isSelectable: false,
   onSelect: null,
+  selected: null,
   showTradeLink: false,
   showOwner: true
 };
