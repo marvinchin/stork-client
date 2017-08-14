@@ -1,10 +1,13 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, select, takeLatest } from "redux-saga/effects";
 
 import Actions from "../constants/Actions";
 import {
   getUserTradesComplete,
   getTradeById as getTradeByIdActionCreator,
   getTradeByIdComplete,
+  getTradeMessages as getTradeMessagesActionCreator,
+  getTradeMessagesComplete,
+  sendTradeMessageComplete,
   createTradeComplete,
   cancelTradeComplete,
   acceptTradeComplete
@@ -12,11 +15,14 @@ import {
 import {
   getUserTrades,
   getTradeById,
+  getTradeMessages,
+  sendTradeMessage,
   createTrade,
   cancelTrade,
   acceptTrade
 } from "../Apis";
 import { changeRoute } from "../ActionCreators/RouteActionCreators";
+import { tradeByIdSelector } from "../helpers/selectors";
 
 export function* handleGetUserTrades() {
   let res;
@@ -54,6 +60,53 @@ export function* handleGetTradeById(action) {
   } else {
     const { error } = res.body;
     yield put(getTradeByIdComplete(error));
+  }
+}
+
+export function* handleGetTradeMessages(action) {
+  const { tradeId } = action.payload;
+  let res;
+
+  try {
+    res = yield call(getTradeMessages, tradeId);
+  } catch (err) {
+    yield put(getTradeMessagesComplete(err));
+    return;
+  }
+  if (res.status === 200) {
+    const { messages } = res.body;
+    yield put(getTradeMessagesComplete(null, messages));
+  } else {
+    const { error } = res.body;
+    yield put(getTradeMessagesComplete(error));
+  }
+}
+
+export function* handleNewMessageEvent(action) {
+  const { tradeId } = action.payload;
+  const currentTrade = yield select(tradeByIdSelector);
+  const currentTradeId = !currentTrade ? null : currentTrade.id;
+  if (tradeId === currentTradeId) {
+    yield put(getTradeMessagesActionCreator(tradeId));
+  }
+}
+
+export function* handleSendTradeMessage(action) {
+  const { tradeId, content } = action.payload;
+  let res;
+
+  try {
+    res = yield call(sendTradeMessage, tradeId, content);
+  } catch (err) {
+    yield put(sendTradeMessageComplete(err));
+    return;
+  }
+  if (res.status === 200) {
+    const { message } = res.body;
+    yield put(sendTradeMessageComplete(null, message));
+  } else {
+    const { error } = res.body;
+    yield put(sendTradeMessageComplete(error));
   }
 }
 
@@ -125,6 +178,9 @@ export function* handleAcceptTrade(action) {
 export const tradeSagas = [
   takeLatest(Actions.GET_USER_TRADES_PENDING, handleGetUserTrades),
   takeLatest(Actions.GET_TRADE_BY_ID_PENDING, handleGetTradeById),
+  takeLatest(Actions.GET_TRADE_MESSAGES_PENDING, handleGetTradeMessages),
+  takeLatest(Actions.NEW_MESSAGE_EVENT, handleNewMessageEvent),
+  takeLatest(Actions.SEND_TRADE_MESSAGE_PENDING, handleSendTradeMessage),
   takeLatest(Actions.CREATE_TRADE_PENDING, handleCreateTrade),
   takeLatest(Actions.CREATE_TRADE_COMPLETE, handleCreateTradeComplete),
   takeLatest(Actions.CANCEL_TRADE_PENDING, handleCancelTrade),

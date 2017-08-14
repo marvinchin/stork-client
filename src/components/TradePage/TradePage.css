@@ -43,3 +43,58 @@
   align-items: space-between;
   width: 80%;
 }
+
+.c-trade-page .c-trade-chat {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.c-trade-page .c-trade-chat__placeholder {
+  margin: 12px;
+  text-align: center;
+  font-weight: 300;
+}
+
+.c-trade-page .c-trade-chat__messages {
+  padding: 5px 10px;
+}
+
+.c-trade-page .l-trade-chat__messages {
+  align-items: left;
+  margin-bottom: 2px;
+}
+
+.c-trade-page .c-trade-chat__sender {
+  font-size: 0.9em;
+  font-weight: bolder;
+}
+
+.c-trade-page .c-trade-chat__content {
+  font-weight: 300;
+  word-break: break-all;
+}
+
+.c-trade-page .c-form__input {
+  border-left: none;
+  border-bottom: none;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  height: 36px;
+  padding: 0 10px;
+  flex-grow: 1;
+}
+
+.c-trade-page .c-form__input::placeholder {
+  font-weight: 300;
+}
+
+.c-trade-page .c-trade-chat__input-button {
+  border: none;
+  border-top: 1px solid #ccc;
+  border-radius: 0;
+  width: 50px;
+  height: 36px;
+  margin: 0;
+  background-color: lightgrey;
+}

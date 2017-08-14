@@ -14,6 +14,8 @@ import {
   createTrade,
   acceptTrade,
   cancelTrade,
+  getTradeMessages,
+  sendTradeMessage,
   __RewireAPI__ as RewireAPI
 } from "../src/Apis";
 import config from "../config";
@@ -497,6 +499,64 @@ describe("acceptTrade", () => {
     };
 
     acceptTrade(trade, selection);
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
+  });
+});
+
+describe("getTradeMessages", () => {
+  const mockMakeRequest = jest.fn();
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency("makeRequest");
+  });
+
+  it("should make a get request to endpoint", () => {
+    const tradeId = "123";
+
+    const expectedUrl = `${config.BACKEND_API_URL}/messages/getMessagesForTrade/123`;
+    const expectedOptions = {
+      method: "GET",
+      useCredentials: true
+    };
+
+    getTradeMessages(tradeId);
+
+    expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
+  });
+});
+
+describe("sendTradeMessage", () => {
+  const mockMakeRequest = jest.fn();
+
+  beforeAll(() => {
+    RewireAPI.__Rewire__("makeRequest", mockMakeRequest);
+  });
+
+  afterAll(() => {
+    RewireAPI.__ResetDependency("makeRequest");
+  });
+
+  it("should make a get request to endpoint", () => {
+    const tradeId = "123";
+    const content = "Hello World";
+
+    const expectedUrl = `${config.BACKEND_API_URL}/messages/create`;
+    const data = {
+      trade: tradeId,
+      content
+    };
+    const expectedOptions = {
+      method: "POST",
+      data,
+      useCredentials: true
+    };
+
+    sendTradeMessage(tradeId, content);
 
     expect(mockMakeRequest).toBeCalledWith(expectedUrl, expectedOptions);
   });

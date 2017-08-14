@@ -218,3 +218,29 @@ export function acceptTrade(trade, selection) {
 
   return makeRequest(url, options);
 }
+
+export function getTradeMessages(tradeId) {
+  const url = `${config.BACKEND_API_URL}/messages/getMessagesForTrade/${tradeId}`;
+
+  const options = {
+    method: "GET",
+    useCredentials: true
+  };
+
+  return makeRequest(url, options);
+}
+
+export function sendTradeMessage(tradeId, content) {
+  const url = `${config.BACKEND_API_URL}/messages/create`;
+  const data = {
+    trade: tradeId,
+    content
+  };
+  const options = {
+    method: "POST",
+    data,
+    useCredentials: true
+  };
+
+  return makeRequest(url, options);
+}

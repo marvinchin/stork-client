@@ -16,6 +16,7 @@ import {
   registerUser,
   authenticateUser
 } from "../../src/Apis";
+import { setUser, unsetUser } from "../../src/socket";
 
 describe("AuthenticateUser", () => {
   const action = {
@@ -50,6 +51,7 @@ describe("AuthenticateUser", () => {
       const body = {
         authenticated: true,
         user: {
+          username: "hello",
           id: 1
         }
       };
@@ -76,6 +78,11 @@ describe("AuthenticateUser", () => {
           }
         });
         expect(gen.next().value).toEqual(expectedPut);
+      });
+
+      it("should call setUser with correct params", () => {
+        const expectedCall = call(setUser, body.user.username);
+        expect(gen.next().value).toEqual(expectedCall);
       });
 
       it("should be done", () => {
@@ -198,6 +205,11 @@ describe("HandleUserLogin", () => {
         expect(gen.next(res).value).toEqual(expectedPut);
       });
 
+      it("should call setUser with correct params", () => {
+        const expectedCall = call(setUser, username);
+        expect(gen.next().value).toEqual(expectedCall);
+      });
+
       it("should be done", () => {
         expect(gen.next().done).toBe(true);
       });
@@ -310,7 +322,7 @@ describe("HandleUserLogout", () => {
   });
 
   describe("Request Success", () => {
-    describe("Successful Login", () => {
+    describe("Successful Logout", () => {
       const status = 200;
       const res = {
         status
@@ -322,6 +334,11 @@ describe("HandleUserLogout", () => {
         });
 
         expect(gen.next(res).value).toEqual(expectedPut);
+      });
+
+      it("should call unsetUser with no params", () => {
+        const expectedCall = call(unsetUser);
+        expect(gen.next().value).toEqual(expectedCall);
       });
 
       it("should be done", () => {

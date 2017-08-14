@@ -9,6 +9,7 @@ import {
   registerUserComplete
 } from "../ActionCreators/AuthActionCreators";
 import { authenticateUser, loginUser, logoutUser, registerUser } from "../Apis";
+import { setUser, unsetUser } from "../socket";
 import { changeRoute } from "../ActionCreators/RouteActionCreators";
 
 export function* handleAuthenticateUser() {
@@ -27,6 +28,7 @@ export function* handleAuthenticateUser() {
   if (authenticated) {
     yield put(updateUser(null, user));
     yield put(authenticateUserComplete(null, user));
+    yield call(setUser, user.username);
     return;
   }
   const authFailedError = new Error("Unable to authenticate user");
@@ -48,6 +50,7 @@ export function* handleUserLogin(action) {
   if (res.status === 200) {
     const { user } = res.body;
     yield put(loginUserComplete(null, user));
+    yield call(setUser, user.username);
   } else {
     // Else, failed to login with credentials
     const loginFailedError = new Error("Unable to login with credentials");
@@ -73,6 +76,7 @@ export function* handleUserLogout() {
 
   if (res.status === 200) {
     yield put(logoutUserComplete());
+    yield call(unsetUser);
   } else {
     const { error } = res.body;
     yield put(logoutUserComplete(error));

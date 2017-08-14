@@ -1,9 +1,12 @@
 import { cloneableGenerator } from "redux-saga/utils";
-import { call, put } from "redux-saga/effects";
+import { call, put, select } from "redux-saga/effects";
 
 import {
   handleGetUserTrades,
   handleGetTradeById,
+  handleGetTradeMessages,
+  handleNewMessageEvent,
+  handleSendTradeMessage,
   handleCreateTrade,
   handleCreateTradeComplete,
   handleCancelTrade,
@@ -12,10 +15,13 @@ import {
 import {
   getUserTrades,
   getTradeById,
+  getTradeMessages,
+  sendTradeMessage,
   createTrade,
   cancelTrade,
   acceptTrade
 } from "../../src/Apis";
+import { tradeByIdSelector } from "../../src/helpers/selectors";
 
 describe("HandleGetUserTrades", () => {
   const action = {
@@ -216,6 +222,250 @@ describe("HandleGetTradeById", () => {
     it("should put a failure GET_TRADE_BY_ID_COMPLETE action", () => {
       const expectedPut = put({
         type: "GET_TRADE_BY_ID_COMPLETE",
+        error: true,
+        payload: {
+          error: expect.anything()
+        }
+      });
+
+      expect(genFail.throw(error).value).toEqual(expectedPut);
+    });
+
+    it("should be done", () => {
+      expect(genFail.next().done).toBe(true);
+    });
+  });
+});
+
+describe("HandleGetTradeMessages", () => {
+  const tradeId = "123";
+  const action = {
+    type: "GET_TRADE_MESSAGES_PENDING",
+    payload: {
+      tradeId
+    }
+  };
+
+  const gen = cloneableGenerator(handleGetTradeMessages)(action);
+  let genFail;
+  let genBadGet;
+
+  it("should call getTradeMessages with correct params", () => {
+    const expectedCall = call(getTradeMessages, tradeId);
+
+    expect(gen.next().value).toEqual(expectedCall);
+
+    genFail = gen.clone();
+    genBadGet = gen.clone();
+  });
+
+  describe("Request Success", () => {
+    describe("Get Success", () => {
+      const status = 200;
+      const messages = [{ id: 1 }, { id: 2 }];
+      const res = {
+        status,
+        body: {
+          messages
+        }
+      };
+
+      it("should put a successful GET_TRADE_MESSAGES_COMPLETE action", () => {
+        const expectedPut = put({
+          type: "GET_TRADE_MESSAGES_COMPLETE",
+          payload: {
+            messages
+          }
+        });
+
+        expect(gen.next(res).value).toEqual(expectedPut);
+      });
+
+      it("should be done", () => {
+        expect(gen.next().done).toBe(true);
+      });
+    });
+
+    describe("Bad Get", () => {
+      const status = 400;
+      const error = "Not Logged In";
+      const res = {
+        status,
+        body: {
+          error
+        }
+      };
+
+      it("should put a failure GET_TRADE_MESSAGES_COMPLETE action", () => {
+        const expectedPut = put({
+          type: "GET_TRADE_MESSAGES_COMPLETE",
+          error: true,
+          payload: {
+            error: expect.anything()
+          }
+        });
+
+        expect(genBadGet.next(res).value).toEqual(expectedPut);
+      });
+
+      it("should be done", () => {
+        expect(genBadGet.next().done).toBe(true);
+      });
+    });
+  });
+
+  describe("Request Failure", () => {
+    const error = new Error();
+
+    it("should put a failure GET_TRADE_MESSAGES_COMPLETE action", () => {
+      const expectedPut = put({
+        type: "GET_TRADE_MESSAGES_COMPLETE",
+        error: true,
+        payload: {
+          error: expect.anything()
+        }
+      });
+
+      expect(genFail.throw(error).value).toEqual(expectedPut);
+    });
+
+    it("should be done", () => {
+      expect(genFail.next().done).toBe(true);
+    });
+  });
+});
+
+describe("HandleNewMessageEvent", () => {
+  const tradeId = "123";
+  const action = {
+    type: "NEW_MESSAGE_EVENT",
+    payload: {
+      tradeId
+    }
+  };
+
+  const gen = cloneableGenerator(handleNewMessageEvent)(action);
+  let genDiffTrade;
+
+  it("should select the current trade", () => {
+    const expectedSelect = select(tradeByIdSelector);
+    expect(gen.next().value).toEqual(expectedSelect);
+
+    genDiffTrade = gen.clone();
+  });
+
+  describe("is current trade", () => {
+    const trade = {
+      id: tradeId
+    };
+    it("should put a GET_TRADE_MESSAGES_PENDING action", () => {
+      const expectedPut = put({
+        type: "GET_TRADE_MESSAGES_PENDING",
+        payload: {
+          tradeId
+        }
+      });
+      expect(gen.next(trade).value).toEqual(expectedPut);
+    });
+
+    it("should be done", () => {
+      expect(gen.next().done).toBe(true);
+    });
+  });
+
+  describe("is different trade", () => {
+    const trade = null;
+    it("should be done", () => {
+      expect(genDiffTrade.next(trade).done).toBe(true);
+    });
+  });
+});
+
+describe("HandleSendTradeMessage", () => {
+  const tradeId = "123";
+  const content = "Hello World";
+  const action = {
+    type: "SEND_TRADE_MESSAGE_PENDING",
+    payload: {
+      tradeId,
+      content
+    }
+  };
+
+  const gen = cloneableGenerator(handleSendTradeMessage)(action);
+  let genFail;
+  let genBadSend;
+
+  it("should call sendTradeMessage with correct params", () => {
+    const expectedCall = call(sendTradeMessage, tradeId, content);
+
+    expect(gen.next().value).toEqual(expectedCall);
+
+    genFail = gen.clone();
+    genBadSend = gen.clone();
+  });
+
+  describe("Request Success", () => {
+    describe("Get Success", () => {
+      const status = 200;
+      const message = { id: 1 };
+      const res = {
+        status,
+        body: {
+          message
+        }
+      };
+
+      it("should put a successful SEND_TRADE_MESSAGE_COMPLETE action", () => {
+        const expectedPut = put({
+          type: "SEND_TRADE_MESSAGE_COMPLETE",
+          payload: {
+            message
+          }
+        });
+
+        expect(gen.next(res).value).toEqual(expectedPut);
+      });
+
+      it("should be done", () => {
+        expect(gen.next().done).toBe(true);
+      });
+    });
+
+    describe("Bad Send", () => {
+      const status = 400;
+      const error = "Not Logged In";
+      const res = {
+        status,
+        body: {
+          error
+        }
+      };
+
+      it("should put a failure SEND_TRADE_MESSAGE_COMPLETE action", () => {
+        const expectedPut = put({
+          type: "SEND_TRADE_MESSAGE_COMPLETE",
+          error: true,
+          payload: {
+            error: expect.anything()
+          }
+        });
+
+        expect(genBadSend.next(res).value).toEqual(expectedPut);
+      });
+
+      it("should be done", () => {
+        expect(genBadSend.next().done).toBe(true);
+      });
+    });
+  });
+
+  describe("Request Failure", () => {
+    const error = new Error();
+
+    it("should put a failure SEND_TRADE_MESSAGE_COMPLETE action", () => {
+      const expectedPut = put({
+        type: "SEND_TRADE_MESSAGE_COMPLETE",
         error: true,
         payload: {
           error: expect.anything()

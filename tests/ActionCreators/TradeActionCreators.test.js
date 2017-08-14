@@ -3,13 +3,18 @@ import {
   getUserTradesComplete,
   getTradeById,
   getTradeByIdComplete,
+  getTradeMessages,
+  getTradeMessagesComplete,
+  sendTradeMessage,
+  sendTradeMessageComplete,
   createTrade,
   createTradeComplete,
   acceptTrade,
   acceptTradeComplete,
   cancelTrade,
   cancelTradeComplete,
-  resetTradeErrors
+  resetTradeErrors,
+  newMessageEvent
 } from "../../src/ActionCreators/TradeActionCreators";
 
 describe("Get User Trades", () => {
@@ -95,6 +100,115 @@ describe("Get Trade By Id Complete", () => {
         }
       };
       const action = getTradeByIdComplete(error, null);
+      expect(action).toEqual(expectedAction);
+    });
+  });
+});
+
+describe("Get Trade Messages", () => {
+  const tradeId = "123";
+
+  it("should create a GET_TRADE_MESSAGES_PENDING action", () => {
+    const expectedAction = {
+      type: "GET_TRADE_MESSAGES_PENDING",
+      payload: {
+        tradeId
+      }
+    };
+    const action = getTradeMessages(tradeId);
+    expect(action).toEqual(expectedAction);
+  });
+});
+
+describe("Get Trade Messages Complete", () => {
+  describe("Success", () => {
+    const messages = [{ id: "1" }, { id: "2" }];
+    it("should create a successful GET_TRADE_MESSAGES_COMPLETE action", () => {
+      const expectedAction = {
+        type: "GET_TRADE_MESSAGES_COMPLETE",
+        payload: {
+          messages
+        }
+      };
+      const action = getTradeMessagesComplete(null, messages);
+      expect(action).toEqual(expectedAction);
+    });
+  });
+
+  describe("Failure", () => {
+    const error = new Error();
+    it("should create a failure GET_TRADE_MESSAGES_COMPLETE action", () => {
+      const expectedAction = {
+        type: "GET_TRADE_MESSAGES_COMPLETE",
+        error: true,
+        payload: {
+          error
+        }
+      };
+      const action = getTradeMessagesComplete(error, null);
+      expect(action).toEqual(expectedAction);
+    });
+  });
+});
+
+describe("New Message Event", () => {
+  const tradeId = "123";
+
+  it("should create a NEW_MESSAGE_EVENT action", () => {
+    const expectedAction = {
+      type: "NEW_MESSAGE_EVENT",
+      payload: {
+        tradeId
+      }
+    };
+    const action = newMessageEvent(tradeId);
+    expect(action).toEqual(expectedAction);
+  });
+});
+
+describe("Send Trade Message", () => {
+  const tradeId = "123";
+  const content = "Hello World";
+
+  it("should create a SEND_TRADE_MESSAGE_PENDING action", () => {
+    const expectedAction = {
+      type: "SEND_TRADE_MESSAGE_PENDING",
+      payload: {
+        tradeId,
+        content
+      }
+    };
+    const action = sendTradeMessage(tradeId, content);
+    expect(action).toEqual(expectedAction);
+  });
+});
+
+describe("Send Trade Messages Complete", () => {
+  describe("Success", () => {
+    const message = { id: "1" };
+    it("should create a successful SEND_TRADE_MESSAGE_COMPLETE action", () => {
+      const expectedAction = {
+        type: "SEND_TRADE_MESSAGE_COMPLETE",
+        payload: {
+          message
+        }
+      };
+      const action = sendTradeMessageComplete(null, message);
+      expect(action).toEqual(expectedAction);
+    });
+  });
+
+  describe("Failure", () => {
+    const error = new Error();
+    it("should create a failure GET_TRADE_MESSAGES_COMPLETE action", () => {
+      const expectedAction = {
+        type: "GET_TRADE_MESSAGES_COMPLETE",
+        error: true,
+        payload: {
+          error
+        }
+      };
+      const action = getTradeMessagesComplete(error, null);
       expect(action).toEqual(expectedAction);
     });
   });

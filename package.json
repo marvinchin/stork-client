@@ -26,7 +26,9 @@
     "react-select": "^1.0.0-rc.5",
     "redux": "^3.6.0",
     "redux-saga": "^0.15.3",
+    "redux-socket.io": "^1.4.0",
     "regenerator-runtime": "^0.10.5",
+    "socket.io-client": "^2.0.3",
     "webpack": "^2.5.1",
     "webpack-dev-server": "^2.4.5",
     "whatwg-fetch": "^2.0.3"

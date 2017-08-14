@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
+import TradeChat from "./TradeChat";
 import BookListing from "../BookListing";
 import BookCollection from "../BookCollection";
 import {
   getTradeById,
+  getTradeMessages,
+  sendTradeMessage,
   acceptTrade,
   cancelTrade,
   resetTradeErrors
@@ -33,6 +36,7 @@ class TradePage extends Component {
   componentDidMount() {
     const { tradeId } = this.props.match.params;
     this.props.dispatch(getTradeById(tradeId));
+    this.props.dispatch(getTradeMessages(tradeId));
   }
 
   onAcceptTrade(e) {
@@ -151,12 +155,17 @@ class TradePage extends Component {
     const { trade } = this.props;
 
     if (trade) {
-      const { user } = this.props;
+      const { user, messages } = this.props;
       const { listUser, offerUser, listBook, description } = trade;
 
       const isListUser = user.username === listUser.username;
       const otherUser = isListUser ? offerUser : listUser;
       const listLabel = isListUser ? `${otherUser.username} wants` : "You want";
+
+      const { tradeId } = this.props.match.params;
+      const handleChatSubmit = content => {
+        this.props.dispatch(sendTradeMessage(tradeId, content));
+      };
 
       return (
         <div className="c-trade-page">
@@ -183,6 +192,13 @@ class TradePage extends Component {
                 disabled
               />
             </div>
+            <div className="l-form__input-group">
+              <label htmlFor="messages">Messages</label>
+              <TradeChat
+                messages={messages}
+                handleChatSubmit={handleChatSubmit}
+              />
+            </div>
             {this.renderButtons()}
             {this.renderStatus()}
             {this.renderErrorMessage()}
@@ -199,6 +215,7 @@ TradePage.propTypes = {
   match: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   trade: PropTypes.object,
+  messages: PropTypes.array.isRequired,
   tradeErr: PropTypes.instanceOf(Error)
 };
 
@@ -210,6 +227,7 @@ TradePage.defaultProps = {
 const mapStateToProps = state => ({
   user: state.auth.user,
   trade: state.trades.tradeById,
+  messages: state.trades.messages,
   tradeErr: state.trades.tradeErr
 });
 

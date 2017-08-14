@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 import Routes from "../Routes";
 import AuthRoute from "./AuthRoute";
 import Navbar from "./Navbar";
+import config from "../../config";
 
 class Page extends Component {
   render() {

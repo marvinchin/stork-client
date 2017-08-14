@@ -54,6 +54,72 @@ export function getTradeByIdComplete(error, trade) {
   };
 }
 
+export function getTradeMessages(tradeId) {
+  return {
+    type: ActionTypes.GET_TRADE_MESSAGES_PENDING,
+    payload: {
+      tradeId
+    }
+  };
+}
+
+export function getTradeMessagesComplete(error, messages) {
+  if (error) {
+    return {
+      type: ActionTypes.GET_TRADE_MESSAGES_COMPLETE,
+      error: true,
+      payload: {
+        error
+      }
+    };
+  }
+
+  return {
+    type: ActionTypes.GET_TRADE_MESSAGES_COMPLETE,
+    payload: {
+      messages
+    }
+  };
+}
+
+export function newMessageEvent(tradeId) {
+  return {
+    type: ActionTypes.NEW_MESSAGE_EVENT,
+    payload: {
+      tradeId
+    }
+  };
+}
+
+export function sendTradeMessage(tradeId, content) {
+  return {
+    type: ActionTypes.SEND_TRADE_MESSAGE_PENDING,
+    payload: {
+      tradeId,
+      content
+    }
+  };
+}
+
+export function sendTradeMessageComplete(error, message) {
+  if (error) {
+    return {
+      type: ActionTypes.SEND_TRADE_MESSAGE_COMPLETE,
+      error: true,
+      payload: {
+        error
+      }
+    };
+  }
+
+  return {
+    type: ActionTypes.SEND_TRADE_MESSAGE_COMPLETE,
+    payload: {
+      message
+    }
+  };
+}
+
 export function createTrade(book, offer, description) {
   return {
     type: ActionTypes.CREATE_TRADE_PENDING,

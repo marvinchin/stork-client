@@ -8,6 +8,7 @@ import history from "../history";
 import Page from "./Page";
 import reducers from "../Reducers";
 import sagas from "../Sagas";
+import { socketMiddleware } from "../socket";
 
 require("jquery");
 require("react-select/dist/react-select.css");
@@ -17,7 +18,10 @@ require("../Styles/common.css");
 
 // initialize redux store and sagas
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(reducers, applyMiddleware(sagaMiddleware));
+const store = createStore(
+  reducers,
+  applyMiddleware(socketMiddleware, sagaMiddleware)
+);
 
 sagaMiddleware.run(sagas);
 
