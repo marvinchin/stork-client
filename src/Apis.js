@@ -150,6 +150,29 @@ export function getUserProfile(username) {
   return makeRequest(url, options);
 }
 
+// TODO: Write test for this API call
+export function updateUserProfile(
+  description,
+  profilePicture,
+  gender,
+  password
+) {
+  const url = `${config.BACKEND_API_URL}/users/edit`;
+  const data = {
+    description,
+    profilePicture,
+    gender,
+    password
+  };
+  const options = {
+    method: "POST",
+    data,
+    useCredentials: true
+  };
+
+  return makeRequest(url, options);
+}
+
 export function getUserTrades() {
   const url = `${config.BACKEND_API_URL}/trades/list`;
   const options = {
