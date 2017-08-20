@@ -2,6 +2,7 @@ import LandingPage from "./components/LandingPage";
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import ProfilePage from "./components/ProfilePage";
+import EditProfilePage from "./components/EditProfilePage";
 import NewBookPage from "./components/NewBookPage";
 import NewTradePage from "./components/NewTradePage";
 import InboxPage from "./components/InboxPage";
@@ -24,6 +25,13 @@ export default [
     exact: true,
     navbar: true,
     component: RegisterPage
+  },
+  {
+    path: "/profile",
+    exact: true,
+    navbar: true,
+    requireAuth: true,
+    component: EditProfilePage
   },
   {
     path: "/user/:username",

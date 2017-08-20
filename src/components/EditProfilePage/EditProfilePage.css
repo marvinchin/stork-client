@@ -1,0 +1,25 @@
+.c-edit-profile-page {
+  min-height: calc(100vh - 30px);
+  max-width: 600px;
+  margin: auto;
+  padding: 2em 0;
+  font-size: 1.5rem;
+  background-color: whitesmoke;
+}
+
+.c-edit-profile-page__title {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 300;
+}
+
+.c-edit-profile-page .c-button {
+  width: 50%;
+  margin-top: 30px;
+  background-color: whitesmoke;
+}
+
+.c-edit-profile-page__error {
+  height: 1em;
+  margin-top: 10px;
+}
