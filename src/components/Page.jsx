@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -9,7 +10,7 @@ import Navbar from "./Navbar";
 import { authenticateUser } from "../ActionCreators/AuthActionCreators";
 
 class Page extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch(authenticateUser());
   }
 
@@ -61,4 +62,4 @@ Page.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-export default connect()(Page);
+export default withRouter(connect()(Page));
