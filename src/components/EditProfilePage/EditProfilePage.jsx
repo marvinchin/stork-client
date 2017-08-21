@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Select from "react-select";
 
-import { updateUserProfile } from "../../ActionCreators/UserActionCreators.js";
+import { updateUserProfile } from "../../ActionCreators/UserActionCreators";
 
 const NO_INPUT = "";
 
@@ -46,12 +46,6 @@ class EditProfilePage extends Component {
   onProfilePictureChange(e) {
     const profilePicture = e.target.files[0];
     this.setState({ profilePicture });
-    const reader = new FileReader();
-    reader.onload = () => {
-      const profilePictureEncoded = reader.result;
-    };
-
-    reader.readAsDataURL(profilePicture);
   }
 
   onEditProfile(e) {
@@ -72,21 +66,34 @@ class EditProfilePage extends Component {
       };
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const profilePictureEncoded = reader.result;
+    // No profile picture, just submit null
+    if (!profilePicture) {
       this.props.dispatch(
         updateUserProfile(
           username,
           description,
-          profilePictureEncoded,
+          profilePicture,
           gender,
           password
         )
       );
-    };
-
-    reader.readAsDataURL(profilePicture);
+    } else {
+      // There is profile picture, need to encode to B64
+      const reader = new FileReader();
+      reader.onload = () => {
+        const profilePictureEncoded = reader.result;
+        this.props.dispatch(
+          updateUserProfile(
+            username,
+            description,
+            profilePictureEncoded,
+            gender,
+            password
+          )
+        );
+      };
+      reader.readAsDataURL(profilePicture);
+    }
   }
 
   render() {
